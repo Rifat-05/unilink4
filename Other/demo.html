@@ -1,0 +1,1216 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>ক্যাম্পাস ফিড — UNILINK Bangladesh</title>
+<style>
+  :root{
+    --bg: #f6f7fb;
+    --panel: #ffffff;
+    --border: #e6e8f0;
+    --text: #14161f;
+    --muted: #6b7189;
+    --muted-dim: #9195a8;
+    --blue: #4f6bef;
+    --blue-dark: #3b52c9;
+    --violet: #7c5cf0;
+    --green: #16a67a;
+    --orange: #e8862c;
+    --pink: #d84fb0;
+    --red: #e5484d;
+    --shadow: 0 1px 2px rgba(20,22,31,0.04);
+  }
+
+  *{box-sizing:border-box; margin:0; padding:0;}
+
+  body{
+    background:var(--bg);
+    color:var(--text);
+    font-family:"Inter", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+    min-height:100vh;
+  }
+
+  .bn{ font-family:"Noto Sans Bengali", "Hind Siliguri", sans-serif; }
+
+  a{ color:inherit; text-decoration:none; }
+  button{ font-family:inherit; cursor:pointer; }
+
+  /* ===== TOP BAR ===== */
+  .topbar{
+    background:var(--panel);
+    border-bottom:1px solid var(--border);
+    padding:14px 24px;
+    display:flex;
+    align-items:center;
+    gap:20px;
+  }
+  .icon-btn{
+    width:38px; height:38px;
+    border-radius:9px;
+    border:1px solid var(--border);
+    background:var(--panel);
+    display:flex; align-items:center; justify-content:center;
+    color:var(--muted);
+    flex-shrink:0;
+    position:relative;
+    transition: background .15s ease, border-color .15s ease;
+  }
+  .icon-btn:hover{ background:#f1f2f7; }
+  .icon-btn svg{ width:18px; height:18px; }
+
+  .search-shell{
+    flex:1;
+    max-width:460px;
+    position:relative;
+  }
+  .search-shell svg{
+    position:absolute; left:14px; top:50%; transform:translateY(-50%);
+    width:16px; height:16px; color:var(--muted-dim);
+  }
+  .search-shell input{
+    width:100%;
+    padding:10px 14px 10px 40px;
+    border-radius:9px;
+    border:1px solid var(--border);
+    background:#f6f7fb;
+    font-size:0.9rem;
+    color:var(--text);
+    outline:none;
+    transition:border-color .15s ease, background .15s ease;
+  }
+  .search-shell input::placeholder{ color:var(--muted-dim); }
+  .search-shell input:focus{ border-color:var(--blue); background:#fff; }
+
+  .topbar-right{
+    display:flex;
+    align-items:center;
+    gap:14px;
+    margin-left:auto;
+  }
+
+  .role-pill{
+    display:flex;
+    align-items:center;
+    gap:8px;
+    padding:8px 14px;
+    border-radius:9px;
+    border:1px solid var(--border);
+    background:var(--panel);
+    font-size:0.85rem;
+    color:var(--text);
+    font-weight:600;
+  }
+  .role-pill .dot{
+    width:7px; height:7px; border-radius:50%;
+    background:var(--blue);
+  }
+  .role-pill svg.chev{ width:13px; height:13px; color:var(--muted-dim); }
+
+  .verified-pill{
+    display:flex;
+    align-items:center;
+    gap:6px;
+    padding:8px 14px;
+    border-radius:999px;
+    background: rgba(22,166,122,0.1);
+    color:var(--green);
+    font-size:0.82rem;
+    font-weight:700;
+    white-space:nowrap;
+  }
+  .verified-pill svg{ width:14px; height:14px; }
+
+  .bell-wrap{ position:relative; }
+  .bell-dot{
+    position:absolute;
+    top:8px; right:8px;
+    width:7px; height:7px;
+    border-radius:50%;
+    background:var(--red);
+    border:1.5px solid var(--panel);
+  }
+
+  .user-block{
+    display:flex;
+    align-items:center;
+    gap:10px;
+    padding-left:6px;
+  }
+  .avatar{
+    width:36px; height:36px;
+    border-radius:50%;
+    background:linear-gradient(135deg,var(--blue),var(--violet));
+    display:flex; align-items:center; justify-content:center;
+    font-size:0.78rem; font-weight:700; color:#fff;
+    flex-shrink:0;
+  }
+  .user-name{ font-size:0.88rem; font-weight:700; line-height:1.2; }
+  .user-meta{ font-size:0.75rem; color:var(--muted-dim); }
+
+  /* ===== BREADCRUMB ===== */
+  .breadcrumb{
+    background:var(--panel);
+    border-bottom:1px solid var(--border);
+    padding:10px 24px;
+    font-size:0.82rem;
+    color:var(--muted-dim);
+  }
+  .breadcrumb .current{ color:var(--blue); font-weight:600; }
+
+  /* ===== SUB NAV ===== */
+  .subnav{
+    background:var(--panel);
+    border-bottom:1px solid var(--border);
+    padding:0 24px;
+    display:flex;
+    align-items:center;
+    gap:6px;
+  }
+  .subnav-tab{
+    display:flex; align-items:center; gap:8px;
+    padding:16px 14px;
+    font-size:0.88rem;
+    color:var(--muted);
+    border-bottom:2px solid transparent;
+    font-weight:600;
+    white-space:nowrap;
+  }
+  .subnav-tab svg{ width:16px; height:16px; }
+  .subnav-tab:hover{ color:var(--text); }
+  .subnav-tab.active{
+    color:var(--blue);
+    border-bottom-color:var(--blue);
+  }
+  .subnav-right{
+    margin-left:auto;
+    display:flex;
+    align-items:center;
+    gap:16px;
+  }
+  .toggle-row{
+    display:flex; align-items:center; gap:10px;
+    font-size:0.85rem;
+    color:var(--muted);
+    font-weight:600;
+  }
+  .switch{
+    position:relative;
+    width:40px; height:22px;
+    border-radius:999px;
+    background:var(--border);
+    cursor:pointer;
+    transition: background .2s ease;
+    flex-shrink:0;
+  }
+  .switch.on{ background:var(--blue); }
+  .switch::after{
+    content:"";
+    position:absolute;
+    top:2px; left:2px;
+    width:18px; height:18px;
+    border-radius:50%;
+    background:#fff;
+    box-shadow:0 1px 3px rgba(0,0,0,0.25);
+    transition: transform .2s ease;
+  }
+  .switch.on::after{ transform:translateX(18px); }
+
+  .boost-badge{
+    display:flex; align-items:center; gap:6px;
+    padding:8px 14px;
+    border-radius:999px;
+    background: rgba(232,134,44,0.12);
+    color:var(--orange);
+    font-size:0.8rem;
+    font-weight:700;
+  }
+  .boost-badge svg{ width:14px; height:14px; }
+
+  /* ===== MAIN ===== */
+  main{
+    max-width:1000px;
+    margin:0 auto;
+    padding:36px 24px 80px;
+  }
+  .main-head{
+    display:flex;
+    align-items:flex-start;
+    justify-content:space-between;
+    margin-bottom:24px;
+    gap:16px;
+    flex-wrap:wrap;
+  }
+  .main-title{ font-size:1.5rem; font-weight:800; }
+  .main-sub{ margin-top:4px; font-size:0.9rem; color:var(--muted); }
+
+  .btn-new{
+    display:flex; align-items:center; gap:8px;
+    padding:11px 18px;
+    border-radius:9px;
+    background:var(--blue);
+    color:#fff;
+    font-size:0.88rem;
+    font-weight:700;
+    border:none;
+    box-shadow:0 6px 16px rgba(79,107,239,0.28);
+    transition: background .15s ease, transform .15s ease;
+    white-space:nowrap;
+  }
+  .btn-new svg{ width:15px; height:15px; }
+  .btn-new:hover{ background:var(--blue-dark); }
+  .btn-new:active{ transform:translateY(1px); }
+
+  /* Feed cards */
+  .feed{ display:flex; flex-direction:column; gap:16px; }
+  .card{
+    background:var(--panel);
+    border:1px solid var(--border);
+    border-radius:14px;
+    padding:22px 24px;
+    box-shadow:var(--shadow);
+    transition: box-shadow .15s ease, transform .15s ease, opacity .2s ease;
+  }
+  .card:hover{ box-shadow:0 6px 18px rgba(20,22,31,0.07); }
+  .card.new-post{
+    animation: pop-in .35s ease;
+  }
+  @keyframes pop-in{
+    from{ opacity:0; transform:translateY(-8px); }
+    to{ opacity:1; transform:translateY(0); }
+  }
+  .card-top{
+    display:flex;
+    align-items:flex-start;
+    gap:14px;
+  }
+  .card-icon{
+    width:38px; height:38px;
+    border-radius:10px;
+    display:flex; align-items:center; justify-content:center;
+    flex-shrink:0;
+  }
+  .card-icon svg{ width:18px; height:18px; }
+  .ci-blue{ background:rgba(79,107,239,0.1); color:var(--blue); }
+  .ci-green{ background:rgba(22,166,122,0.1); color:var(--green); }
+  .ci-violet{ background:rgba(124,92,240,0.1); color:var(--violet); }
+  .ci-orange{ background:rgba(232,134,44,0.1); color:var(--orange); }
+
+  .card-body{ flex:1; min-width:0; }
+  .card-title-row{
+    display:flex;
+    align-items:flex-start;
+    justify-content:space-between;
+    gap:12px;
+  }
+  .card-title{ font-size:1rem; font-weight:700; }
+  .card-tag{
+    flex-shrink:0;
+    font-size:0.76rem;
+    font-weight:700;
+    padding:5px 12px;
+    border-radius:999px;
+    white-space:nowrap;
+  }
+  .tag-event{ background:rgba(79,107,239,0.1); color:var(--blue); }
+  .tag-job{ background:rgba(22,166,122,0.1); color:var(--green); }
+  .tag-scholarship{ background:rgba(124,92,240,0.1); color:var(--violet); }
+  .tag-academic{ background:rgba(232,134,44,0.1); color:var(--orange); }
+
+  .card-desc{
+    margin-top:8px;
+    font-size:0.92rem;
+    color:#3a3d4d;
+    line-height:1.6;
+  }
+  .card-time{
+    margin-top:12px;
+    font-size:0.78rem;
+    color:var(--muted-dim);
+  }
+  .card-actions{
+    display:flex;
+    align-items:center;
+    gap:22px;
+    margin-top:14px;
+  }
+  .action{
+    display:flex; align-items:center; gap:6px;
+    font-size:0.84rem;
+    color:var(--muted);
+    background:none;
+    border:none;
+    padding:4px 2px;
+    transition: color .15s ease;
+  }
+  .action svg{ width:16px; height:16px; }
+  .action:hover{ color:var(--text); }
+  .action.liked{ color:var(--red); font-weight:700; }
+  .action.liked svg{ fill:var(--red); stroke:var(--red); }
+
+  /* Modal for new post (demo only) */
+  .modal-overlay{
+    position:fixed; inset:0;
+    background:rgba(20,22,31,0.45);
+    display:none;
+    align-items:center;
+    justify-content:center;
+    z-index:100;
+    padding:20px;
+  }
+  .modal-overlay.show{ display:flex; }
+  .modal{
+    background:var(--panel);
+    border-radius:16px;
+    padding:28px;
+    width:100%;
+    max-width:460px;
+    box-shadow:0 20px 50px rgba(0,0,0,0.25);
+  }
+  .modal h3{ font-size:1.15rem; font-weight:800; margin-bottom:18px; }
+  .modal label{
+    display:block;
+    font-size:0.8rem;
+    font-weight:600;
+    color:var(--muted);
+    margin-bottom:6px;
+    margin-top:14px;
+  }
+  .modal input, .modal textarea, .modal select{
+    width:100%;
+    padding:11px 14px;
+    border-radius:8px;
+    border:1px solid var(--border);
+    font-size:0.9rem;
+    font-family:inherit;
+    outline:none;
+    color:var(--text);
+  }
+  .modal input:focus, .modal textarea:focus, .modal select:focus{ border-color:var(--blue); }
+  .modal textarea{ resize:vertical; min-height:70px; }
+  .modal-actions{
+    display:flex; gap:10px;
+    margin-top:22px;
+  }
+  .modal-actions button{
+    flex:1;
+    padding:11px;
+    border-radius:9px;
+    font-weight:700;
+    font-size:0.88rem;
+    border:none;
+  }
+  .btn-cancel{ background:#f1f2f7; color:var(--text); }
+  .btn-cancel:hover{ background:#e6e8f0; }
+  .btn-submit{ background:var(--blue); color:#fff; }
+  .btn-submit:hover{ background:var(--blue-dark); }
+
+  /* ===== SIDEBAR (off-canvas drawer) ===== */
+  .sidebar-backdrop{
+    position:fixed; inset:0;
+    background:rgba(20,22,31,0.55);
+    backdrop-filter: blur(1px);
+    z-index:300;
+    opacity:0;
+    pointer-events:none;
+    transition: opacity .2s ease;
+  }
+  .sidebar-backdrop.open{ opacity:1; pointer-events:auto; }
+
+  .sidebar{
+    position:fixed; top:0; left:0; bottom:0;
+    width:240px;
+    background:#12142099;
+    background:#12141f;
+    z-index:301;
+    display:flex;
+    flex-direction:column;
+    transform:translateX(-100%);
+    transition: transform .25s ease;
+    box-shadow:2px 0 24px rgba(0,0,0,0.3);
+  }
+  .sidebar.open{ transform:translateX(0); }
+
+  .sidebar-head{
+    display:flex; align-items:center; justify-content:space-between;
+    padding:18px 18px 16px;
+    border-bottom:1px solid rgba(255,255,255,0.08);
+  }
+  .sidebar-brand{ display:flex; align-items:center; gap:10px; }
+  .sidebar-logo{
+    width:34px; height:34px; border-radius:9px;
+    background:linear-gradient(135deg,var(--blue),var(--violet));
+    display:flex; align-items:center; justify-content:center;
+    flex-shrink:0;
+  }
+  .sidebar-logo svg{ width:18px; height:18px; color:#fff; }
+  .sidebar-brand-text .sb-title{ font-size:0.95rem; font-weight:800; color:#fff; letter-spacing:0.3px; }
+  .sidebar-brand-text .sb-sub{ font-size:0.72rem; color:#8b8fa3; margin-top:1px; }
+  .sidebar-close{
+    width:28px; height:28px; border-radius:7px;
+    border:none; background:transparent; color:#8b8fa3;
+    display:flex; align-items:center; justify-content:center;
+  }
+  .sidebar-close:hover{ background:rgba(255,255,255,0.08); color:#fff; }
+  .sidebar-close svg{ width:16px; height:16px; }
+
+  .sidebar-lang{
+    display:flex; margin:16px 18px 8px;
+    background:rgba(255,255,255,0.06);
+    border-radius:9px;
+    padding:3px;
+  }
+  .sidebar-lang button{
+    flex:1;
+    padding:8px 0;
+    border:none;
+    border-radius:7px;
+    font-size:0.82rem;
+    font-weight:700;
+    background:transparent;
+    color:#9195a8;
+  }
+  .sidebar-lang button.active{
+    background:linear-gradient(90deg,var(--blue),var(--violet));
+    color:#fff;
+  }
+
+  .sidebar-nav{
+    display:flex; flex-direction:column;
+    gap:2px;
+    padding:10px 12px;
+    flex:1;
+    overflow-y:auto;
+  }
+  .sidebar-item{
+    display:flex; align-items:center; gap:12px;
+    padding:11px 12px;
+    border-radius:9px;
+    color:#c3c6d4;
+    font-size:0.88rem;
+    font-weight:600;
+    position:relative;
+  }
+  .sidebar-item svg{ width:17px; height:17px; flex-shrink:0; }
+  .sidebar-item:hover{ background:rgba(255,255,255,0.06); color:#fff; }
+  .sidebar-item.active{
+    background:var(--blue);
+    color:#fff;
+  }
+  .sidebar-item .sb-dot{
+    width:7px; height:7px; border-radius:50%;
+    background:var(--red);
+    margin-left:auto;
+  }
+
+  .sidebar-upgrade{
+    margin:12px;
+    padding:16px;
+    border-radius:12px;
+    background:rgba(255,255,255,0.06);
+  }
+  .sidebar-upgrade-head{
+    display:flex; align-items:center; gap:8px;
+    color:#f0b73b;
+    font-size:0.85rem;
+    font-weight:800;
+    margin-bottom:8px;
+  }
+  .sidebar-upgrade-head svg{ width:15px; height:15px; }
+  .sidebar-upgrade p{
+    font-size:0.78rem;
+    line-height:1.5;
+    color:#9195a8;
+    margin-bottom:12px;
+  }
+  .sidebar-upgrade-btn{
+    display:block; width:100%;
+    padding:10px;
+    border:none; border-radius:8px;
+    background:linear-gradient(90deg,var(--blue),var(--violet));
+    color:#fff;
+    font-size:0.82rem;
+    font-weight:700;
+    text-align:center;
+  }
+  .sidebar-upgrade-btn:hover{ filter:brightness(1.08); }
+
+  /* ===== DROPDOWNS (notification + role) ===== */
+  .dropdown-panel{
+    position:absolute;
+    top:calc(100% + 10px);
+    background:var(--panel);
+    border:1px solid var(--border);
+    border-radius:12px;
+    box-shadow:0 14px 36px rgba(20,22,31,0.16);
+    z-index:120;
+    opacity:0;
+    transform:translateY(-6px);
+    pointer-events:none;
+    transition: opacity .15s ease, transform .15s ease;
+  }
+  .dropdown-panel.open{
+    opacity:1; transform:translateY(0); pointer-events:auto;
+  }
+
+  /* Role dropdown */
+  .role-pill{ position:relative; cursor:pointer; }
+  .role-dropdown{
+    left:0;
+    min-width:180px;
+    padding:6px;
+  }
+  .role-option{
+    display:flex; align-items:center; gap:9px;
+    padding:10px 10px;
+    border-radius:8px;
+    font-size:0.86rem;
+    font-weight:600;
+    color:var(--text);
+    position:relative;
+  }
+  .role-option:hover{ background:#f1f2f7; }
+  .role-option .dot{ width:7px; height:7px; border-radius:50%; flex-shrink:0; }
+  .role-option .check{
+    margin-left:auto; width:14px; height:14px; color:var(--blue);
+    display:none;
+  }
+  .role-option.selected .check{ display:block; }
+
+  /* Notification dropdown */
+  .bell-wrap{ position:relative; }
+  .notif-dropdown{
+    right:0;
+    width:340px;
+    max-width:88vw;
+    padding:0;
+    overflow:hidden;
+  }
+  .notif-head{
+    display:flex; align-items:center; justify-content:space-between;
+    padding:14px 16px;
+    border-bottom:1px solid var(--border);
+  }
+  .notif-head h4{ font-size:0.95rem; font-weight:800; }
+  .notif-head .mark-read{ font-size:0.78rem; color:var(--blue); font-weight:600; }
+  .notif-list{ max-height:340px; overflow-y:auto; }
+  .notif-item{
+    display:flex; gap:10px;
+    padding:13px 16px;
+    border-bottom:1px solid var(--border);
+  }
+  .notif-item:last-child{ border-bottom:none; }
+  .notif-item:hover{ background:#f8f9fc; }
+  .notif-item .dot{
+    width:7px; height:7px; border-radius:50%;
+    margin-top:6px; flex-shrink:0;
+  }
+  .notif-item .notif-body{ flex:1; min-width:0; }
+  .notif-item .notif-text{ font-size:0.85rem; color:var(--text); line-height:1.45; }
+  .notif-item .notif-time{ font-size:0.74rem; color:var(--muted-dim); margin-top:3px; }
+
+  @media (max-width: 860px){
+    .topbar{ flex-wrap:wrap; gap:10px; }
+    .search-shell{ order:3; max-width:100%; flex-basis:100%; }
+    .verified-pill span.long{ display:none; }
+    .subnav{ overflow-x:auto; }
+    .subnav-right{ display:none; }
+    .card-top{ flex-wrap:wrap; }
+    .card-title-row{ flex-direction:column; gap:6px; }
+  }
+</style>
+<link rel="stylesheet" href="sidebar.css">
+<script src="language.js" defer></script>
+<script src="sidebar.js" defer></script>
+<style>.subnav-tab[href]{text-decoration:none;cursor:pointer}.study-page-links{display:flex;flex-wrap:wrap;gap:16px;padding:10px 24px;background:#fff;border-bottom:1px solid #e6e8f0;font-size:12px;color:#6550d8}.study-page-links a:hover{text-decoration:underline}</style>
+<script src="../Other/page-navigation.js" defer></script>
+<link rel="stylesheet" href="/Other/theme.css?v=17"><script src="/Other/api.js?v=17"></script><script src="/Other/language.js?v=17" defer></script><script src="/Other/global-ui.js?v=17" defer></script><script src="/Other/notifications.js"></script></head>
+<body>
+
+  <!-- SIDEBAR BACKDROP -->
+  <div class="sidebar-backdrop" id="sidebar-backdrop" data-unilink-sidebar hidden></div>
+
+  <!-- SIDEBAR -->
+  <nav class="sidebar" id="sidebar" data-unilink-sidebar hidden>
+    <div class="sidebar-head">
+      <div class="sidebar-brand">
+        <div class="sidebar-logo">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2 2 7l10 5 10-5-10-5z"/><path d="M2 17l10 5 10-5"/><path d="M2 12l10 5 10-5"/></svg>
+        </div>
+        <div class="sidebar-brand-text">
+          <div class="sb-title">UNILINK</div>
+          <div class="sb-sub bn">বাংলাদেশ</div>
+        </div>
+      </div>
+      <button class="sidebar-close" id="sidebar-close" aria-label="Close menu">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
+      </button>
+    </div>
+
+    <div class="sidebar-lang">
+      <button class="active bn" id="lang-bn">বাংলা</button>
+      <button id="lang-en">English</button>
+    </div>
+
+    <div class="sidebar-nav">
+      <a class="sidebar-item bn" href="demo.html" data-label-bn="মূল ফিড" data-label-en="Main Feed"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="3" y1="6" x2="21" y2="6"/><line x1="3" y1="12" x2="21" y2="12"/><line x1="3" y1="18" x2="21" y2="18"/></svg><span data-nav-label>মূল ফিড</span></a>
+      <a class="sidebar-item bn" href="../Study Partner/study-partner-main-page.html" data-label-bn="স্টাডি পার্টনার" data-label-en="Study Partner"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="9" cy="8" r="3"/><path d="M2 20c0-3.5 3-6 7-6s7 2.5 7 6"/><circle cx="17" cy="9" r="2.5"/><path d="M15.5 14.2c2.7.3 4.5 2.4 4.5 5.3"/></svg><span data-nav-label>স্টাডি পার্টনার</span></a>
+      <a class="sidebar-item bn" href="../Club/club-portal.html" data-label-bn="ক্লাব পোর্টাল" data-label-en="Club Portal"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2 2 7l10 5 10-5-10-5z"/><path d="M2 17l10 5 10-5"/><path d="M2 12l10 5 10-5"/></svg><span data-nav-label>ক্লাব পোর্টাল</span></a>
+      <a class="sidebar-item bn" href="../Recruiter Search/Recruiter search.html" data-label-bn="রিক্রুটার সার্চ" data-label-en="Recruiter Search"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"/><path d="M2 12h20"/><path d="M12 2a15 15 0 0 1 0 20 15 15 0 0 1 0-20z"/></svg><span data-nav-label>রিক্রুটার সার্চ</span></a>
+      <a class="sidebar-item bn" href="../Live Bid/Live Bid.html" data-label-bn="লাইভ বিড" data-label-en="Live Bids"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"/></svg><span data-nav-label>লাইভ বিড</span><span class="sb-dot" aria-label="Live bids"></span></a>
+      <a class="sidebar-item bn" href="../Admin/Admin-portal.html" data-label-bn="অ্যাডমিন পোর্টাল" data-label-en="Admin Portal"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"/><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"/></svg><span data-nav-label>অ্যাডমিন পোর্টাল</span></a>
+      <a class="sidebar-item bn" href="Settings.html" data-label-bn="সেটিংস" data-label-en="Settings"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 1 1-2.83 2.83l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-4 0v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 1 1-2.83-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1 0-4h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 1 1 2.83-2.83l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 4 0v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 1 1 2.83 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 0 4h-.09a1.65 1.65 0 0 0-1.51 1z"/></svg><span data-nav-label>সেটিংস</span></a>
+    </div>
+
+    <a class="sidebar-home" href="../index.html#pages">← Home / সকল পৃষ্ঠা</a>
+    <div class="sidebar-upgrade">
+      <div class="sidebar-upgrade-head bn">
+        <svg viewBox="0 0 24 24" fill="currentColor"><polygon points="12 2 15 9 22 9.5 17 14.5 18.5 22 12 18 5.5 22 7 14.5 2 9.5 9 9 12 2"/></svg>
+        <span data-tier-label>ফ্রি টায়ার</span>
+      </div>
+      <p class="bn">ভেরিফাইড ব্যাজ, আনলিমিটেড বিড এবং প্রিমিয়াম ম্যাচিং পেতে আপগ্রেড করুন।</p>
+      <a href="Settings.html#billing" class="sidebar-upgrade-btn bn">প্রোফাইল আপগ্রেড করুন →</a>
+    </div>
+  </nav>
+
+  <!-- TOP BAR -->
+  <div class="topbar">
+    <button class="icon-btn" aria-label="Menu" id="menu-btn">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><line x1="3" y1="6" x2="21" y2="6"/><line x1="3" y1="12" x2="21" y2="12"/><line x1="3" y1="18" x2="21" y2="18"/></svg>
+    </button>
+
+    <div class="search-shell">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="7"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
+      <input type="text" class="bn" placeholder="শিক্ষার্থী, ক্লাব, দক্ষতা, কোম্পানি খুঁজুন...">
+    </div>
+
+    <div class="topbar-right">
+      <div class="role-pill bn" id="role-pill">
+        <span class="dot" id="role-dot"></span> <span id="role-label">শিক্ষার্থী</span>
+        <svg class="chev" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"/></svg>
+
+        <div class="dropdown-panel role-dropdown bn" id="role-dropdown">
+          <div class="role-option selected" data-role="শিক্ষার্থী" data-color="var(--blue)">
+            <span class="dot" style="background:var(--blue)"></span> শিক্ষার্থী
+            <svg class="check" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>
+          </div>
+          <div class="role-option" data-role="ক্লাব" data-color="var(--violet)">
+            <span class="dot" style="background:var(--violet)"></span> ক্লাব
+            <svg class="check" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>
+          </div>
+          <div class="role-option" data-role="রিক্রুটার" data-color="var(--green)">
+            <span class="dot" style="background:var(--green)"></span> রিক্রুটার
+            <svg class="check" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>
+          </div>
+          <div class="role-option" data-role="বিশ্ববিদ্যালয়" data-color="var(--orange)">
+            <span class="dot" style="background:var(--orange)"></span> বিশ্ববিদ্যালয়
+            <svg class="check" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>
+          </div>
+        </div>
+      </div>
+
+      <div class="verified-pill bn">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6L9 17l-5-5"/></svg>
+        <span class="long">@edu যাচাইকৃত</span>
+      </div>
+
+      <div class="bell-wrap">
+        <button class="icon-btn" aria-label="Notifications" id="bell-btn">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 8a6 6 0 0 0-12 0c0 7-3 9-3 9h18s-3-2-3-9"/><path d="M13.73 21a2 2 0 0 1-3.46 0"/></svg>
+        </button>
+        <span class="bell-dot" id="bell-dot"></span>
+
+        <div class="dropdown-panel notif-dropdown bn" id="notif-dropdown">
+          <div class="notif-head">
+            <h4>বিজ্ঞপ্তি</h4>
+            <span class="mark-read" id="mark-read-btn">সব পড়া হয়েছে</span>
+          </div>
+          <div class="notif-list">
+            <div class="notif-item">
+              <span class="dot" style="background:var(--blue)"></span>
+              <div class="notif-body">
+                <div class="notif-text">bKash আপনার বিডে সাড়া দিয়েছে — ৳১,৮৫,০০০</div>
+                <div class="notif-time">২ মিনিট আগে</div>
+              </div>
+            </div>
+            <div class="notif-item">
+              <span class="dot" style="background:var(--violet)"></span>
+              <div class="notif-body">
+                <div class="notif-text">Tariqul Islam আপনার স্টাডি রিকোয়েস্ট গ্রহণ করেছে</div>
+                <div class="notif-time">১৮ মিনিট আগে</div>
+              </div>
+            </div>
+            <div class="notif-item">
+              <span class="dot" style="background:var(--green)"></span>
+              <div class="notif-body">
+                <div class="notif-text">Python ব্যাজ SkillCheck™ দ্বারা যাচাই হয়েছে</div>
+                <div class="notif-time">১ ঘণ্টা আগে</div>
+              </div>
+            </div>
+            <div class="notif-item">
+              <span class="dot" style="background:var(--blue)"></span>
+              <div class="notif-body">
+                <div class="notif-text">টেক ক্যারিয়ার ফেয়ার ৩ দিন পরে শুরু হবে</div>
+                <div class="notif-time">৪ ঘণ্টা আগে</div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="user-block">
+        <div class="avatar">AJ</div>
+        <div>
+          <div class="user-name">Arif Jahan</div>
+          <div class="user-meta bn">CSE, ৩য় বর্ষ · BUET</div>
+        </div>
+      </div>
+
+      <button class="icon-btn" aria-label="Log out" id="logout-btn">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"/><polyline points="16 17 21 12 16 7"/><line x1="21" y1="12" x2="9" y2="12"/></svg>
+      </button>
+    </div>
+  </div>
+
+  <!-- BREADCRUMB -->
+  <div class="breadcrumb bn">
+    UNILINK বাংলাদেশ / <span class="current">মূল ফিড</span>
+  </div>
+
+  <!-- SUB NAV -->
+  <div class="subnav">
+    <a class="subnav-tab bn active" data-tab="announcements" href="demo.html" data-page-link aria-current="page">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 8a6 6 0 0 0-12 0c0 7-3 9-3 9h18s-3-2-3-9"/><path d="M13.73 21a2 2 0 0 1-3.46 0"/></svg>
+      ঘোষণাপত্র
+    </a>
+    <a class="subnav-tab bn" data-tab="notes" href="notes.html" data-page-link>
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>
+      নোটস ও প্রশ্নপত্র
+    </a>
+    <a class="subnav-tab bn" data-tab="partners" href="../Study Partner/study-partner.html" data-page-link>
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="9" cy="8" r="3"/><path d="M2 20c0-3.5 3-6 7-6s7 2.5 7 6"/><circle cx="17" cy="9" r="2.5"/><path d="M15.5 14.2c2.7.3 4.5 2.4 4.5 5.3"/></svg>
+      স্টাডি পার্টনার
+    </a>
+    <a class="subnav-tab bn" data-tab="events" href="events.html" data-page-link>
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="18" rx="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg>
+      ইভেন্ট
+    </a>
+    <a class="subnav-tab bn" data-tab="badges" href="badges.html" data-page-link>
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="8" r="6"/><path d="M8.5 13.5L6 22l6-3 6 3-2.5-8.5"/></svg>
+      দক্ষতা ব্যাজ
+    </a>
+
+    <div class="subnav-right">
+      <div class="toggle-row bn">
+        শীর্ষ প্রার্থী
+        <div class="switch on" id="top-candidate-switch"></div>
+      </div>
+      <div class="boost-badge bn">
+        <svg viewBox="0 0 24 24" fill="currentColor"><path d="M13 2L3 14h7l-1 8 11-14h-8l1-6z"/></svg>
+        বুস্টেড
+      </div>
+    </div>
+  </div>
+
+  <!-- MAIN CONTENT -->
+  <main>
+    <div class="main-head">
+      <div>
+        <h1 class="main-title bn">ক্যাম্পাস ঘোষণাপত্র</h1>
+        <p class="main-sub bn">আপনার বিশ্ববিদ্যালয় ও ক্লাব থেকে সর্বশেষ আপডেট</p>
+      </div>
+      <button class="btn-new bn" id="new-post-btn">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
+        নতুন পোস্ট
+      </button>
+    </div>
+
+    <div class="feed" id="feed">
+      <div class="card" data-liked="false" data-likes="24">
+        <div class="card-top">
+          <div class="card-icon ci-blue">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 8a6 6 0 0 0-12 0c0 7-3 9-3 9h18s-3-2-3-9"/><path d="M13.73 21a2 2 0 0 1-3.46 0"/></svg>
+          </div>
+          <div class="card-body">
+            <div class="card-title-row">
+              <div class="card-title bn">BUET কম্পিউটার ক্লাব</div>
+              <span class="card-tag tag-event bn">ইভেন্ট</span>
+            </div>
+            <p class="card-desc bn">আন্তর্জাতিক হ্যাকাথন ২০২৬ রেজিস্ট্রেশন শুরু হয়েছে। পুরস্কার মোট ৳৫ লাখ।</p>
+            <div class="card-time bn">৩০ মিনিট আগে</div>
+            <div class="card-actions">
+              <button class="action like-btn bn">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20.8 4.6a5.5 5.5 0 0 0-7.8 0L12 5.6l-1-1a5.5 5.5 0 0 0-7.8 7.8l1 1L12 21l7.8-7.6 1-1a5.5 5.5 0 0 0 0-7.8z"/></svg>
+                <span class="like-count bn">পছন্দ · ২৪</span>
+              </button>
+              <button class="action bn">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>
+                মন্তব্য
+              </button>
+              <button class="action bn">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="18" cy="5" r="3"/><circle cx="6" cy="12" r="3"/><circle cx="18" cy="19" r="3"/><line x1="8.6" y1="13.5" x2="15.4" y2="17.5"/><line x1="15.4" y1="6.5" x2="8.6" y2="10.5"/></svg>
+                শেয়ার
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="card" data-liked="false" data-likes="41">
+        <div class="card-top">
+          <div class="card-icon ci-green">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 8a6 6 0 0 0-12 0c0 7-3 9-3 9h18s-3-2-3-9"/><path d="M13.73 21a2 2 0 0 1-3.46 0"/></svg>
+          </div>
+          <div class="card-body">
+            <div class="card-title-row">
+              <div class="card-title bn">NSU ক্যারিয়ার সেন্টার</div>
+              <span class="card-tag tag-job bn">চাকরি</span>
+            </div>
+            <p class="card-desc bn">bKash, Pathao এবং Shohoz এর রিক্রুটমেন্ট ড্রাইভ আসছে ১৫ সেপ্টেম্বর।</p>
+            <div class="card-time bn">২ ঘণ্টা আগে</div>
+            <div class="card-actions">
+              <button class="action like-btn bn">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20.8 4.6a5.5 5.5 0 0 0-7.8 0L12 5.6l-1-1a5.5 5.5 0 0 0-7.8 7.8l1 1L12 21l7.8-7.6 1-1a5.5 5.5 0 0 0 0-7.8z"/></svg>
+                <span class="like-count bn">পছন্দ · ৪১</span>
+              </button>
+              <button class="action bn">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>
+                মন্তব্য
+              </button>
+              <button class="action bn">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="18" cy="5" r="3"/><circle cx="6" cy="12" r="3"/><circle cx="18" cy="19" r="3"/><line x1="8.6" y1="13.5" x2="15.4" y2="17.5"/><line x1="15.4" y1="6.5" x2="8.6" y2="10.5"/></svg>
+                শেয়ার
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="card" data-liked="false" data-likes="17">
+        <div class="card-top">
+          <div class="card-icon ci-violet">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 8a6 6 0 0 0-12 0c0 7-3 9-3 9h18s-3-2-3-9"/><path d="M13.73 21a2 2 0 0 1-3.46 0"/></svg>
+          </div>
+          <div class="card-body">
+            <div class="card-title-row">
+              <div class="card-title bn">DU ফিজিক্স বিভাগ</div>
+              <span class="card-tag tag-scholarship bn">বৃত্তি</span>
+            </div>
+            <p class="card-desc bn">নতুন স্কলারশিপ সুযোগ: জাপান সরকারের MEXT প্রোগ্রামে আবেদনের শেষ তারিখ ৩০ অক্টোবর।</p>
+            <div class="card-time bn">৫ ঘণ্টা আগে</div>
+            <div class="card-actions">
+              <button class="action like-btn bn">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20.8 4.6a5.5 5.5 0 0 0-7.8 0L12 5.6l-1-1a5.5 5.5 0 0 0-7.8 7.8l1 1L12 21l7.8-7.6 1-1a5.5 5.5 0 0 0 0-7.8z"/></svg>
+                <span class="like-count bn">পছন্দ · ১৭</span>
+              </button>
+              <button class="action bn">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>
+                মন্তব্য
+              </button>
+              <button class="action bn">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="18" cy="5" r="3"/><circle cx="6" cy="12" r="3"/><circle cx="18" cy="19" r="3"/><line x1="8.6" y1="13.5" x2="15.4" y2="17.5"/><line x1="15.4" y1="6.5" x2="8.6" y2="10.5"/></svg>
+                শেয়ার
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="card" data-liked="false" data-likes="9">
+        <div class="card-top">
+          <div class="card-icon ci-orange">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 8a6 6 0 0 0-12 0c0 7-3 9-3 9h18s-3-2-3-9"/><path d="M13.73 21a2 2 0 0 1-3.46 0"/></svg>
+          </div>
+          <div class="card-body">
+            <div class="card-title-row">
+              <div class="card-title bn">BRAC বিশ্ববিদ্যালয়</div>
+              <span class="card-tag tag-academic bn">একাডেমিক</span>
+            </div>
+            <p class="card-desc bn">সেমিস্টার ফাইনাল পরীক্ষার রুটিন প্রকাশিত হয়েছে। একাডেমিক পোর্টালে দেখুন।</p>
+            <div class="card-time bn">১ দিন আগে</div>
+            <div class="card-actions">
+              <button class="action like-btn bn">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20.8 4.6a5.5 5.5 0 0 0-7.8 0L12 5.6l-1-1a5.5 5.5 0 0 0-7.8 7.8l1 1L12 21l7.8-7.6 1-1a5.5 5.5 0 0 0 0-7.8z"/></svg>
+                <span class="like-count bn">পছন্দ · ৯</span>
+              </button>
+              <button class="action bn">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>
+                মন্তব্য
+              </button>
+              <button class="action bn">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="18" cy="5" r="3"/><circle cx="6" cy="12" r="3"/><circle cx="18" cy="19" r="3"/><line x1="8.6" y1="13.5" x2="15.4" y2="17.5"/><line x1="15.4" y1="6.5" x2="8.6" y2="10.5"/></svg>
+                শেয়ার
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </main>
+
+  <!-- NEW POST MODAL (demo only, front-end) -->
+  <div class="modal-overlay" id="modal-overlay">
+    <div class="modal">
+      <h3 class="bn">নতুন পোস্ট তৈরি করুন</h3>
+      <label class="bn" for="post-source">উৎস</label>
+      <input type="text" id="post-source" class="bn" placeholder="যেমনঃ BUET রোবোটিক্স ক্লাব">
+
+      <label class="bn" for="post-tag">ট্যাগ</label>
+      <select id="post-tag" class="bn">
+        <option value="event">ইভেন্ট</option>
+        <option value="job">চাকরি</option>
+        <option value="scholarship">বৃত্তি</option>
+        <option value="academic">একাডেমিক</option>
+      </select>
+
+      <label class="bn" for="post-desc">বিবরণ</label>
+      <textarea id="post-desc" class="bn" placeholder="আপনার আপডেট লিখুন..."></textarea>
+
+      <div class="modal-actions">
+        <button class="btn-cancel bn" id="modal-cancel">বাতিল</button>
+        <button class="btn-submit bn" id="modal-submit">পোস্ট করুন</button>
+      </div>
+    </div>
+  </div>
+
+<script>
+  // ---- Sub-nav tab switching (visual only; single feed shown) ----
+  const tabs = document.querySelectorAll('.subnav-tab');
+  tabs.forEach(function(tab){
+    tab.addEventListener('click', function(){
+      tabs.forEach(function(t){ t.classList.remove('active'); });
+      tab.classList.add('active');
+    });
+  });
+
+  // ---- Top Candidate toggle ----
+  const topSwitch = document.getElementById('top-candidate-switch');
+  topSwitch.addEventListener('click', function(){
+    topSwitch.classList.toggle('on');
+  });
+
+  // ---- Like buttons ----
+  document.querySelectorAll('.like-btn').forEach(function(btn){
+    btn.addEventListener('click', function(){
+      const card = btn.closest('.card');
+      const countEl = btn.querySelector('.like-count');
+      let likes = parseInt(card.getAttribute('data-likes'), 10);
+      const liked = card.getAttribute('data-liked') === 'true';
+
+      if(liked){
+        likes -= 1;
+        card.setAttribute('data-liked','false');
+        btn.classList.remove('liked');
+      } else {
+        likes += 1;
+        card.setAttribute('data-liked','true');
+        btn.classList.add('liked');
+      }
+      card.setAttribute('data-likes', likes);
+      countEl.textContent = 'পছন্দ · ' + toBengaliDigits(likes);
+    });
+  });
+
+  function toBengaliDigits(num){
+    const bn = ['০','১','২','৩','৪','৫','৬','৭','৮','৯'];
+    return String(num).split('').map(function(d){
+      return /[0-9]/.test(d) ? bn[parseInt(d,10)] : d;
+    }).join('');
+  }
+
+  // ---- New post modal ----
+  const overlay = document.getElementById('modal-overlay');
+  document.getElementById('new-post-btn').addEventListener('click', function(){
+    overlay.classList.add('show');
+  });
+  document.getElementById('modal-cancel').addEventListener('click', function(){
+    overlay.classList.remove('show');
+  });
+  overlay.addEventListener('click', function(e){
+    if(e.target === overlay) overlay.classList.remove('show');
+  });
+
+  const tagMeta = {
+    event: {label:'ইভেন্ট', cls:'tag-event', icon:'ci-blue'},
+    job: {label:'চাকরি', cls:'tag-job', icon:'ci-green'},
+    scholarship: {label:'বৃত্তি', cls:'tag-scholarship', icon:'ci-violet'},
+    academic: {label:'একাডেমিক', cls:'tag-academic', icon:'ci-orange'}
+  };
+
+  document.getElementById('modal-submit').addEventListener('click', function(){
+    const source = document.getElementById('post-source').value.trim();
+    const desc = document.getElementById('post-desc').value.trim();
+    const tagKey = document.getElementById('post-tag').value;
+
+    if(!source || !desc){
+      alert('অনুগ্রহ করে সব ঘর পূরণ করুন।');
+      return;
+    }
+
+    const meta = tagMeta[tagKey];
+    const card = document.createElement('div');
+    card.className = 'card new-post';
+    card.setAttribute('data-liked','false');
+    card.setAttribute('data-likes','0');
+    card.innerHTML =
+      '<div class="card-top">' +
+        '<div class="card-icon ' + meta.icon + '">' +
+          '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 8a6 6 0 0 0-12 0c0 7-3 9-3 9h18s-3-2-3-9"/><path d="M13.73 21a2 2 0 0 1-3.46 0"/></svg>' +
+        '</div>' +
+        '<div class="card-body">' +
+          '<div class="card-title-row">' +
+            '<div class="card-title bn">' + escapeHtml(source) + '</div>' +
+            '<span class="card-tag ' + meta.cls + ' bn">' + meta.label + '</span>' +
+          '</div>' +
+          '<p class="card-desc bn">' + escapeHtml(desc) + '</p>' +
+          '<div class="card-time bn">এইমাত্র</div>' +
+          '<div class="card-actions">' +
+            '<button class="action like-btn bn">' +
+              '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20.8 4.6a5.5 5.5 0 0 0-7.8 0L12 5.6l-1-1a5.5 5.5 0 0 0-7.8 7.8l1 1L12 21l7.8-7.6 1-1a5.5 5.5 0 0 0 0-7.8z"/></svg>' +
+              '<span class="like-count bn">পছন্দ · ০</span>' +
+            '</button>' +
+            '<button class="action bn">' +
+              '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>' +
+              'মন্তব্য' +
+            '</button>' +
+            '<button class="action bn">' +
+              '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="18" cy="5" r="3"/><circle cx="6" cy="12" r="3"/><circle cx="18" cy="19" r="3"/><line x1="8.6" y1="13.5" x2="15.4" y2="17.5"/><line x1="15.4" y1="6.5" x2="8.6" y2="10.5"/></svg>' +
+              'শেয়ার' +
+            '</button>' +
+          '</div>' +
+        '</div>' +
+      '</div>';
+
+    document.getElementById('feed').prepend(card);
+    card.querySelector('.like-btn').addEventListener('click', function(){
+      const c = card;
+      const btn = this;
+      const countEl = btn.querySelector('.like-count');
+      let likes = parseInt(c.getAttribute('data-likes'), 10);
+      const liked = c.getAttribute('data-liked') === 'true';
+      if(liked){
+        likes -= 1; c.setAttribute('data-liked','false'); btn.classList.remove('liked');
+      } else {
+        likes += 1; c.setAttribute('data-liked','true'); btn.classList.add('liked');
+      }
+      c.setAttribute('data-likes', likes);
+      countEl.textContent = 'পছন্দ · ' + toBengaliDigits(likes);
+    });
+
+    document.getElementById('post-source').value = '';
+    document.getElementById('post-desc').value = '';
+    overlay.classList.remove('show');
+  });
+
+  function escapeHtml(str){
+    const div = document.createElement('div');
+    div.textContent = str;
+    return div.innerHTML;
+  }
+
+  // ---- Sidebar drawer ----
+  const sidebar = document.getElementById('sidebar');
+  const sidebarBackdrop = document.getElementById('sidebar-backdrop');
+  const menuBtn = document.getElementById('menu-btn');
+  const sidebarClose = document.getElementById('sidebar-close');
+
+  function openSidebar(){
+    sidebar.classList.add('open');
+    sidebarBackdrop.classList.add('open');
+  }
+  function closeSidebar(){
+    sidebar.classList.remove('open');
+    sidebarBackdrop.classList.remove('open');
+  }
+  menuBtn.addEventListener('click', openSidebar);
+  sidebarClose.addEventListener('click', closeSidebar);
+  sidebarBackdrop.addEventListener('click', closeSidebar);
+
+  // Sidebar nav item selection (visual only)
+  document.querySelectorAll('.sidebar-item').forEach(function(item){
+    item.addEventListener('click', function(e){
+      e.preventDefault();
+      document.querySelectorAll('.sidebar-item').forEach(function(i){ i.classList.remove('active'); });
+      item.classList.add('active');
+    });
+  });
+
+  // Sidebar language toggle (visual only)
+  const langBn = document.getElementById('lang-bn');
+  const langEn = document.getElementById('lang-en');
+  langBn.addEventListener('click', function(){
+    langBn.classList.add('active');
+    langEn.classList.remove('active');
+  });
+  langEn.addEventListener('click', function(){
+    langEn.classList.add('active');
+    langBn.classList.remove('active');
+  });
+
+  // ---- Generic dropdown helper: closes others when one opens ----
+  const allDropdowns = ['role-dropdown', 'notif-dropdown'].map(function(id){
+    return document.getElementById(id);
+  });
+  function closeAllDropdowns(except){
+    allDropdowns.forEach(function(dd){
+      if(dd !== except) dd.classList.remove('open');
+    });
+  }
+
+  // ---- Role dropdown ----
+  const rolePill = document.getElementById('role-pill');
+  const roleDropdown = document.getElementById('role-dropdown');
+  const roleLabel = document.getElementById('role-label');
+  const roleDot = document.getElementById('role-dot');
+
+  rolePill.addEventListener('click', function(e){
+    e.stopPropagation();
+    const willOpen = !roleDropdown.classList.contains('open');
+    closeAllDropdowns();
+    if(willOpen) roleDropdown.classList.add('open');
+  });
+
+  document.querySelectorAll('.role-option').forEach(function(opt){
+    opt.addEventListener('click', function(e){
+      e.stopPropagation();
+      document.querySelectorAll('.role-option').forEach(function(o){ o.classList.remove('selected'); });
+      opt.classList.add('selected');
+      roleLabel.textContent = opt.getAttribute('data-role');
+      roleDot.style.background = opt.getAttribute('data-color');
+      roleDropdown.classList.remove('open');
+    });
+  });
+
+  // ---- Notification dropdown ----
+  const bellBtn = document.getElementById('bell-btn');
+  const notifDropdown = document.getElementById('notif-dropdown');
+  const bellDot = document.getElementById('bell-dot');
+
+  bellBtn.addEventListener('click', function(e){
+    e.stopPropagation();
+    const willOpen = !notifDropdown.classList.contains('open');
+    closeAllDropdowns();
+    if(willOpen) notifDropdown.classList.add('open');
+  });
+
+  document.getElementById('mark-read-btn').addEventListener('click', function(e){
+    e.stopPropagation();
+    bellDot.style.display = 'none';
+  });
+
+  // Close dropdowns when clicking anywhere else
+  document.addEventListener('click', function(){
+    closeAllDropdowns();
+  });
+
+  // ---- Logout (demo) ----
+  document.getElementById('logout-btn').addEventListener('click', function(){
+    if(confirm('আপনি কি লগ আউট করতে চান?')){
+      window.location.href = 'login.html';
+    }
+  });
+</script>
+
+
+</body>
+</html>

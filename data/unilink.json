@@ -1,0 +1,117 @@
+{
+  "users": [
+    {
+      "id": "738bc9a7-1e42-4369-ae25-ddca4916a9e2",
+      "email": "admin@unilink.bd",
+      "passwordHash": "8f5f19bc6f1907a4ad761e36f2300ddc:976480d49af85de847ad93bbf12dbf28bcb0ad0de8e906894dc9f076d6ba85f123f63111997237e62e16b857af799dc47186eae24b1686995652bfd06e8dbb34",
+      "firstName": "UNILINK",
+      "lastName": "Administrator",
+      "role": "admin",
+      "university": "UNILINK Bangladesh",
+      "department": "Administration",
+      "year": "",
+      "status": "active",
+      "createdAt": "2026-09-07T19:16:10.191Z",
+      "updatedAt": "2026-09-07T19:16:10.191Z"
+    }
+  ],
+  "sessions": [
+    {
+      "id": "4a18c5e7-47ba-4560-bf38-df43117fa51e",
+      "token": "cc22a5326bb2cdb151050c7f6bca8380fa87821c131d2000c064244d64b3856b",
+      "userId": "738bc9a7-1e42-4369-ae25-ddca4916a9e2",
+      "expiresAt": "2026-09-14T19:16:10.727Z",
+      "createdAt": "2026-09-07T19:16:10.727Z"
+    },
+    {
+      "id": "3b9b87cc-ad58-471c-8372-ef973247e06d",
+      "token": "7d64f9f4c5ca801e60a6018cb43f5133ad33e519b4a93cef9077f34a2af8d351",
+      "userId": "738bc9a7-1e42-4369-ae25-ddca4916a9e2",
+      "expiresAt": "2026-09-14T19:39:12.257Z",
+      "createdAt": "2026-09-07T19:39:12.257Z"
+    },
+    {
+      "id": "2e848abf-453a-4278-a3e7-1f7ce20a674e",
+      "token": "4b2304f05b19b81288973c0ef04b21ceb722ea814be8b62ec2d19e9af88f7bf1",
+      "userId": "738bc9a7-1e42-4369-ae25-ddca4916a9e2",
+      "expiresAt": "2026-09-14T19:58:45.702Z",
+      "createdAt": "2026-09-07T19:58:45.702Z"
+    },
+    {
+      "id": "3eb8d2ef-3c64-47ed-aa20-929b82b26fad",
+      "token": "5606887b3d5638df46b58d9e5e28bdc0812e0d28cef6fd51503e4019e134cafb",
+      "userId": "738bc9a7-1e42-4369-ae25-ddca4916a9e2",
+      "expiresAt": "2026-09-14T19:58:57.695Z",
+      "createdAt": "2026-09-07T19:58:57.695Z"
+    },
+    {
+      "id": "3738e43d-7c56-4575-b3f2-a300e5c8fe2d",
+      "token": "7221f4b2b4f165b8a67178bcbd60f30bae4607b2da0158423eabc10aa2155f34",
+      "userId": "738bc9a7-1e42-4369-ae25-ddca4916a9e2",
+      "expiresAt": "2026-09-14T19:59:09.030Z",
+      "createdAt": "2026-09-07T19:59:09.030Z"
+    },
+    {
+      "id": "50695a3e-8114-46a4-8d9c-500ab01b6c97",
+      "token": "c5b15fa838817db145b035c9fa09e2efad6f434766f35d472a70cf52ec0bb41b",
+      "userId": "738bc9a7-1e42-4369-ae25-ddca4916a9e2",
+      "expiresAt": "2026-09-14T21:56:28.739Z",
+      "createdAt": "2026-09-07T21:56:28.739Z"
+    },
+    {
+      "id": "cae3be2e-1183-4cf6-9211-c0772c587646",
+      "token": "3c464ff12bf07f5f7fe693d6c3cb5694590e521ab0d731ee1e9a9460803167c4",
+      "userId": "738bc9a7-1e42-4369-ae25-ddca4916a9e2",
+      "expiresAt": "2026-09-14T21:57:00.315Z",
+      "createdAt": "2026-09-07T21:57:00.315Z"
+    },
+    {
+      "id": "93b67c4d-6eb4-4214-af34-896dcfdb1142",
+      "token": "1014f60357aabefd587229a06c7f3b5bb1383101d3716f94bc0fda028c6fb061",
+      "userId": "738bc9a7-1e42-4369-ae25-ddca4916a9e2",
+      "expiresAt": "2026-09-14T21:57:34.178Z",
+      "createdAt": "2026-09-07T21:57:34.178Z"
+    },
+    {
+      "id": "e5767850-ea5f-4c13-9357-59aa320ab435",
+      "token": "cd7548f97eab813cedab33dbc2c8da297643b7f3e879a69f7dd56b3a5a27cf0b",
+      "userId": "738bc9a7-1e42-4369-ae25-ddca4916a9e2",
+      "expiresAt": "2026-09-14T21:57:55.182Z",
+      "createdAt": "2026-09-07T21:57:55.182Z"
+    },
+    {
+      "id": "a50b4d9f-fe56-4834-8ef1-97b29e3e4e12",
+      "token": "0c2f219a60cf6b2cf2c97a4097dacd6b9a38d122df32935578ffb8ec1d231e3e",
+      "userId": "738bc9a7-1e42-4369-ae25-ddca4916a9e2",
+      "expiresAt": "2026-09-14T21:58:03.284Z",
+      "createdAt": "2026-09-07T21:58:03.284Z"
+    },
+    {
+      "id": "b014264b-cf64-4ee9-9f49-2aa12b759d4e",
+      "token": "47cf81a35307ad2cc74b7cd472eb5cdcf88cc9e5245521201f916e6e919b770e",
+      "userId": "738bc9a7-1e42-4369-ae25-ddca4916a9e2",
+      "expiresAt": "2026-09-14T22:03:58.855Z",
+      "createdAt": "2026-09-07T22:03:58.855Z"
+    }
+  ],
+  "profiles": [],
+  "partnerRequests": [],
+  "studyGroups": [],
+  "studySessions": [],
+  "conversations": [],
+  "messages": [],
+  "clubs": [],
+  "clubMembers": [],
+  "clubEvents": [],
+  "clubTransactions": [],
+  "clubNotices": [],
+  "bids": [],
+  "bounties": [],
+  "candidateAccessBids": [],
+  "partnerships": [],
+  "announcements": [],
+  "reports": [],
+  "notifications": [],
+  "recruiterSearches": [],
+  "savedCandidates": []
+}

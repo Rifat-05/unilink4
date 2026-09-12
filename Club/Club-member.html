@@ -1,0 +1,1177 @@
+﻿<!DOCTYPE html>
+<html lang="bn">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>ক্লাব সদস্য — UNILINK Bangladesh</title>
+<style>
+  :root{
+    --bg: #f6f7fb;
+    --panel: #ffffff;
+    --border: #e6e8f0;
+    --text: #14161f;
+    --muted: #6b7189;
+    --muted-dim: #9195a8;
+    --blue: #4f6bef;
+    --blue-dark: #3b52c9;
+    --violet: #7c5cf0;
+    --green: #16a67a;
+    --orange: #e8862c;
+    --pink: #d84fb0;
+    --red: #e5484d;
+    --shadow: 0 1px 2px rgba(20,22,31,0.04);
+  }
+
+  *{box-sizing:border-box; margin:0; padding:0;}
+
+  body{
+    background:var(--bg);
+    color:var(--text);
+    font-family:"Inter", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+    min-height:100vh;
+  }
+
+  .bn{ font-family:"Noto Sans Bengali", "Hind Siliguri", sans-serif; }
+
+  a{ color:inherit; text-decoration:none; }
+  button{ font-family:inherit; cursor:pointer; }
+
+  /* ===== TOP BAR ===== */
+  .topbar{
+    background:var(--panel);
+    border-bottom:1px solid var(--border);
+    padding:14px 24px;
+    display:flex;
+    align-items:center;
+    gap:20px;
+  }
+  .icon-btn{
+    width:38px; height:38px;
+    border-radius:9px;
+    border:1px solid var(--border);
+    background:var(--panel);
+    display:flex; align-items:center; justify-content:center;
+    color:var(--muted);
+    flex-shrink:0;
+    position:relative;
+    transition: background .15s ease, border-color .15s ease;
+  }
+  .icon-btn:hover{ background:#f1f2f7; }
+  .icon-btn svg{ width:18px; height:18px; }
+
+  .search-shell{
+    flex:1;
+    max-width:460px;
+    position:relative;
+  }
+  .search-shell svg{
+    position:absolute; left:14px; top:50%; transform:translateY(-50%);
+    width:16px; height:16px; color:var(--muted-dim);
+  }
+  .search-shell input{
+    width:100%;
+    padding:10px 14px 10px 40px;
+    border-radius:9px;
+    border:1px solid var(--border);
+    background:#f6f7fb;
+    font-size:0.9rem;
+    color:var(--text);
+    outline:none;
+    transition:border-color .15s ease, background .15s ease;
+  }
+  .search-shell input::placeholder{ color:var(--muted-dim); }
+  .search-shell input:focus{ border-color:var(--blue); background:#fff; }
+
+  .topbar-right{
+    display:flex;
+    align-items:center;
+    gap:14px;
+    margin-left:auto;
+  }
+
+  .role-pill{
+    display:flex;
+    align-items:center;
+    gap:8px;
+    padding:8px 14px;
+    border-radius:9px;
+    border:1px solid var(--border);
+    background:var(--panel);
+    font-size:0.85rem;
+    color:var(--text);
+    font-weight:600;
+  }
+  .role-pill .dot{
+    width:7px; height:7px; border-radius:50%;
+    background:var(--blue);
+  }
+  .role-pill svg.chev{ width:13px; height:13px; color:var(--muted-dim); }
+
+  .verified-pill{
+    display:flex;
+    align-items:center;
+    gap:6px;
+    padding:8px 14px;
+    border-radius:999px;
+    background: rgba(22,166,122,0.1);
+    color:var(--green);
+    font-size:0.82rem;
+    font-weight:700;
+    white-space:nowrap;
+  }
+  .verified-pill svg{ width:14px; height:14px; }
+
+  .bell-wrap{ position:relative; }
+  .bell-dot{
+    position:absolute;
+    top:8px; right:8px;
+    width:7px; height:7px;
+    border-radius:50%;
+    background:var(--red);
+    border:1.5px solid var(--panel);
+  }
+
+  .user-block{
+    display:flex;
+    align-items:center;
+    gap:10px;
+    padding-left:6px;
+  }
+  .avatar{
+    width:36px; height:36px;
+    border-radius:50%;
+    background:linear-gradient(135deg,var(--blue),var(--violet));
+    display:flex; align-items:center; justify-content:center;
+    font-size:0.78rem; font-weight:700; color:#fff;
+    flex-shrink:0;
+  }
+  .user-name{ font-size:0.88rem; font-weight:700; line-height:1.2; }
+  .user-meta{ font-size:0.75rem; color:var(--muted-dim); }
+
+  /* ===== BREADCRUMB ===== */
+  .breadcrumb{
+    background:var(--panel);
+    border-bottom:1px solid var(--border);
+    padding:10px 24px;
+    font-size:0.82rem;
+    color:var(--muted-dim);
+  }
+  .breadcrumb .current{ color:var(--blue); font-weight:600; }
+
+  /* ===== SUB NAV ===== */
+  .subnav{
+    background:var(--panel);
+    border-bottom:1px solid var(--border);
+    padding:0 24px;
+    display:flex;
+    align-items:center;
+    gap:6px;
+  }
+  .subnav-tab{
+    display:flex; align-items:center; gap:8px;
+    padding:16px 14px;
+    font-size:0.88rem;
+    color:var(--muted);
+    border-bottom:2px solid transparent;
+    font-weight:600;
+    white-space:nowrap;
+  }
+  .subnav-tab svg{ width:16px; height:16px; }
+  .subnav-tab:hover{ color:var(--text); }
+  .subnav-tab.active{
+    color:var(--blue);
+    border-bottom-color:var(--blue);
+  }
+  .tab-badge{
+    display:inline-flex;
+    align-items:center; justify-content:center;
+    min-width:18px; height:18px;
+    padding:0 5px;
+    border-radius:999px;
+    background:var(--red);
+    color:#fff;
+    font-size:0.68rem;
+    font-weight:800;
+    margin-left:2px;
+  }
+  .subnav-right{
+    margin-left:auto;
+    display:flex;
+    align-items:center;
+    gap:16px;
+  }
+  .toggle-row{
+    display:flex; align-items:center; gap:10px;
+    font-size:0.85rem;
+    color:var(--muted);
+    font-weight:600;
+  }
+  .switch{
+    position:relative;
+    width:40px; height:22px;
+    border-radius:999px;
+    background:var(--border);
+    cursor:pointer;
+    transition: background .2s ease;
+    flex-shrink:0;
+  }
+  .switch.on{ background:var(--blue); }
+  .switch::after{
+    content:"";
+    position:absolute;
+    top:2px; left:2px;
+    width:18px; height:18px;
+    border-radius:50%;
+    background:#fff;
+    box-shadow:0 1px 3px rgba(0,0,0,0.25);
+    transition: transform .2s ease;
+  }
+  .switch.on::after{ transform:translateX(18px); }
+
+  .boost-badge{
+    display:flex; align-items:center; gap:6px;
+    padding:8px 14px;
+    border-radius:999px;
+    background: rgba(232,134,44,0.12);
+    color:var(--orange);
+    font-size:0.8rem;
+    font-weight:700;
+  }
+  .boost-badge svg{ width:14px; height:14px; }
+
+  /* ===== MAIN ===== */
+  main{
+    max-width:1000px;
+    margin:0 auto;
+    padding:36px 24px 80px;
+  }
+  .main-head{
+    display:flex;
+    align-items:flex-start;
+    justify-content:space-between;
+    margin-bottom:24px;
+    gap:16px;
+    flex-wrap:wrap;
+  }
+  .main-title{ font-size:1.5rem; font-weight:800; }
+  .main-sub{ margin-top:4px; font-size:0.9rem; color:var(--muted); }
+
+  .btn-new{
+    display:flex; align-items:center; gap:8px;
+    padding:11px 18px;
+    border-radius:9px;
+    background:var(--blue);
+    color:#fff;
+    font-size:0.88rem;
+    font-weight:700;
+    border:none;
+    box-shadow:0 6px 16px rgba(79,107,239,0.28);
+    transition: background .15s ease, transform .15s ease;
+    white-space:nowrap;
+  }
+  .btn-new svg{ width:15px; height:15px; }
+  .btn-new:hover{ background:var(--blue-dark); }
+  .btn-new:active{ transform:translateY(1px); }
+
+  /* Feed cards */
+  .feed{ display:flex; flex-direction:column; gap:16px; }
+  .card{
+    background:var(--panel);
+    border:1px solid var(--border);
+    border-radius:14px;
+    padding:22px 24px;
+    box-shadow:var(--shadow);
+    transition: box-shadow .15s ease, transform .15s ease, opacity .2s ease;
+  }
+  .card:hover{ box-shadow:0 6px 18px rgba(20,22,31,0.07); }
+  .card.new-post{
+    animation: pop-in .35s ease;
+  }
+  @keyframes pop-in{
+    from{ opacity:0; transform:translateY(-8px); }
+    to{ opacity:1; transform:translateY(0); }
+  }
+  .card-top{
+    display:flex;
+    align-items:flex-start;
+    gap:14px;
+  }
+  .card-icon{
+    width:38px; height:38px;
+    border-radius:10px;
+    display:flex; align-items:center; justify-content:center;
+    flex-shrink:0;
+  }
+  .card-icon svg{ width:18px; height:18px; }
+  .ci-blue{ background:rgba(79,107,239,0.1); color:var(--blue); }
+  .ci-green{ background:rgba(22,166,122,0.1); color:var(--green); }
+  .ci-violet{ background:rgba(124,92,240,0.1); color:var(--violet); }
+  .ci-orange{ background:rgba(232,134,44,0.1); color:var(--orange); }
+
+  .card-body{ flex:1; min-width:0; }
+  .card-title-row{
+    display:flex;
+    align-items:flex-start;
+    justify-content:space-between;
+    gap:12px;
+  }
+  .card-title{ font-size:1rem; font-weight:700; }
+  .card-tag{
+    flex-shrink:0;
+    font-size:0.76rem;
+    font-weight:700;
+    padding:5px 12px;
+    border-radius:999px;
+    white-space:nowrap;
+  }
+  .tag-event{ background:rgba(79,107,239,0.1); color:var(--blue); }
+  .tag-job{ background:rgba(22,166,122,0.1); color:var(--green); }
+  .tag-scholarship{ background:rgba(124,92,240,0.1); color:var(--violet); }
+  .tag-academic{ background:rgba(232,134,44,0.1); color:var(--orange); }
+
+  .card-desc{
+    margin-top:8px;
+    font-size:0.92rem;
+    color:#3a3d4d;
+    line-height:1.6;
+  }
+  .card-time{
+    margin-top:12px;
+    font-size:0.78rem;
+    color:var(--muted-dim);
+  }
+  .card-actions{
+    display:flex;
+    align-items:center;
+    gap:22px;
+    margin-top:14px;
+  }
+  .action{
+    display:flex; align-items:center; gap:6px;
+    font-size:0.84rem;
+    color:var(--muted);
+    background:none;
+    border:none;
+    padding:4px 2px;
+    transition: color .15s ease;
+  }
+  .action svg{ width:16px; height:16px; }
+  .action:hover{ color:var(--text); }
+  .action.liked{ color:var(--red); font-weight:700; }
+  .action.liked svg{ fill:var(--red); stroke:var(--red); }
+
+  /* Modal for new post (demo only) */
+  .modal-overlay{
+    position:fixed; inset:0;
+    background:rgba(20,22,31,0.45);
+    display:none;
+    align-items:center;
+    justify-content:center;
+    z-index:100;
+    padding:20px;
+  }
+  .modal-overlay.show{ display:flex; }
+  .modal{
+    background:var(--panel);
+    border-radius:16px;
+    padding:28px;
+    width:100%;
+    max-width:460px;
+    box-shadow:0 20px 50px rgba(0,0,0,0.25);
+  }
+  .modal h3{ font-size:1.15rem; font-weight:800; margin-bottom:18px; }
+  .modal label{
+    display:block;
+    font-size:0.8rem;
+    font-weight:600;
+    color:var(--muted);
+    margin-bottom:6px;
+    margin-top:14px;
+  }
+  .modal input, .modal textarea, .modal select{
+    width:100%;
+    padding:11px 14px;
+    border-radius:8px;
+    border:1px solid var(--border);
+    font-size:0.9rem;
+    font-family:inherit;
+    outline:none;
+    color:var(--text);
+  }
+  .modal input:focus, .modal textarea:focus, .modal select:focus{ border-color:var(--blue); }
+  .modal textarea{ resize:vertical; min-height:70px; }
+  .modal-actions{
+    display:flex; gap:10px;
+    margin-top:22px;
+  }
+  .modal-actions button{
+    flex:1;
+    padding:11px;
+    border-radius:9px;
+    font-weight:700;
+    font-size:0.88rem;
+    border:none;
+  }
+  .btn-cancel{ background:#f1f2f7; color:var(--text); }
+  .btn-cancel:hover{ background:#e6e8f0; }
+  .btn-submit{ background:var(--blue); color:#fff; }
+  .btn-submit:hover{ background:var(--blue-dark); }
+
+  /* ===== MY STUDY PARTNERS PAGE ===== */
+  .mp-head{
+    margin-bottom:24px;
+  }
+  .mp-head .main-title{ font-size:1.5rem; font-weight:800; }
+  .mp-head .main-sub{ margin-top:4px; font-size:0.9rem; color:var(--muted); }
+
+  /* Upcoming sessions panel */
+  .upcoming-panel{
+    background:rgba(79,107,239,0.04);
+    border:1px solid rgba(79,107,239,0.18);
+    border-radius:14px;
+    padding:20px 22px;
+    margin-bottom:24px;
+  }
+  .upcoming-label{
+    font-size:0.72rem;
+    font-weight:700;
+    letter-spacing:0.02em;
+    color:var(--blue);
+    margin-bottom:14px;
+  }
+  .upcoming-list{ display:flex; flex-direction:column; }
+  .upcoming-row{
+    display:flex;
+    align-items:center;
+    gap:14px;
+    padding:14px 0;
+    border-bottom:1px solid rgba(79,107,239,0.14);
+  }
+  .upcoming-row:last-child{ border-bottom:none; padding-bottom:0; }
+  .upcoming-row:first-child{ padding-top:0; }
+  .upcoming-avatar{
+    width:40px; height:40px;
+    border-radius:11px;
+    display:flex; align-items:center; justify-content:center;
+    font-size:0.8rem; font-weight:700; color:#fff;
+    flex-shrink:0;
+  }
+  .upcoming-info{ flex:1; min-width:0; }
+  .upcoming-title{ font-size:0.95rem; font-weight:700; }
+  .upcoming-meta{ margin-top:2px; font-size:0.82rem; color:var(--muted); }
+  .upcoming-tags{ display:flex; gap:7px; margin-top:8px; flex-wrap:wrap; }
+  .upcoming-tag{
+    font-size:0.75rem; font-weight:600;
+    padding:4px 10px;
+    border-radius:999px;
+    background:#f1f2f7;
+    color:var(--muted);
+  }
+  .btn-join, .btn-view{
+    display:flex; align-items:center; gap:7px;
+    padding:9px 16px;
+    border-radius:8px;
+    font-size:0.84rem;
+    font-weight:700;
+    border:none;
+    white-space:nowrap;
+    flex-shrink:0;
+    transition: background .15s ease, transform .15s ease;
+  }
+  .btn-join svg, .btn-view svg{ width:14px; height:14px; }
+  .btn-join{ background:var(--blue); color:#fff; }
+  .btn-join:hover{ background:var(--blue-dark); }
+  .btn-view{ background:var(--green); color:#fff; }
+  .btn-view:hover{ background:#0f8e68; }
+  .btn-join:active, .btn-view:active{ transform:translateY(1px); }
+
+  /* Partner cards */
+  .partner-list{ display:flex; flex-direction:column; gap:16px; }
+  .partner-card{
+    background:var(--panel);
+    border:1px solid var(--border);
+    border-radius:14px;
+    padding:22px 24px;
+    box-shadow:var(--shadow);
+    display:flex;
+    align-items:flex-start;
+    justify-content:space-between;
+    gap:20px;
+    flex-wrap:wrap;
+  }
+  .partner-main{ display:flex; align-items:flex-start; gap:14px; min-width:0; flex:1; }
+  .partner-avatar-wrap{ position:relative; flex-shrink:0; }
+  .partner-avatar{
+    width:46px; height:46px;
+    border-radius:13px;
+    display:flex; align-items:center; justify-content:center;
+    font-size:0.85rem; font-weight:700; color:#fff;
+  }
+  .online-dot{
+    position:absolute;
+    bottom:-2px; right:-2px;
+    width:12px; height:12px;
+    border-radius:50%;
+    background:var(--green);
+    border:2px solid var(--panel);
+  }
+  .partner-body{ min-width:0; }
+  .partner-name{ font-size:1rem; font-weight:800; }
+  .partner-meta{ margin-top:2px; font-size:0.85rem; color:var(--muted); }
+  .partner-course-row{
+    display:flex; align-items:center; gap:8px;
+    margin-top:10px;
+    font-size:0.82rem;
+    color:var(--muted);
+    flex-wrap:wrap;
+  }
+  .partner-course-pill{
+    display:flex; align-items:center; gap:6px;
+    padding:5px 11px;
+    border-radius:999px;
+    background:rgba(79,107,239,0.1);
+    color:var(--blue);
+    font-weight:700;
+    font-size:0.78rem;
+  }
+  .partner-course-pill svg{ width:13px; height:13px; }
+  .partner-sessions-done{ color:var(--muted-dim); }
+
+  .partner-actions{ display:flex; gap:10px; margin-top:16px; flex-wrap:wrap; }
+  .partner-actions button{
+    display:flex; align-items:center; gap:7px;
+    padding:10px 16px;
+    border-radius:8px;
+    font-size:0.84rem;
+    font-weight:700;
+    border:none;
+    white-space:nowrap;
+    transition: background .15s ease, transform .15s ease;
+  }
+  .partner-actions button svg{ width:14px; height:14px; }
+  .partner-actions button:active{ transform:translateY(1px); }
+  .btn-schedule{ background:rgba(79,107,239,0.1); color:var(--blue); }
+  .btn-schedule:hover{ background:rgba(79,107,239,0.18); }
+  .btn-message{ background:#f1f2f7; color:var(--text); }
+  .btn-message:hover{ background:#e6e8f0; }
+  .btn-startnow{ background:var(--green); color:#fff; }
+  .btn-startnow:hover{ background:#0f8e68; }
+
+  .partner-next{ text-align:right; flex-shrink:0; }
+  .partner-next .lbl{ font-size:0.78rem; color:var(--muted-dim); }
+  .partner-next .val{ margin-top:4px; font-size:0.92rem; font-weight:800; color:var(--text); }
+
+  .mp-empty{
+    background:var(--panel);
+    border:1px solid var(--border);
+    border-radius:16px;
+    padding:60px 24px;
+    text-align:center;
+    box-shadow:var(--shadow);
+  }
+  .mp-empty svg{ width:40px; height:40px; color:var(--muted-dim); margin-bottom:14px; }
+  .mp-empty h3{ font-size:1.05rem; font-weight:800; margin-bottom:6px; }
+  .mp-empty p{ font-size:0.88rem; color:var(--muted); }
+
+  @media (max-width: 860px){
+    .partner-card{ flex-direction:column; }
+    .partner-next{ text-align:left; }
+    .upcoming-row{ flex-wrap:wrap; }
+    .btn-join, .btn-view{ margin-left:auto; }
+  }
+
+  /* ===== SIDEBAR (off-canvas drawer) ===== */
+  .sidebar-backdrop{
+    position:fixed; inset:0;
+    background:rgba(20,22,31,0.55);
+    backdrop-filter: blur(1px);
+    z-index:300;
+    opacity:0;
+    pointer-events:none;
+    transition: opacity .2s ease;
+  }
+  .sidebar-backdrop.open{ opacity:1; pointer-events:auto; }
+
+  .sidebar{
+    position:fixed; top:0; left:0; bottom:0;
+    width:240px;
+    background:#12142099;
+    background:#12141f;
+    z-index:301;
+    display:flex;
+    flex-direction:column;
+    transform:translateX(-100%);
+    transition: transform .25s ease;
+    box-shadow:2px 0 24px rgba(0,0,0,0.3);
+  }
+  .sidebar.open{ transform:translateX(0); }
+
+  .sidebar-head{
+    display:flex; align-items:center; justify-content:space-between;
+    padding:18px 18px 16px;
+    border-bottom:1px solid rgba(255,255,255,0.08);
+  }
+  .sidebar-brand{ display:flex; align-items:center; gap:10px; }
+  .sidebar-logo{
+    width:34px; height:34px; border-radius:9px;
+    background:linear-gradient(135deg,var(--blue),var(--violet));
+    display:flex; align-items:center; justify-content:center;
+    flex-shrink:0;
+  }
+  .sidebar-logo svg{ width:18px; height:18px; color:#fff; }
+  .sidebar-brand-text .sb-title{ font-size:0.95rem; font-weight:800; color:#fff; letter-spacing:0.3px; }
+  .sidebar-brand-text .sb-sub{ font-size:0.72rem; color:#8b8fa3; margin-top:1px; }
+  .sidebar-close{
+    width:28px; height:28px; border-radius:7px;
+    border:none; background:transparent; color:#8b8fa3;
+    display:flex; align-items:center; justify-content:center;
+  }
+  .sidebar-close:hover{ background:rgba(255,255,255,0.08); color:#fff; }
+  .sidebar-close svg{ width:16px; height:16px; }
+
+  .sidebar-lang{
+    display:flex; margin:16px 18px 8px;
+    background:rgba(255,255,255,0.06);
+    border-radius:9px;
+    padding:3px;
+  }
+  .sidebar-lang button{
+    flex:1;
+    padding:8px 0;
+    border:none;
+    border-radius:7px;
+    font-size:0.82rem;
+    font-weight:700;
+    background:transparent;
+    color:#9195a8;
+  }
+  .sidebar-lang button.active{
+    background:linear-gradient(90deg,var(--blue),var(--violet));
+    color:#fff;
+  }
+
+  .sidebar-nav{
+    display:flex; flex-direction:column;
+    gap:2px;
+    padding:10px 12px;
+    flex:1;
+    overflow-y:auto;
+  }
+  .sidebar-item{
+    display:flex; align-items:center; gap:12px;
+    padding:11px 12px;
+    border-radius:9px;
+    color:#c3c6d4;
+    font-size:0.88rem;
+    font-weight:600;
+    position:relative;
+  }
+  .sidebar-item svg{ width:17px; height:17px; flex-shrink:0; }
+  .sidebar-item:hover{ background:rgba(255,255,255,0.06); color:#fff; }
+  .sidebar-item.active{
+    background:var(--blue);
+    color:#fff;
+  }
+  .sidebar-item .sb-dot{
+    width:7px; height:7px; border-radius:50%;
+    background:var(--red);
+    margin-left:auto;
+  }
+
+  .sidebar-upgrade{
+    margin:12px;
+    padding:16px;
+    border-radius:12px;
+    background:rgba(255,255,255,0.06);
+  }
+  .sidebar-upgrade-head{
+    display:flex; align-items:center; gap:8px;
+    color:#f0b73b;
+    font-size:0.85rem;
+    font-weight:800;
+    margin-bottom:8px;
+  }
+  .sidebar-upgrade-head svg{ width:15px; height:15px; }
+  .sidebar-upgrade p{
+    font-size:0.78rem;
+    line-height:1.5;
+    color:#9195a8;
+    margin-bottom:12px;
+  }
+  .sidebar-upgrade-btn{
+    display:block; width:100%;
+    padding:10px;
+    border:none; border-radius:8px;
+    background:linear-gradient(90deg,var(--blue),var(--violet));
+    color:#fff;
+    font-size:0.82rem;
+    font-weight:700;
+    text-align:center;
+  }
+  .sidebar-upgrade-btn:hover{ filter:brightness(1.08); }
+
+  /* ===== DROPDOWNS (notification + role) ===== */
+  .dropdown-panel{
+    position:absolute;
+    top:calc(100% + 10px);
+    background:var(--panel);
+    border:1px solid var(--border);
+    border-radius:12px;
+    box-shadow:0 14px 36px rgba(20,22,31,0.16);
+    z-index:120;
+    opacity:0;
+    transform:translateY(-6px);
+    pointer-events:none;
+    transition: opacity .15s ease, transform .15s ease;
+  }
+  .dropdown-panel.open{
+    opacity:1; transform:translateY(0); pointer-events:auto;
+  }
+
+  /* Role dropdown */
+  .role-pill{ position:relative; cursor:pointer; }
+  .role-dropdown{
+    left:0;
+    min-width:180px;
+    padding:6px;
+  }
+  .role-option{
+    display:flex; align-items:center; gap:9px;
+    padding:10px 10px;
+    border-radius:8px;
+    font-size:0.86rem;
+    font-weight:600;
+    color:var(--text);
+    position:relative;
+  }
+  .role-option:hover{ background:#f1f2f7; }
+  .role-option .dot{ width:7px; height:7px; border-radius:50%; flex-shrink:0; }
+  .role-option .check{
+    margin-left:auto; width:14px; height:14px; color:var(--blue);
+    display:none;
+  }
+  .role-option.selected .check{ display:block; }
+
+  /* Notification dropdown */
+  .bell-wrap{ position:relative; }
+  .notif-dropdown{
+    right:0;
+    width:340px;
+    max-width:88vw;
+    padding:0;
+    overflow:hidden;
+  }
+  .notif-head{
+    display:flex; align-items:center; justify-content:space-between;
+    padding:14px 16px;
+    border-bottom:1px solid var(--border);
+  }
+  .notif-head h4{ font-size:0.95rem; font-weight:800; }
+  .notif-head .mark-read{ font-size:0.78rem; color:var(--blue); font-weight:600; }
+  .notif-list{ max-height:340px; overflow-y:auto; }
+  .notif-item{
+    display:flex; gap:10px;
+    padding:13px 16px;
+    border-bottom:1px solid var(--border);
+  }
+  .notif-item:last-child{ border-bottom:none; }
+  .notif-item:hover{ background:#f8f9fc; }
+  .notif-item .dot{
+    width:7px; height:7px; border-radius:50%;
+    margin-top:6px; flex-shrink:0;
+  }
+  .notif-item .notif-body{ flex:1; min-width:0; }
+  .notif-item .notif-text{ font-size:0.85rem; color:var(--text); line-height:1.45; }
+  .notif-item .notif-time{ font-size:0.74rem; color:var(--muted-dim); margin-top:3px; }
+
+  @media (max-width: 860px){
+    .topbar{ flex-wrap:wrap; gap:10px; }
+    .search-shell{ order:3; max-width:100%; flex-basis:100%; }
+    .verified-pill span.long{ display:none; }
+    .subnav{ overflow-x:auto; }
+    .subnav-right{ display:none; }
+    .card-top{ flex-wrap:wrap; }
+    .card-title-row{ flex-direction:column; gap:6px; }
+  }
+</style>
+<style>
+  main.requests-main{max-width:none;padding:24px;margin:0;}
+  .requests-heading{font-size:23px;line-height:1.4;margin:0 0 5px;font-weight:700;}
+  .requests-subtitle{font-size:13px;color:var(--muted-dim);margin-bottom:22px;}
+  .request-panel{background:var(--panel);border:1px solid #dfe5f1;border-radius:16px;padding:20px;margin-bottom:20px;}
+  .request-panel h2{display:flex;align-items:center;gap:8px;font-size:16px;margin-bottom:18px;}
+  .request-count{display:inline-flex;align-items:center;justify-content:center;background:#2462ff;color:white;width:21px;height:21px;border-radius:50%;font:600 12px 'Segoe UI',sans-serif;}
+  .request-list{display:grid;gap:12px;}
+  .request-card{display:flex;align-items:flex-start;gap:16px;background:#f7f9fc;border:1px solid #edf1f8;border-radius:12px;padding:16px;}
+  .request-avatar{width:44px;height:44px;border-radius:50%;display:flex;align-items:center;justify-content:center;color:white;font-size:14px;font-weight:700;flex-shrink:0;background:#6960f5;}
+  .request-avatar.orange{background:#de7b00;}.request-avatar.cyan{background:#0098b6;}
+  .request-content{flex:1;min-width:0;}.request-top{display:flex;justify-content:space-between;gap:12px;align-items:baseline;}
+  .request-name{font-size:14px;font-weight:650;line-height:1.5;}.request-time{font-size:12px;color:var(--muted-dim);white-space:nowrap;}
+  .request-meta{font-family:Consolas,monospace;font-size:12px;color:#708099;margin-top:4px;line-height:1.6;}
+  .request-message{font-size:14px;color:#465b79;margin:7px 0 12px;line-height:1.65;}
+  .request-actions{display:flex;gap:8px;flex-wrap:wrap;}
+  .request-btn{display:inline-flex;align-items:center;justify-content:center;gap:7px;min-height:38px;padding:8px 13px;border-radius:7px;border:1px solid #dfe5ef;background:transparent;color:#677991;font-size:14px;transition:background .15s;}
+  .request-btn svg{width:15px;height:15px;}.request-btn:hover{background:#eaf0f9;}
+  .request-btn.accept{color:#009e75;border-color:#a8edc7;background:#effcf5;}.request-btn.accept:hover{background:#dcf7e8;}
+  .request-btn.decline{color:#ef4444;border-color:#ffc6cd;background:#fff2f4;}.request-btn.decline:hover{background:#ffe3e8;}
+  .sent-card{align-items:center;border-color:transparent;}.sent-status{margin-left:auto;display:flex;align-items:center;gap:10px;}
+  .pending{border-radius:20px;padding:3px 10px;background:#fff3c5;color:#c67c00;font-size:12px;white-space:nowrap;}
+  .empty-state{text-align:center;padding:32px 16px;color:var(--muted);font-size:14px;line-height:1.8;}
+  .empty-state strong{display:block;color:var(--text);font-size:16px;margin-bottom:5px;}
+  .request-result{font-size:13px;color:var(--green);padding-top:9px;}.request-result.rejected{color:var(--muted);}
+  .profile-dialog{margin:auto;width:min(440px,calc(100% - 32px));border:1px solid var(--border);border-radius:16px;padding:26px;background:white;color:var(--text);box-shadow:0 20px 70px #14161f25;}
+  .profile-dialog::backdrop{background:rgba(20,22,31,.4);}.profile-dialog h2{font-size:21px;margin:16px 0 6px;}.profile-dialog p{font-size:14px;line-height:1.8;color:var(--muted);margin:8px 0;}.profile-dialog .request-btn{margin-top:16px;}
+  .request-toast{position:fixed;bottom:24px;left:50%;transform:translateX(-50%);background:#17233b;color:white;border-radius:10px;padding:12px 20px;box-shadow:0 6px 24px #14161f20;font-size:14px;z-index:200;max-width:calc(100% - 32px);text-align:center;}
+  .request-toast:empty{display:none;}[hidden]{display:none!important;}
+  :focus-visible{outline:2px solid var(--blue);outline-offset:4px;}
+  button.subnav-tab{background:transparent;font-family:inherit;border:1px solid transparent;border-radius:8px;padding:10px 14px;margin:10px 0;position:relative;}button.subnav-tab.active{background:#eef3ff;border-color:#bfd2ff;}.subnav-tab .tab-badge{position:absolute;right:-4px;top:-5px;min-width:16px;height:16px;font-size:10px;}.subnav-tab>span:not(.tab-badge){font-size:10px;}
+  @media(max-width:600px){main.requests-main{padding:20px 14px;}.request-panel{padding:14px;}.request-card{gap:10px;padding:13px;}.request-top{flex-direction:column;gap:2px;}.request-avatar{width:38px;height:38px;font-size:12px;}.sent-card{flex-wrap:wrap;}.sent-status{margin-left:48px;}.request-btn{padding:8px 10px;font-size:13px;}.topbar{padding:12px 14px;}.topbar-right{gap:8px;}.user-block>div:last-child{display:none;}.role-pill{padding:8px;}.subnav-tab{flex-shrink:0;}.requests-heading{font-size:22px;}}
+</style>
+<style>
+:root{--club:#8246ff;}main.club-main{max-width:none;margin:0;padding:22px;}.club-header{background:white;border-bottom:1px solid var(--border);padding:18px 22px;display:flex;gap:14px;align-items:center;}.club-logo{width:38px;height:38px;display:grid;place-items:center;border-radius:12px;color:white;background:linear-gradient(135deg,#8937ee,#2d62f3);flex-shrink:0;}.club-logo svg{width:22px;height:22px;}.club-identity{flex:1;}.club-identity h1{font-size:15px;margin-bottom:4px;}.club-sub{display:flex;flex-wrap:wrap;gap:8px;align-items:center;font-size:11px;color:var(--muted-dim);}.approved{color:#009f78;background:#f0fff6;border:1px solid #b4f1cd;border-radius:20px;padding:1px 8px;}.club-header-actions{display:flex;align-items:center;gap:8px;}.club-button{display:inline-flex;align-items:center;justify-content:center;gap:6px;background:#f6f2ff;border:1px solid #ded0ff;border-radius:7px;color:var(--club);padding:8px 12px;font:inherit;font-size:12px;cursor:pointer;}.club-button:hover{background:#ede4ff;}.club-button.secondary{background:#f8fafd;color:#65768b;border-color:#dfe5ef;}.club-status{font-size:12px;color:#009b77;border:1px solid #dfe5ef;padding:7px 10px;border-radius:7px;background:#f8fafc;}.club-status::before{content:'';display:inline-block;width:7px;height:7px;margin-right:6px;background:#74dbba;border-radius:50%;}.club-tabs{display:flex;gap:6px;padding:7px 22px;background:white;border-bottom:1px solid #edf1f8;overflow-x:auto;}.club-tab{display:flex;gap:7px;align-items:center;white-space:nowrap;border:1px solid transparent;border-radius:7px;background:transparent;padding:10px 14px;color:#6d7f99;font-size:13px;}.club-tab small{font-size:9px;letter-spacing:.3px;}.club-tab.active{color:var(--club);background:#f6f2ff;border-color:#ded0ff;}.club-tab svg{width:15px;height:15px;}.stats-grid{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:14px;margin-bottom:18px;}.stat-card{text-align:left;position:relative;display:block;padding:18px;border:1px solid #dfe5ef;border-radius:15px;background:white;box-shadow:0 2px 3px #182b4c05;color:var(--text);}.stat-arrow{position:absolute;right:18px;top:16px;color:#555;}.tile-icon{display:grid;place-items:center;width:36px;height:36px;border-radius:10px;background:#f5f0ff;color:var(--club);margin-bottom:14px;}.tile-icon svg{width:20px;height:20px;}.tile-icon.blue{background:#eff4ff;color:#3565ff;}.tile-icon.green{background:#edf9f4;color:#00a47f;}.tile-icon.orange{background:#fcf5ed;color:#df8b1b;}.stat-number{font-size:26px;line-height:1.2;font-weight:600;margin-bottom:6px;}.stat-label{font-size:13px;}.stat-foot{font-size:11px;color:#8998b1;margin-top:4px;}.overview-grid{display:grid;grid-template-columns:1fr 1fr;gap:18px;margin-bottom:18px;}.club-panel{border:1px solid #dfe5ef;border-radius:15px;padding:18px;background:white;min-width:0;}.panel-heading{display:flex;align-items:center;justify-content:space-between;gap:12px;margin-bottom:16px;}.panel-heading h2{font-size:15px;}.text-link{border:0;background:none;color:var(--club);font-size:12px;padding:4px;}.event-list{display:grid;gap:10px;}.club-event{display:flex;align-items:center;gap:12px;border:1px solid transparent;background:#f7f9fc;padding:11px 10px;border-radius:11px;width:100%;text-align:left;color:inherit;}.club-event:hover{border-color:#d9ccff;}.mini-icon{width:33px;height:33px;display:grid;place-items:center;flex-shrink:0;border-radius:8px;background:#f0eafd;color:var(--club);}.mini-icon svg{width:17px;height:17px;}.event-copy{flex:1;min-width:0;}.event-copy strong{display:block;font-size:13px;}.event-copy small{display:block;color:#8a9ab5;font-size:11px;margin-top:3px;}.event-state{background:#ecfff7;color:#009c78;padding:3px 7px;border-radius:12px;font-size:11px;white-space:nowrap;}.event-state.full{background:#fff4c5;color:#d89b00;}.transaction{display:flex;align-items:center;gap:12px;padding:10px 0;border-bottom:1px solid #f2f5f9;}.transaction:last-child{border-bottom:0;}.transaction-icon{width:30px;height:30px;display:grid;place-items:center;border-radius:8px;background:#effcf5;color:#009f78;flex-shrink:0;}.transaction-icon.out{color:#fa4b60;background:#fff0f3;}.transaction-copy{flex:1;}.transaction-copy strong{font-size:13px;font-weight:500;}.transaction-copy small{display:block;font-size:10px;color:#91a0b8;margin-top:2px;}.amount{font:12px Consolas,monospace;color:#00a680;white-space:nowrap;}.amount.out{color:#fb4256;}.recruitment-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:10px;}.job-card{padding:15px;border:1px solid #edf1f8;border-radius:11px;background:#f7f9fc;}.job-title{display:flex;align-items:center;gap:8px;font-size:13px;font-weight:650;}.job-star{color:var(--club);background:#f0eafd;border-radius:7px;padding:5px 7px;}.job-card p{font-size:12px;color:#7587a1;line-height:1.6;margin:7px 0;}.job-footer{display:flex;justify-content:space-between;align-items:center;font-size:11px;color:#8a9bb4;}.club-dialog{margin:auto;border:1px solid #dfe5ef;border-radius:16px;padding:24px;width:min(480px,calc(100% - 32px));max-height:90vh;overflow:auto;color:var(--text);background:white;}.club-dialog::backdrop{background:#19233d66;}.dialog-heading{display:flex;align-items:center;justify-content:space-between;margin-bottom:18px;gap:15px;}.dialog-heading h2{font-size:19px;}.dialog-close{border:0;background:#f3f5fa;border-radius:8px;width:32px;height:32px;color:#677a96;font-size:22px;}.club-form{display:grid;gap:14px;}.club-form label{display:grid;gap:6px;font-size:13px;color:#647791;}.club-form input,.club-form textarea{width:100%;padding:10px 12px;border:1px solid #dfe5ef;border-radius:8px;color:var(--text);font:inherit;background:white;}.club-form textarea{resize:vertical;min-height:90px;}.detail-copy{font-size:14px;color:#627590;line-height:1.9;white-space:pre-line;}.detail-action{margin-top:18px;}.member-grid{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:12px;}.member-card{padding:18px;background:#f7f9fc;border-radius:12px;font-size:14px;}.member-card small{display:block;color:#8291a8;margin-top:6px;}.club-empty{padding:28px;text-align:center;color:#7d8da5;font-size:14px;}.announcement{padding:16px;background:#f7f9fc;border-radius:10px;margin-bottom:12px;}.announcement h3{font-size:14px;}.announcement p{font-size:13px;line-height:1.8;color:#70819a;margin-top:7px;}
+@media(min-width:1200px){.overview-grid>.club-panel{min-height:325px;}.stat-card{min-height:158px;}}@media(max-width:850px){.stats-grid{grid-template-columns:repeat(2,minmax(0,1fr));}.overview-grid{grid-template-columns:1fr;}.recruitment-grid{grid-template-columns:1fr;}.member-grid{grid-template-columns:repeat(2,minmax(0,1fr));}.club-header{flex-wrap:wrap;}.club-header-actions{margin-left:52px;}}@media(max-width:480px){main.club-main{padding:14px;}.club-header{padding:16px 14px;}.club-tabs{padding:7px 14px;}.club-panel{padding:14px;}.stats-grid{gap:10px;}.stat-card{padding:14px;}.stat-number{font-size:24px;}.member-grid{grid-template-columns:1fr;}.transaction{gap:8px;}.transaction-copy strong{font-size:12px;}}
+</style>
+<style>
+.member-page{padding:22px 20px!important;}.membership-panel{background:white;border:1px solid #dfe5ef;border-radius:16px;padding:18px;margin-bottom:18px;}.membership-heading{display:flex;align-items:center;justify-content:space-between;gap:14px;margin-bottom:16px;}.membership-heading h2{display:flex;align-items:center;gap:9px;font-size:16px;}.pending-count{display:inline-grid;place-items:center;border-radius:50%;width:21px;height:21px;color:white;background:#de8200;font:600 12px 'Segoe UI',sans-serif;}.application-list{display:grid;gap:10px;}.application{display:flex;gap:14px;background:#f7f9fc;border:1px solid #edf1f8;padding:14px;border-radius:12px;min-height:138px;}.member-avatar{position:relative;width:36px;height:36px;flex-shrink:0;display:grid;place-items:center;border-radius:50%;background:#eae1ff;color:#8246ff;font-size:12px;font-weight:650;}.member-avatar.blue{background:#dfe8ff;color:#2a63ff;}.member-avatar.green{background:#dcefeb;color:#00a58b;}.member-avatar.orange{background:#f9ebd8;color:#df8900;}.member-avatar.cyan{background:#d9eef3;color:#049abd;}.member-avatar.pink{background:#f9e3ee;color:#f34297;}.member-avatar.peach{background:#fce7dc;color:#fc781d;}.member-avatar.indigo{background:#e8e5ff;color:#7166f8;}.online-dot{position:absolute;width:9px;height:9px;border:1px solid white;border-radius:50%;background:#04bd8b;bottom:0;right:0;}.application-body{flex:1;min-width:0;}.application-top{display:flex;justify-content:space-between;gap:12px;}.applicant-title{display:flex;gap:8px;align-items:center;flex-wrap:wrap;}.applicant-title h3{font-size:13px;line-height:1.6;}.applicant-role{padding:2px 7px;border-radius:3px;background:#eff5ff;color:#3568ff;font-size:11px;}.application-time{color:#96a2b9;white-space:nowrap;font-size:11px;}.applicant-meta{font:11px Consolas,monospace;color:#7a8da9;margin-top:4px;}.applicant-message{font-size:13px;color:#4c6788;line-height:1.8;margin:5px 0 10px;}.application-actions{display:flex;align-items:center;gap:8px;}.membership-button{display:inline-flex;align-items:center;justify-content:center;gap:5px;min-height:34px;padding:7px 12px;border-radius:7px;font-size:13px;border:1px solid #a9ebc7;color:#00a77d;background:#f0fcf5;}.membership-button:hover{filter:brightness(.97);}.membership-button.reject{border-color:#ffc5ce;color:#ff4659;background:#fff2f4;}.message-button{margin-left:auto;width:36px;height:34px;display:grid;place-items:center;border-radius:8px;border:1px solid #dfe5ef;background:#f8fafd;color:#70849e;}.message-button svg{width:15px;height:15px;}.review-result{font-size:13px;color:#009f7c;padding:7px 0;}.review-result.rejected{color:#7c899d;}.member-search{position:relative;width:180px;}.member-search input{width:100%;border:1px solid #dfe5ef;border-radius:7px;padding:9px 10px 9px 29px;font-size:12px;color:#5c7292;background:#f8fafd;}.member-search svg{position:absolute;width:13px;height:13px;left:10px;top:11px;color:#94a4be;}.current-list{display:grid;gap:7px;}.current-member{display:flex;align-items:center;gap:12px;background:#f7f9fc;border-radius:12px;padding:11px 12px;min-height:58px;}.current-member-info{flex:1;min-width:0;}.current-member-info h3{font-size:12px;font-weight:600;line-height:1.5;}.current-member-info p{color:#92a1ba;font:10px Consolas,monospace;margin-top:3px;line-height:1.6;}.member-role{font-size:11px;color:#6b7e96;background:#edf0f5;border-radius:20px;padding:4px 9px;margin-right:60px;white-space:nowrap;}.member-role.purple{color:#8246ff;background:#f0eaff;}.member-role.blue{color:#3268ff;background:#e9efff;}.member-role.green{color:#009f89;background:#e5f4f1;}.member-role.orange{color:#d88300;background:#f8f0e7;}.member-empty{text-align:center;padding:26px 12px;font-size:14px;color:#7a8ba6;}.draft-note{font-size:12px;color:#8796ae;line-height:1.7;}.membership-help{font-size:12px;color:#7485a0;line-height:1.8;}.membership-sticky{position:sticky;top:0;z-index:20;background:white;}
+@media(max-width:650px){.member-page{padding:16px 12px!important;}.membership-panel{padding:13px;}.application{gap:10px;padding:12px;}.application-top{flex-direction:column;gap:4px;}.membership-heading{flex-wrap:wrap;}.membership-heading h2{font-size:15px;}.member-role{margin-right:0;font-size:10px;}.current-member{gap:9px;}.current-member-info p{font-size:9px;}.membership-button{padding:7px 9px;font-size:12px;}.application-actions{gap:6px;}.member-search{width:100%;}.membership-sticky{position:static;}.applicant-message{font-size:12px;}}
+</style>
+<link rel="stylesheet" href="../Other/sidebar.css">
+<script src="../Other/language.js" defer></script>
+<script src="../Other/sidebar.js" defer></script>
+<link rel="stylesheet" href="/Other/theme.css?v=17"><script src="/Other/api.js?v=17"></script><script src="/Other/language.js?v=17" defer></script><script src="/Other/global-ui.js?v=17" defer></script><script src="/Other/notifications.js"></script></head>
+<body><div class="membership-sticky">
+
+  <!-- SIDEBAR BACKDROP -->
+  <div class="sidebar-backdrop" id="sidebar-backdrop" data-unilink-sidebar hidden></div>
+
+  <!-- SIDEBAR -->
+  <nav class="sidebar" id="sidebar" data-unilink-sidebar hidden>
+    <div class="sidebar-head">
+      <div class="sidebar-brand">
+        <div class="sidebar-logo">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2 2 7l10 5 10-5-10-5z"/><path d="M2 17l10 5 10-5"/><path d="M2 12l10 5 10-5"/></svg>
+        </div>
+        <div class="sidebar-brand-text">
+          <div class="sb-title">UNILINK</div>
+          <div class="sb-sub bn">বাংলাদেশ</div>
+        </div>
+      </div>
+      <button class="sidebar-close" id="sidebar-close" aria-label="Close menu">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
+      </button>
+    </div>
+
+    <div class="sidebar-lang">
+      <button class="active bn" id="lang-bn">বাংলা</button>
+      <button id="lang-en">English</button>
+    </div>
+
+    <div class="sidebar-nav">
+      <a class="sidebar-item bn" href="../Other/demo.html" data-label-bn="মূল ফিড" data-label-en="Main Feed"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="3" y1="6" x2="21" y2="6"/><line x1="3" y1="12" x2="21" y2="12"/><line x1="3" y1="18" x2="21" y2="18"/></svg><span data-nav-label>মূল ফিড</span></a>
+      <a class="sidebar-item bn" href="../Study Partner/study-partner-main-page.html" data-label-bn="স্টাডি পার্টনার" data-label-en="Study Partner"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="9" cy="8" r="3"/><path d="M2 20c0-3.5 3-6 7-6s7 2.5 7 6"/><circle cx="17" cy="9" r="2.5"/><path d="M15.5 14.2c2.7.3 4.5 2.4 4.5 5.3"/></svg><span data-nav-label>স্টাডি পার্টনার</span></a>
+      <a class="sidebar-item bn" href="club-portal.html" data-label-bn="ক্লাব পোর্টাল" data-label-en="Club Portal"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2 2 7l10 5 10-5-10-5z"/><path d="M2 17l10 5 10-5"/><path d="M2 12l10 5 10-5"/></svg><span data-nav-label>ক্লাব পোর্টাল</span></a>
+      <a class="sidebar-item bn" href="../Recruiter Search/Recruiter search.html" data-label-bn="রিক্রুটার সার্চ" data-label-en="Recruiter Search"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"/><path d="M2 12h20"/><path d="M12 2a15 15 0 0 1 0 20 15 15 0 0 1 0-20z"/></svg><span data-nav-label>রিক্রুটার সার্চ</span></a>
+      <a class="sidebar-item bn" href="../Live Bid/Live Bid.html" data-label-bn="লাইভ বিড" data-label-en="Live Bids"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"/></svg><span data-nav-label>লাইভ বিড</span><span class="sb-dot" aria-label="Live bids"></span></a>
+      <a class="sidebar-item bn" href="../Admin/Admin-portal.html" data-label-bn="অ্যাডমিন পোর্টাল" data-label-en="Admin Portal"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"/><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"/></svg><span data-nav-label>অ্যাডমিন পোর্টাল</span></a>
+      <a class="sidebar-item bn" href="../Other/Settings.html" data-label-bn="সেটিংস" data-label-en="Settings"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 1 1-2.83 2.83l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-4 0v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 1 1-2.83-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1 0-4h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 1 1 2.83-2.83l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 4 0v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 1 1 2.83 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 0 4h-.09a1.65 1.65 0 0 0-1.51 1z"/></svg><span data-nav-label>সেটিংস</span></a>
+    </div>
+
+    <a class="sidebar-home" href="../index.html#pages">← Home / সকল পৃষ্ঠা</a>
+    <div class="sidebar-upgrade">
+      <div class="sidebar-upgrade-head bn">
+        <svg viewBox="0 0 24 24" fill="currentColor"><polygon points="12 2 15 9 22 9.5 17 14.5 18.5 22 12 18 5.5 22 7 14.5 2 9.5 9 9 12 2"/></svg>
+        <span data-tier-label>ফ্রি টায়ার</span>
+      </div>
+      <p class="bn">ভেরিফাইড ব্যাজ, আনলিমিটেড বিড এবং প্রিমিয়াম ম্যাচিং পেতে আপগ্রেড করুন।</p>
+      <a href="../Other/Settings.html#billing" class="sidebar-upgrade-btn bn">প্রোফাইল আপগ্রেড করুন →</a>
+    </div>
+  </nav>
+
+  <!-- TOP BAR -->
+  <div class="topbar">
+    <button class="icon-btn" aria-label="Menu" id="menu-btn">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><line x1="3" y1="6" x2="21" y2="6"/><line x1="3" y1="12" x2="21" y2="12"/><line x1="3" y1="18" x2="21" y2="18"/></svg>
+    </button>
+
+    <div class="search-shell">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="7"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
+      <input type="text" class="bn" placeholder="শিক্ষার্থী, ক্লাব, দক্ষতা, কোম্পানি খুঁজুন...">
+    </div>
+
+    <div class="topbar-right">
+      <div class="role-pill bn" id="role-pill">
+        <span class="dot" id="role-dot"></span> <span id="role-label">শিক্ষার্থী</span>
+        <svg class="chev" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"/></svg>
+
+        <div class="dropdown-panel role-dropdown bn" id="role-dropdown">
+          <div class="role-option selected" data-role="শিক্ষার্থী" data-color="var(--blue)">
+            <span class="dot" style="background:var(--blue)"></span> শিক্ষার্থী
+            <svg class="check" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>
+          </div>
+          <div class="role-option" data-role="ক্লাব" data-color="var(--violet)">
+            <span class="dot" style="background:var(--violet)"></span> ক্লাব
+            <svg class="check" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>
+          </div>
+          <div class="role-option" data-role="রিক্রুটার" data-color="var(--green)">
+            <span class="dot" style="background:var(--green)"></span> রিক্রুটার
+            <svg class="check" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>
+          </div>
+          <div class="role-option" data-role="বিশ্ববিদ্যালয়" data-color="var(--orange)">
+            <span class="dot" style="background:var(--orange)"></span> বিশ্ববিদ্যালয়
+            <svg class="check" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>
+          </div>
+        </div>
+      </div>
+
+      <div class="verified-pill bn">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6L9 17l-5-5"/></svg>
+        <span class="long">@edu যাচাইকৃত</span>
+      </div>
+
+      <div class="bell-wrap">
+        <button class="icon-btn" aria-label="Notifications" id="bell-btn">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 8a6 6 0 0 0-12 0c0 7-3 9-3 9h18s-3-2-3-9"/><path d="M13.73 21a2 2 0 0 1-3.46 0"/></svg>
+        </button>
+        <span class="bell-dot" id="bell-dot"></span>
+
+        <div class="dropdown-panel notif-dropdown bn" id="notif-dropdown">
+          <div class="notif-head">
+            <h4>বিজ্ঞপ্তি</h4>
+            <span class="mark-read" id="mark-read-btn">সব পড়া হয়েছে</span>
+          </div>
+          <div class="notif-list">
+            <div class="notif-item">
+              <span class="dot" style="background:var(--blue)"></span>
+              <div class="notif-body">
+                <div class="notif-text">bKash আপনার বিডে সাড়া দিয়েছে — ৳১,৮৫,০০০</div>
+                <div class="notif-time">২ মিনিট আগে</div>
+              </div>
+            </div>
+            <div class="notif-item">
+              <span class="dot" style="background:var(--violet)"></span>
+              <div class="notif-body">
+                <div class="notif-text">Tariqul Islam আপনার স্টাডি রিকোয়েস্ট গ্রহণ করেছে</div>
+                <div class="notif-time">১৮ মিনিট আগে</div>
+              </div>
+            </div>
+            <div class="notif-item">
+              <span class="dot" style="background:var(--green)"></span>
+              <div class="notif-body">
+                <div class="notif-text">Python ব্যাজ SkillCheck™ দ্বারা যাচাই হয়েছে</div>
+                <div class="notif-time">১ ঘণ্টা আগে</div>
+              </div>
+            </div>
+            <div class="notif-item">
+              <span class="dot" style="background:var(--blue)"></span>
+              <div class="notif-body">
+                <div class="notif-text">টেক ক্যারিয়ার ফেয়ার ৩ দিন পরে শুরু হবে</div>
+                <div class="notif-time">৪ ঘণ্টা আগে</div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="user-block">
+        <div class="avatar">AJ</div>
+        <div>
+          <div class="user-name">Arif Jahan</div>
+          <div class="user-meta bn">CSE, ৩য় বর্ষ · BUET</div>
+        </div>
+      </div>
+
+      <button class="icon-btn" aria-label="Log out" id="logout-btn">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"/><polyline points="16 17 21 12 16 7"/><line x1="21" y1="12" x2="9" y2="12"/></svg>
+      </button>
+    </div>
+  </div>
+
+<div class="breadcrumb bn">UNILINK বাংলাদেশ / <span class="current">ক্লাব পোর্টাল</span></div>
+<header class="club-header"><div class="club-logo" id="club-logo" aria-hidden="true"></div><div class="club-identity"><h1 class="bn" id="club-name">BUET রোবোটিক্স ক্লাব</h1><div class="club-sub bn"><span class="approved">✓ বিশ্ববিদ্যালয় অনুমোদিত</span><span id="club-subtitle">প্রতিষ্ঠিত ২০১৮ · ৮৫ জন সদস্য</span></div></div><div class="club-header-actions"><span class="club-status bn">সক্রিয়</span><button class="club-button bn" id="edit-profile">♧ প্রোফাইল সম্পাদনা</button></div></header>
+<nav class="club-tabs" aria-label="ক্লাব বিভাগ" id="club-tabs"><a class="club-tab bn" href="club-portal.html">ওভারভিউ<small>Overview</small></a><a class="club-tab bn active" href="Club-member.html" aria-current="page">সদস্য<small>Members</small></a><a class="club-tab bn" href="Club-events.html">ইভেন্ট<small>Events</small></a><a class="club-tab bn" href="Club treasure.html">ট্রেজারি<small>Treasury</small></a><a class="club-tab bn" href="Club notice.html">ঘোষণাপত্র<small>Announcements</small></a></nav>
+</div>
+<main class="club-main member-page">
+  <section class="membership-panel" aria-labelledby="pending-title"><div class="membership-heading"><h2 class="bn" id="pending-title"><span class="pending-count" id="pending-count">3</span> মুলতুবি সদস্যপদ আবেদন</h2></div><div class="application-list" id="applications"></div><p class="member-empty bn" id="applications-empty" hidden>কোনো মুলতুবি আবেদন নেই।</p></section>
+  <section class="membership-panel" aria-labelledby="current-title"><div class="membership-heading"><h2 class="bn" id="current-title">বর্তমান সদস্য (<span id="member-count">8</span>)</h2><label class="member-search"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true"><circle cx="10" cy="10" r="6"/><path d="m15 15 5 5"/></svg><input class="bn" id="member-search" type="search" placeholder="সদস্য খুঁজুন..." aria-label="বর্তমান সদস্য খুঁজুন"></label></div><div class="current-list" id="current-members"></div><p class="member-empty bn" id="members-empty" hidden>কোনো সদস্য পাওয়া যায়নি।</p></section>
+</main>
+<dialog class="club-dialog" id="edit-dialog" aria-labelledby="edit-title"><div class="dialog-heading"><h2 class="bn" id="edit-title">ক্লাব প্রোফাইল সম্পাদনা</h2><button class="dialog-close" data-close aria-label="বন্ধ করুন">×</button></div><form class="club-form bn" id="edit-form"><label>ক্লাবের নাম<input id="edit-name" required maxlength="80"></label><label>প্রতিষ্ঠার বছর<input id="edit-year" type="number" min="1900" required></label><button class="club-button" type="submit">পরিবর্তন সংরক্ষণ</button></form></dialog>
+<dialog class="club-dialog" id="message-dialog" aria-labelledby="message-title"><div class="dialog-heading"><h2 class="bn" id="message-title">বার্তার খসড়া</h2><button class="dialog-close" data-close aria-label="বন্ধ করুন">×</button></div><form class="club-form bn" id="message-form"><p class="membership-help" id="message-recipient"></p><label>আপনার বার্তা<textarea id="message-text" required maxlength="1000" placeholder="আবেদন সম্পর্কে আপনার বার্তা লিখুন..."></textarea></label><p class="draft-note">খসড়া শুধু এই পেজে সংরক্ষিত থাকবে। কোনো বার্তা পাঠানো হবে না।</p><button class="club-button" type="submit">খসড়া সংরক্ষণ করুন</button></form></dialog>
+<div class="request-toast bn" id="member-toast" role="status" aria-live="polite"></div>
+<script>const symbols={overview:'<path d="M5 20v-7m7 7V4m7 16V9"/>',members:'<circle cx="9" cy="7" r="3"/><path d="M2 21v-3a4 4 0 0 1 4-4h6a4 4 0 0 1 4 4v3M16 4a3 3 0 0 1 0 6m3 4a4 4 0 0 1 3 4v3"/>',events:'<rect x="3" y="5" width="18" height="16" rx="2"/><path d="M3 10h18M7 2v6M17 2v6"/>',treasury:'<rect x="3" y="3" width="18" height="18" rx="2"/><path d="M3 8h18M3 13h18M3 18h18"/>',announce:'<path d="M18 8a6 6 0 0 0-12 0c0 7-3 7-3 9h18c0-2-3-2-3-9M10 21h4"/>',gift:'<rect x="3" y="8" width="18" height="13" rx="2"/><path d="M12 8v13M3 12h18M12 8H8a3 3 0 1 1 3-3Zm0 0h4a3 3 0 1 0-3-3Z"/>',logo:'<path d="m2 7 10-5 10 5-10 5Zm0 5 10 5 10-5M2 17l10 5 10-5"/>'};
+function icon(name){return '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">'+symbols[name]+'</svg>';}
+function esc(value){const el=document.createElement('span');el.textContent=String(value);return el.innerHTML;}
+const bn=value=>String(value).replace(/\d/g,d=>'০১২৩৪৫৬৭৮৯'[d]);
+// Front-end sample state. Approval, rejection and drafts reset on page reload.
+const club={name:'BUET রোবোটিক্স ক্লাব',year:2018,total:85};
+const applicants=[
+ {id:'nasim',name:'Nasim Uddin',initials:'NU',color:'blue',role:'General Member',department:'CSE',year:'২য় বর্ষ',time:'২ দিন আগে',message:'আমি রোবোটিক্স এবং এমবেডেড সিস্টেমে আগ্রহী।',status:'pending',draft:''},
+ {id:'riya',name:'Riya Begum',initials:'RB',color:'',role:'General Member',department:'EEE',year:'১ম বর্ষ',time:'৩ দিন আগে',message:'সার্কিট ডিজাইনে অভিজ্ঞতা আছে, ক্লাবে অবদান রাখতে চাই।',status:'pending',draft:''},
+ {id:'tanvir',name:'Tanvir Ahmed',initials:'TA',color:'green',role:'Event Coordinator',department:'ME',year:'৩য় বর্ষ',time:'৫ দিন আগে',message:'পূর্বে ২টি বড় ইভেন্ট পরিচালনা করেছি।',status:'pending',draft:''}
+];
+const members=[
+ {name:'Arif Jahan',initials:'AJ',color:'',department:'CSE',year:'৩য় বর্ষ',joined:'জানু ২০২৩',role:'President',roleColor:'purple',online:true},
+ {name:'Nusrat Jahan',initials:'NJ',color:'blue',department:'EEE',year:'৪র্থ বর্ষ',joined:'জানু ২০২৩',role:'Vice President',roleColor:'blue',online:true},
+ {name:'Mahfuz Rahman',initials:'MR',color:'green',department:'CSE',year:'৪র্থ বর্ষ',joined:'ফেব্রু ২০২৩',role:'Treasurer',roleColor:'green',online:true},
+ {name:'Sadia Akter',initials:'SA',color:'orange',department:'ME',year:'৩য় বর্ষ',joined:'মার্চ ২০২৩',role:'Secretary',roleColor:'orange',online:true},
+ {name:'Farhan Hossain',initials:'FH',color:'cyan',department:'CSE',year:'২য় বর্ষ',joined:'জুলাই ২০২৩',role:'General Member',roleColor:'',online:true},
+ {name:'Ayesha Siddiqua',initials:'AS',color:'pink',department:'BBA',year:'৩য় বর্ষ',joined:'সেপ্টে ২০২৩',role:'General Member',roleColor:'',online:false},
+ {name:'Rakib Islam',initials:'RI',color:'peach',department:'EEE',year:'২য় বর্ষ',joined:'জানু ২০২৪',role:'General Member',roleColor:'',online:true},
+ {name:'Tania Khanam',initials:'TK',color:'indigo',department:'CSE',year:'১ম বর্ষ',joined:'ফেব্রু ২০২৪',role:'General Member',roleColor:'',online:true}
+];
+const tabData=[['overview','ওভারভিউ','Overview'],['members','সদস্য','Members'],['events','ইভেন্ট','Events'],['treasury','ট্রেজারি','Treasury'],['announce','ঘোষণাপত্র','Announce']];
+document.getElementById('club-logo').innerHTML=icon('logo');
+const envelope='<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" aria-hidden="true"><rect x="3" y="5" width="18" height="14" rx="2"/><path d="m3 7 9 6 9-6"/></svg>';
+const globalSearch=document.querySelector('.search-shell input');globalSearch.placeholder='আবেদনকারী বা সদস্য খুঁজুন...';globalSearch.setAttribute('aria-label','আবেদনকারী ও সদস্য খুঁজুন');
+const memberSearch=document.getElementById('member-search');
+function updateHeader(){document.getElementById('club-name').textContent=club.name;document.getElementById('club-subtitle').textContent='প্রতিষ্ঠিত '+bn(club.year)+' · '+bn(club.total)+' জন সদস্য';}
+function renderApplications(){
+ const query=globalSearch.value.trim().toLowerCase();const pending=applicants.filter(a=>a.status==='pending');
+ const shown=pending.filter(a=>(a.name+' '+a.role+' '+a.department+' '+a.message).toLowerCase().includes(query));
+ document.getElementById('pending-count').textContent=pending.length;
+ document.getElementById('applications').innerHTML=shown.map(a=>`<article class="application" data-id="${a.id}"><div class="member-avatar ${a.color}" aria-hidden="true">${a.initials}</div><div class="application-body"><div class="application-top"><div class="applicant-title"><h3>${a.name}</h3><span class="applicant-role">${a.role}</span></div><span class="application-time bn">${a.time}</span></div><p class="applicant-meta">${a.department} · ${a.year}</p><p class="applicant-message bn">"${a.message}"</p><div class="application-actions"><button class="membership-button bn" data-action="approve" aria-label="${a.name}: অনুমোদন">✓ অনুমোদন</button><button class="membership-button reject bn" data-action="reject" aria-label="${a.name}: প্রত্যাখ্যান">× প্রত্যাখ্যান</button><button class="message-button" data-action="message" aria-label="${a.name}: বার্তার খসড়া">${envelope}</button></div></div></article>`).join('');
+ const empty=document.getElementById('applications-empty');empty.hidden=shown.length>0;empty.textContent=pending.length?'এই অনুসন্ধানে কোনো আবেদন পাওয়া যায়নি।':'সব সদস্যপদ আবেদন পর্যালোচনা করা হয়েছে।';
+}
+function renderMembers(){
+ const query=globalSearch.value.trim().toLowerCase();const local=memberSearch.value.trim().toLowerCase();const shown=members.filter(m=>{const text=(m.name+' '+m.role+' '+m.department).toLowerCase();return text.includes(query)&&text.includes(local);});
+ document.getElementById('member-count').textContent=members.length;
+ document.getElementById('current-members').innerHTML=shown.map(m=>`<article class="current-member"><div class="member-avatar ${m.color}" aria-label="${m.online?'সক্রিয়':'অফলাইন'}">${m.initials}${m.online?'<span class="online-dot"></span>':''}</div><div class="current-member-info"><h3>${m.name}</h3><p>${m.department} · ${m.year} · যোগদান ${m.joined}</p></div><span class="member-role ${m.roleColor}">${m.role}</span></article>`).join('');
+ document.getElementById('members-empty').hidden=shown.length>0;
+}
+function toast(message){const el=document.getElementById('member-toast');el.textContent=message;clearTimeout(toast.timer);toast.timer=setTimeout(()=>el.textContent='',4000);}
+let draftApplicant=null;
+document.getElementById('applications').addEventListener('click',event=>{
+ const button=event.target.closest('[data-action]');if(!button)return;const a=applicants.find(item=>item.id===button.closest('[data-id]').dataset.id);if(!a||a.status!=='pending')return;
+ if(button.dataset.action==='message'){draftApplicant=a;document.getElementById('message-recipient').textContent='প্রাপক: '+a.name;document.getElementById('message-text').value=a.draft;document.getElementById('message-dialog').showModal();return;}
+ const approved=button.dataset.action==='approve';a.status=approved?'approved':'rejected';
+ if(approved){members.push({name:a.name,initials:a.initials,color:a.color,department:a.department,year:a.year,joined:new Date().toLocaleDateString('bn-BD',{month:'short',year:'numeric'}),role:a.role,roleColor:'',online:false});club.total++;updateHeader();}
+ renderApplications();renderMembers();toast(a.name+(approved?' সদস্য হিসেবে অনুমোদিত হয়েছে।':'-এর আবেদন প্রত্যাখ্যান করা হয়েছে।'));
+ const next=document.querySelector('#applications [data-action="approve"]');if(next)next.focus();else{const heading=document.getElementById('pending-title');heading.tabIndex=-1;heading.focus();}
+});
+document.getElementById('message-form').addEventListener('submit',event=>{event.preventDefault();const input=document.getElementById('message-text');if(!input.value.trim()){input.setCustomValidity('বার্তা লিখুন।');input.reportValidity();return;}draftApplicant.draft=input.value.trim();document.getElementById('message-dialog').close();toast('বার্তার খসড়া সংরক্ষিত হয়েছে।');});
+document.getElementById('edit-profile').addEventListener('click',()=>{document.getElementById('edit-name').value=club.name;const year=document.getElementById('edit-year');year.max=new Date().getFullYear();year.value=club.year;document.getElementById('edit-dialog').showModal();});
+document.getElementById('edit-form').addEventListener('submit',event=>{event.preventDefault();const name=document.getElementById('edit-name');if(!name.value.trim()){name.setCustomValidity('ক্লাবের নাম লিখুন।');name.reportValidity();return;}club.name=name.value.trim();club.year=Number(document.getElementById('edit-year').value);updateHeader();document.getElementById('edit-dialog').close();toast('ক্লাব প্রোফাইল আপডেট হয়েছে।');});
+document.querySelectorAll('.club-form input,.club-form textarea').forEach(input=>input.addEventListener('input',()=>input.setCustomValidity('')));
+document.querySelectorAll('.club-dialog').forEach(dialog=>{dialog.querySelectorAll('[data-close]').forEach(btn=>btn.addEventListener('click',()=>dialog.close()));dialog.addEventListener('click',event=>{if(event.target===dialog){const r=dialog.getBoundingClientRect();if(event.clientX<r.left||event.clientX>r.right||event.clientY<r.top||event.clientY>r.bottom)dialog.close();}});});
+globalSearch.addEventListener('input',()=>{renderApplications();renderMembers();});memberSearch.addEventListener('input',renderMembers);
+updateHeader();renderApplications();renderMembers();
+  // ---- Sidebar drawer ----
+  const sidebar = document.getElementById('sidebar');
+  const sidebarBackdrop = document.getElementById('sidebar-backdrop');
+  const menuBtn = document.getElementById('menu-btn');
+  const sidebarClose = document.getElementById('sidebar-close');
+
+  function openSidebar(){
+    sidebar.classList.add('open');
+    sidebarBackdrop.classList.add('open');
+  }
+  function closeSidebar(){
+    sidebar.classList.remove('open');
+    sidebarBackdrop.classList.remove('open');
+  }
+  menuBtn.addEventListener('click', openSidebar);
+  sidebarClose.addEventListener('click', closeSidebar);
+  sidebarBackdrop.addEventListener('click', closeSidebar);
+
+  // Sidebar nav item selection (visual only)
+  document.querySelectorAll('.sidebar-item').forEach(function(item){
+    item.addEventListener('click', function(e){
+      e.preventDefault();
+      document.querySelectorAll('.sidebar-item').forEach(function(i){ i.classList.remove('active'); });
+      item.classList.add('active');
+    });
+  });
+
+  // Sidebar language toggle (visual only)
+  const langBn = document.getElementById('lang-bn');
+  const langEn = document.getElementById('lang-en');
+  langBn.addEventListener('click', function(){
+    langBn.classList.add('active');
+    langEn.classList.remove('active');
+  });
+  langEn.addEventListener('click', function(){
+    langEn.classList.add('active');
+    langBn.classList.remove('active');
+  });
+
+  // ---- Generic dropdown helper: closes others when one opens ----
+  const allDropdowns = ['role-dropdown', 'notif-dropdown'].map(function(id){
+    return document.getElementById(id);
+  });
+  function closeAllDropdowns(except){
+    allDropdowns.forEach(function(dd){
+      if(dd !== except) dd.classList.remove('open');
+    });
+  }
+
+  // ---- Role dropdown ----
+  const rolePill = document.getElementById('role-pill');
+  const roleDropdown = document.getElementById('role-dropdown');
+  const roleLabel = document.getElementById('role-label');
+  const roleDot = document.getElementById('role-dot');
+
+  rolePill.addEventListener('click', function(e){
+    e.stopPropagation();
+    const willOpen = !roleDropdown.classList.contains('open');
+    closeAllDropdowns();
+    if(willOpen) roleDropdown.classList.add('open');
+  });
+
+  document.querySelectorAll('.role-option').forEach(function(opt){
+    opt.addEventListener('click', function(e){
+      e.stopPropagation();
+      document.querySelectorAll('.role-option').forEach(function(o){ o.classList.remove('selected'); });
+      opt.classList.add('selected');
+      roleLabel.textContent = opt.getAttribute('data-role');
+      roleDot.style.background = opt.getAttribute('data-color');
+      roleDropdown.classList.remove('open');
+    });
+  });
+
+  // ---- Notification dropdown ----
+  const bellBtn = document.getElementById('bell-btn');
+  const notifDropdown = document.getElementById('notif-dropdown');
+  const bellDot = document.getElementById('bell-dot');
+
+  bellBtn.addEventListener('click', function(e){
+    e.stopPropagation();
+    const willOpen = !notifDropdown.classList.contains('open');
+    closeAllDropdowns();
+    if(willOpen) notifDropdown.classList.add('open');
+  });
+
+  document.getElementById('mark-read-btn').addEventListener('click', function(e){
+    e.stopPropagation();
+    bellDot.style.display = 'none';
+  });
+
+  // Close dropdowns when clicking anywhere else
+  document.addEventListener('click', function(){
+    closeAllDropdowns();
+  });
+
+  // ---- Logout (demo) ----
+  document.getElementById('logout-btn').addEventListener('click', function(){
+    if(confirm('আপনি কি লগ আউট করতে চান?')){
+      window.location.href = '../Other/login.html';
+    }
+  });
+</script>
+
+  <script>
+    document.addEventListener('keydown',function(event){if(event.key==='Escape'){closeSidebar();closeAllDropdowns();}});
+    const sidebarDestinations=['../Other/demo.html','../Study Partner/study-partner-main-page.html','club-portal.html'];
+    document.querySelectorAll('.sidebar-item').forEach(function(item,index){
+      if(sidebarDestinations[index]){item.href=sidebarDestinations[index];item.addEventListener('click',function(){window.location.href=item.href;});}
+    });
+  </script>
+<script>document.querySelectorAll('.sidebar-item')[2].classList.add('active');</script>
+
+</body>
+</html>
+
+
+
+
+
+
+

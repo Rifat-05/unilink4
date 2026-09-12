@@ -1,0 +1,1705 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>স্টাডি পার্টনার — UNILINK Bangladesh</title>
+<style>
+  :root{
+    --bg: #f6f7fb;
+    --panel: #ffffff;
+    --border: #e6e8f0;
+    --text: #14161f;
+    --muted: #6b7189;
+    --muted-dim: #9195a8;
+    --blue: #4f6bef;
+    --blue-dark: #3b52c9;
+    --violet: #7c5cf0;
+    --green: #16a67a;
+    --orange: #e8862c;
+    --pink: #d84fb0;
+    --red: #e5484d;
+    --shadow: 0 1px 2px rgba(20,22,31,0.04);
+  }
+
+  *{box-sizing:border-box; margin:0; padding:0;}
+
+  body{
+    background:var(--bg);
+    color:var(--text);
+    font-family:"Inter", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+    min-height:100vh;
+  }
+
+  .bn{ font-family:"Noto Sans Bengali", "Hind Siliguri", sans-serif; }
+
+  a{ color:inherit; text-decoration:none; }
+  button{ font-family:inherit; cursor:pointer; }
+
+  /* ===== TOP BAR ===== */
+  .topbar{
+    background:var(--panel);
+    border-bottom:1px solid var(--border);
+    padding:14px 24px;
+    display:flex;
+    align-items:center;
+    gap:20px;
+  }
+  .icon-btn{
+    width:38px; height:38px;
+    border-radius:9px;
+    border:1px solid var(--border);
+    background:var(--panel);
+    display:flex; align-items:center; justify-content:center;
+    color:var(--muted);
+    flex-shrink:0;
+    position:relative;
+    transition: background .15s ease, border-color .15s ease;
+  }
+  .icon-btn:hover{ background:#f1f2f7; }
+  .icon-btn svg{ width:18px; height:18px; }
+
+  .search-shell{
+    flex:1;
+    max-width:460px;
+    position:relative;
+  }
+  .search-shell svg{
+    position:absolute; left:14px; top:50%; transform:translateY(-50%);
+    width:16px; height:16px; color:var(--muted-dim);
+  }
+  .search-shell input{
+    width:100%;
+    padding:10px 14px 10px 40px;
+    border-radius:9px;
+    border:1px solid var(--border);
+    background:#f6f7fb;
+    font-size:0.9rem;
+    color:var(--text);
+    outline:none;
+    transition:border-color .15s ease, background .15s ease;
+  }
+  .search-shell input::placeholder{ color:var(--muted-dim); }
+  .search-shell input:focus{ border-color:var(--blue); background:#fff; }
+
+  .topbar-right{
+    display:flex;
+    align-items:center;
+    gap:14px;
+    margin-left:auto;
+  }
+
+  .role-pill{
+    display:flex;
+    align-items:center;
+    gap:8px;
+    padding:8px 14px;
+    border-radius:9px;
+    border:1px solid var(--border);
+    background:var(--panel);
+    font-size:0.85rem;
+    color:var(--text);
+    font-weight:600;
+  }
+  .role-pill .dot{
+    width:7px; height:7px; border-radius:50%;
+    background:var(--blue);
+  }
+  .role-pill svg.chev{ width:13px; height:13px; color:var(--muted-dim); }
+
+  .verified-pill{
+    display:flex;
+    align-items:center;
+    gap:6px;
+    padding:8px 14px;
+    border-radius:999px;
+    background: rgba(22,166,122,0.1);
+    color:var(--green);
+    font-size:0.82rem;
+    font-weight:700;
+    white-space:nowrap;
+  }
+  .verified-pill svg{ width:14px; height:14px; }
+
+  .bell-wrap{ position:relative; }
+  .bell-dot{
+    position:absolute;
+    top:8px; right:8px;
+    width:7px; height:7px;
+    border-radius:50%;
+    background:var(--red);
+    border:1.5px solid var(--panel);
+  }
+
+  .user-block{
+    display:flex;
+    align-items:center;
+    gap:10px;
+    padding-left:6px;
+  }
+  .avatar{
+    width:36px; height:36px;
+    border-radius:50%;
+    background:linear-gradient(135deg,var(--blue),var(--violet));
+    display:flex; align-items:center; justify-content:center;
+    font-size:0.78rem; font-weight:700; color:#fff;
+    flex-shrink:0;
+  }
+  .user-name{ font-size:0.88rem; font-weight:700; line-height:1.2; }
+  .user-meta{ font-size:0.75rem; color:var(--muted-dim); }
+
+  /* ===== BREADCRUMB ===== */
+  .breadcrumb{
+    background:var(--panel);
+    border-bottom:1px solid var(--border);
+    padding:10px 24px;
+    font-size:0.82rem;
+    color:var(--muted-dim);
+  }
+  .breadcrumb .current{ color:var(--blue); font-weight:600; }
+
+  /* ===== SUB NAV ===== */
+  .subnav{
+    background:var(--panel);
+    border-bottom:1px solid var(--border);
+    padding:0 24px;
+    display:flex;
+    align-items:center;
+    gap:6px;
+  }
+  .subnav-tab{
+    display:flex; align-items:center; gap:8px;
+    padding:16px 14px;
+    font-size:0.88rem;
+    color:var(--muted);
+    border-bottom:2px solid transparent;
+    font-weight:600;
+    white-space:nowrap;
+  }
+  .subnav-tab svg{ width:16px; height:16px; }
+  .subnav-tab:hover{ color:var(--text); }
+  .subnav-tab.active{
+    color:var(--blue);
+    border-bottom-color:var(--blue);
+  }
+  .tab-badge{
+    display:inline-flex;
+    align-items:center; justify-content:center;
+    min-width:18px; height:18px;
+    padding:0 5px;
+    border-radius:999px;
+    background:var(--red);
+    color:#fff;
+    font-size:0.68rem;
+    font-weight:800;
+    margin-left:2px;
+  }
+  .subnav-right{
+    margin-left:auto;
+    display:flex;
+    align-items:center;
+    gap:16px;
+  }
+  .toggle-row{
+    display:flex; align-items:center; gap:10px;
+    font-size:0.85rem;
+    color:var(--muted);
+    font-weight:600;
+  }
+  .switch{
+    position:relative;
+    width:40px; height:22px;
+    border-radius:999px;
+    background:var(--border);
+    cursor:pointer;
+    transition: background .2s ease;
+    flex-shrink:0;
+  }
+  .switch.on{ background:var(--blue); }
+  .switch::after{
+    content:"";
+    position:absolute;
+    top:2px; left:2px;
+    width:18px; height:18px;
+    border-radius:50%;
+    background:#fff;
+    box-shadow:0 1px 3px rgba(0,0,0,0.25);
+    transition: transform .2s ease;
+  }
+  .switch.on::after{ transform:translateX(18px); }
+
+  .boost-badge{
+    display:flex; align-items:center; gap:6px;
+    padding:8px 14px;
+    border-radius:999px;
+    background: rgba(232,134,44,0.12);
+    color:var(--orange);
+    font-size:0.8rem;
+    font-weight:700;
+  }
+  .boost-badge svg{ width:14px; height:14px; }
+
+  /* ===== MAIN ===== */
+  main{
+    max-width:1000px;
+    margin:0 auto;
+    padding:36px 24px 80px;
+  }
+  .main-head{
+    display:flex;
+    align-items:flex-start;
+    justify-content:space-between;
+    margin-bottom:24px;
+    gap:16px;
+    flex-wrap:wrap;
+  }
+  .main-title{ font-size:1.5rem; font-weight:800; }
+  .main-sub{ margin-top:4px; font-size:0.9rem; color:var(--muted); }
+
+  .btn-new{
+    display:flex; align-items:center; gap:8px;
+    padding:11px 18px;
+    border-radius:9px;
+    background:var(--blue);
+    color:#fff;
+    font-size:0.88rem;
+    font-weight:700;
+    border:none;
+    box-shadow:0 6px 16px rgba(79,107,239,0.28);
+    transition: background .15s ease, transform .15s ease;
+    white-space:nowrap;
+  }
+  .btn-new svg{ width:15px; height:15px; }
+  .btn-new:hover{ background:var(--blue-dark); }
+  .btn-new:active{ transform:translateY(1px); }
+
+  /* Feed cards */
+  .feed{ display:flex; flex-direction:column; gap:16px; }
+  .card{
+    background:var(--panel);
+    border:1px solid var(--border);
+    border-radius:14px;
+    padding:22px 24px;
+    box-shadow:var(--shadow);
+    transition: box-shadow .15s ease, transform .15s ease, opacity .2s ease;
+  }
+  .card:hover{ box-shadow:0 6px 18px rgba(20,22,31,0.07); }
+  .card.new-post{
+    animation: pop-in .35s ease;
+  }
+  @keyframes pop-in{
+    from{ opacity:0; transform:translateY(-8px); }
+    to{ opacity:1; transform:translateY(0); }
+  }
+  .card-top{
+    display:flex;
+    align-items:flex-start;
+    gap:14px;
+  }
+  .card-icon{
+    width:38px; height:38px;
+    border-radius:10px;
+    display:flex; align-items:center; justify-content:center;
+    flex-shrink:0;
+  }
+  .card-icon svg{ width:18px; height:18px; }
+  .ci-blue{ background:rgba(79,107,239,0.1); color:var(--blue); }
+  .ci-green{ background:rgba(22,166,122,0.1); color:var(--green); }
+  .ci-violet{ background:rgba(124,92,240,0.1); color:var(--violet); }
+  .ci-orange{ background:rgba(232,134,44,0.1); color:var(--orange); }
+
+  .card-body{ flex:1; min-width:0; }
+  .card-title-row{
+    display:flex;
+    align-items:flex-start;
+    justify-content:space-between;
+    gap:12px;
+  }
+  .card-title{ font-size:1rem; font-weight:700; }
+  .card-tag{
+    flex-shrink:0;
+    font-size:0.76rem;
+    font-weight:700;
+    padding:5px 12px;
+    border-radius:999px;
+    white-space:nowrap;
+  }
+  .tag-event{ background:rgba(79,107,239,0.1); color:var(--blue); }
+  .tag-job{ background:rgba(22,166,122,0.1); color:var(--green); }
+  .tag-scholarship{ background:rgba(124,92,240,0.1); color:var(--violet); }
+  .tag-academic{ background:rgba(232,134,44,0.1); color:var(--orange); }
+
+  .card-desc{
+    margin-top:8px;
+    font-size:0.92rem;
+    color:#3a3d4d;
+    line-height:1.6;
+  }
+  .card-time{
+    margin-top:12px;
+    font-size:0.78rem;
+    color:var(--muted-dim);
+  }
+  .card-actions{
+    display:flex;
+    align-items:center;
+    gap:22px;
+    margin-top:14px;
+  }
+  .action{
+    display:flex; align-items:center; gap:6px;
+    font-size:0.84rem;
+    color:var(--muted);
+    background:none;
+    border:none;
+    padding:4px 2px;
+    transition: color .15s ease;
+  }
+  .action svg{ width:16px; height:16px; }
+  .action:hover{ color:var(--text); }
+  .action.liked{ color:var(--red); font-weight:700; }
+  .action.liked svg{ fill:var(--red); stroke:var(--red); }
+
+  /* Modal for new post (demo only) */
+  .modal-overlay{
+    position:fixed; inset:0;
+    background:rgba(20,22,31,0.45);
+    display:none;
+    align-items:center;
+    justify-content:center;
+    z-index:100;
+    padding:20px;
+  }
+  .modal-overlay.show{ display:flex; }
+  .modal{
+    background:var(--panel);
+    border-radius:16px;
+    padding:28px;
+    width:100%;
+    max-width:460px;
+    box-shadow:0 20px 50px rgba(0,0,0,0.25);
+  }
+  .modal h3{ font-size:1.15rem; font-weight:800; margin-bottom:18px; }
+  .modal label{
+    display:block;
+    font-size:0.8rem;
+    font-weight:600;
+    color:var(--muted);
+    margin-bottom:6px;
+    margin-top:14px;
+  }
+  .modal input, .modal textarea, .modal select{
+    width:100%;
+    padding:11px 14px;
+    border-radius:8px;
+    border:1px solid var(--border);
+    font-size:0.9rem;
+    font-family:inherit;
+    outline:none;
+    color:var(--text);
+  }
+  .modal input:focus, .modal textarea:focus, .modal select:focus{ border-color:var(--blue); }
+  .modal textarea{ resize:vertical; min-height:70px; }
+  .modal-actions{
+    display:flex; gap:10px;
+    margin-top:22px;
+  }
+  .modal-actions button{
+    flex:1;
+    padding:11px;
+    border-radius:9px;
+    font-weight:700;
+    font-size:0.88rem;
+    border:none;
+  }
+  .btn-cancel{ background:#f1f2f7; color:var(--text); }
+  .btn-cancel:hover{ background:#e6e8f0; }
+  .btn-submit{ background:var(--blue); color:#fff; }
+  .btn-submit:hover{ background:var(--blue-dark); }
+
+  /* ===== STUDY PARTNER — DISCOVER PAGE ===== */
+  .sp-head{
+    display:flex;
+    align-items:flex-start;
+    justify-content:space-between;
+    margin-bottom:24px;
+    gap:16px;
+    flex-wrap:wrap;
+  }
+  .sp-head-actions{ display:flex; align-items:center; gap:10px; flex-shrink:0; }
+
+  .btn-matchcard{
+    display:flex; align-items:center; gap:8px;
+    padding:11px 18px;
+    border-radius:9px;
+    background:var(--pink);
+    color:#fff;
+    font-size:0.88rem;
+    font-weight:700;
+    border:none;
+    box-shadow:0 6px 16px rgba(216,79,176,0.28);
+    transition: background .15s ease, transform .15s ease;
+    white-space:nowrap;
+  }
+  .btn-matchcard svg{ width:15px; height:15px; }
+  .btn-matchcard:hover{ background:#c33f9d; }
+  .btn-matchcard:active{ transform:translateY(1px); }
+
+  .btn-browse{
+    display:flex; align-items:center; gap:8px;
+    padding:11px 18px;
+    border-radius:9px;
+    background:var(--panel);
+    border:1px solid var(--border);
+    color:var(--text);
+    font-size:0.88rem;
+    font-weight:700;
+    white-space:nowrap;
+    transition: background .15s ease;
+  }
+  .btn-browse svg{ width:15px; height:15px; color:var(--muted); }
+  .btn-browse:hover{ background:#f1f2f7; }
+
+  .sp-grid{
+    display:grid;
+    grid-template-columns:1fr 300px;
+    gap:20px;
+    align-items:start;
+  }
+
+  /* ---- Match card (swipe stack) ---- */
+  .match-stack{ position:relative; }
+  .match-card{
+    background:var(--panel);
+    border:1px solid var(--border);
+    border-radius:16px;
+    box-shadow:var(--shadow);
+    overflow:hidden;
+    animation: card-in .25s ease;
+  }
+  @keyframes card-in{
+    from{ opacity:0; transform:translateY(10px) scale(0.98); }
+    to{ opacity:1; transform:translateY(0) scale(1); }
+  }
+  .match-card-accent{
+    height:6px;
+    background:linear-gradient(90deg, var(--pink), var(--orange));
+  }
+  .match-card-body{ padding:26px 28px 24px; }
+
+  .match-top-row{
+    display:flex;
+    align-items:flex-start;
+    justify-content:space-between;
+    gap:14px;
+  }
+  .match-who{ display:flex; align-items:center; gap:14px; min-width:0; }
+  .match-avatar{
+    width:56px; height:56px;
+    border-radius:14px;
+    background:linear-gradient(135deg, var(--pink), #f07ad1);
+    display:flex; align-items:center; justify-content:center;
+    font-size:1.05rem; font-weight:700; color:#fff;
+    flex-shrink:0;
+  }
+  .match-name{ font-size:1.15rem; font-weight:800; line-height:1.25; }
+  .match-meta{ margin-top:2px; font-size:0.85rem; color:var(--muted); }
+  .match-badges{ display:flex; align-items:center; gap:8px; margin-top:9px; flex-wrap:wrap; }
+  .badge-neutral{
+    font-size:0.76rem; font-weight:700;
+    padding:4px 11px;
+    border-radius:999px;
+    background:#f1f2f7;
+    color:var(--muted);
+  }
+  .badge-green{
+    font-size:0.76rem; font-weight:700;
+    padding:4px 11px;
+    border-radius:999px;
+    background:rgba(22,166,122,0.1);
+    color:var(--green);
+  }
+
+  .match-score{ text-align:right; flex-shrink:0; }
+  .match-score .num{ font-size:1.9rem; font-weight:800; color:var(--orange); line-height:1; }
+  .match-score .lbl{
+    margin-top:4px;
+    font-size:0.72rem;
+    font-weight:700;
+    color:var(--muted-dim);
+  }
+
+  .match-highlight{
+    margin-top:18px;
+    display:flex; align-items:center; gap:8px;
+    padding:10px 14px;
+    border-radius:9px;
+    background:rgba(216,79,176,0.08);
+    color:var(--pink);
+    font-size:0.85rem;
+    font-weight:700;
+  }
+  .match-highlight svg{ width:15px; height:15px; flex-shrink:0; }
+
+  .match-progress{
+    margin-top:14px;
+    height:6px;
+    border-radius:999px;
+    background:var(--border);
+    overflow:hidden;
+  }
+  .match-progress-fill{
+    height:100%;
+    border-radius:999px;
+    background:linear-gradient(90deg, var(--orange), #f0a94c);
+    transition: width .3s ease;
+  }
+
+  .match-desc{
+    margin-top:18px;
+    font-size:0.92rem;
+    color:#3a3d4d;
+    line-height:1.6;
+  }
+
+  .match-tags{ display:flex; flex-wrap:wrap; gap:8px; margin-top:14px; }
+  .skill-pill{
+    font-size:0.8rem; font-weight:600;
+    padding:6px 13px;
+    border-radius:999px;
+    background:#f1f2f7;
+    color:var(--text);
+  }
+
+  .match-section-label{
+    margin-top:20px;
+    font-size:0.72rem;
+    font-weight:700;
+    letter-spacing:0.02em;
+    color:var(--muted-dim);
+  }
+  .course-tags{ display:flex; flex-wrap:wrap; gap:8px; margin-top:9px; }
+  .course-pill{
+    font-size:0.8rem; font-weight:700;
+    padding:6px 13px;
+    border-radius:999px;
+    background:rgba(216,79,176,0.1);
+    color:var(--pink);
+  }
+
+  .match-avail{
+    margin-top:20px;
+    display:flex;
+    align-items:flex-end;
+    justify-content:space-between;
+    gap:16px;
+    flex-wrap:wrap;
+  }
+  .avail-col .avail-label{
+    font-size:0.72rem; font-weight:700; color:var(--muted-dim);
+  }
+  .avail-days{ display:flex; gap:7px; margin-top:8px; }
+  .day-pill{
+    font-size:0.78rem; font-weight:700;
+    padding:5px 11px;
+    border-radius:7px;
+    background:rgba(22,166,122,0.1);
+    color:var(--green);
+  }
+  .avail-time{ margin-top:8px; font-size:0.85rem; font-weight:700; }
+  .avail-sessions{ text-align:right; }
+  .avail-sessions .num-row{
+    display:flex; align-items:center; gap:6px; justify-content:flex-end;
+    font-size:1rem; font-weight:800;
+  }
+  .avail-sessions .num-row svg{ width:15px; height:15px; color:var(--green); }
+
+  .match-actions{
+    display:flex; gap:10px;
+    margin-top:22px;
+  }
+  .match-actions button{
+    flex:1;
+    display:flex; align-items:center; justify-content:center; gap:7px;
+    padding:13px;
+    border-radius:10px;
+    font-weight:700;
+    font-size:0.88rem;
+    border:none;
+    transition: background .15s ease, transform .15s ease, opacity .15s ease;
+  }
+  .match-actions button svg{ width:15px; height:15px; }
+  .match-actions button:active{ transform:translateY(1px); }
+  .btn-skip{ background:rgba(229,72,77,0.08); color:var(--red); }
+  .btn-skip:hover{ background:rgba(229,72,77,0.14); }
+  .btn-msg{ background:#f1f2f7; color:var(--text); }
+  .btn-msg:hover{ background:#e6e8f0; }
+  .btn-connect{
+    background:linear-gradient(90deg, var(--violet), var(--pink));
+    color:#fff;
+    flex:1.3;
+  }
+  .btn-connect:hover{ opacity:0.92; }
+  .btn-connect:disabled, .match-actions button:disabled{
+    opacity:0.5; cursor:default; pointer-events:none;
+  }
+
+  .match-dots{
+    display:flex; justify-content:center; gap:6px;
+    margin-top:18px;
+  }
+  .match-dots .dot{
+    width:6px; height:6px;
+    border-radius:50%;
+    background:var(--border);
+    transition: background .15s ease, width .15s ease;
+  }
+  .match-dots .dot.active{ width:16px; border-radius:4px; background:var(--blue); }
+
+  /* ---- Sidebar column (queue + prefs) ---- */
+  .sp-side{ display:flex; flex-direction:column; gap:22px; }
+  .sp-side-label{
+    font-size:0.72rem;
+    font-weight:700;
+    letter-spacing:0.02em;
+    color:var(--muted-dim);
+    margin-bottom:10px;
+  }
+  .queue-card{
+    background:var(--panel);
+    border:1px solid var(--border);
+    border-radius:12px;
+    padding:14px 16px;
+    display:flex;
+    align-items:center;
+    gap:12px;
+    box-shadow:var(--shadow);
+    cursor:pointer;
+    transition: box-shadow .15s ease;
+  }
+  .queue-card:hover{ box-shadow:0 6px 18px rgba(20,22,31,0.07); }
+  .queue-avatar{
+    width:40px; height:40px;
+    border-radius:11px;
+    background:linear-gradient(135deg, var(--orange), #f0ac5c);
+    display:flex; align-items:center; justify-content:center;
+    font-size:0.8rem; font-weight:700; color:#fff;
+    flex-shrink:0;
+  }
+  .queue-info{ flex:1; min-width:0; }
+  .queue-name{ font-size:0.9rem; font-weight:700; }
+  .queue-meta{ font-size:0.76rem; color:var(--muted-dim); margin-top:1px; }
+  .queue-score{ font-size:0.98rem; font-weight:800; color:var(--blue); flex-shrink:0; }
+
+  .prefs-card{
+    background:var(--panel);
+    border:1px solid var(--border);
+    border-radius:12px;
+    padding:16px 18px;
+    box-shadow:var(--shadow);
+  }
+  .prefs-row{
+    display:flex; align-items:center; justify-content:space-between;
+    padding:9px 0;
+    border-bottom:1px solid var(--border);
+    font-size:0.85rem;
+  }
+  .prefs-row:first-child{ padding-top:0; }
+  .prefs-row:last-of-type{ border-bottom:none; }
+  .prefs-row .k{ color:var(--muted); }
+  .prefs-row .v{ font-weight:700; color:var(--text); }
+  .btn-prefs{
+    width:100%;
+    margin-top:14px;
+    padding:11px;
+    border-radius:9px;
+    border:none;
+    background:var(--blue);
+    color:#fff;
+    font-weight:700;
+    font-size:0.86rem;
+    transition: background .15s ease;
+  }
+  .btn-prefs:hover{ background:var(--blue-dark); }
+
+  .sp-toast{
+    position:fixed;
+    bottom:26px; left:50%;
+    transform:translateX(-50%) translateY(20px);
+    background:#14161f;
+    color:#fff;
+    padding:12px 20px;
+    border-radius:10px;
+    font-size:0.85rem;
+    font-weight:600;
+    opacity:0;
+    pointer-events:none;
+    transition: opacity .2s ease, transform .2s ease;
+    z-index:500;
+    white-space:nowrap;
+  }
+  .sp-toast.show{ opacity:1; transform:translateX(-50%) translateY(0); }
+
+  .match-empty{
+    background:var(--panel);
+    border:1px solid var(--border);
+    border-radius:16px;
+    padding:60px 24px;
+    text-align:center;
+    box-shadow:var(--shadow);
+  }
+  .match-empty svg{ width:40px; height:40px; color:var(--muted-dim); margin-bottom:14px; }
+  .match-empty h3{ font-size:1.05rem; font-weight:800; margin-bottom:6px; }
+  .match-empty p{ font-size:0.88rem; color:var(--muted); }
+
+  @media (max-width: 860px){
+    .sp-grid{ grid-template-columns:1fr; }
+  }
+
+  /* ===== SIDEBAR (off-canvas drawer) ===== */
+  .sidebar-backdrop{
+    position:fixed; inset:0;
+    background:rgba(20,22,31,0.55);
+    backdrop-filter: blur(1px);
+    z-index:300;
+    opacity:0;
+    pointer-events:none;
+    transition: opacity .2s ease;
+  }
+  .sidebar-backdrop.open{ opacity:1; pointer-events:auto; }
+
+  .sidebar{
+    position:fixed; top:0; left:0; bottom:0;
+    width:240px;
+    background:#12142099;
+    background:#12141f;
+    z-index:301;
+    display:flex;
+    flex-direction:column;
+    transform:translateX(-100%);
+    transition: transform .25s ease;
+    box-shadow:2px 0 24px rgba(0,0,0,0.3);
+  }
+  .sidebar.open{ transform:translateX(0); }
+
+  .sidebar-head{
+    display:flex; align-items:center; justify-content:space-between;
+    padding:18px 18px 16px;
+    border-bottom:1px solid rgba(255,255,255,0.08);
+  }
+  .sidebar-brand{ display:flex; align-items:center; gap:10px; }
+  .sidebar-logo{
+    width:34px; height:34px; border-radius:9px;
+    background:linear-gradient(135deg,var(--blue),var(--violet));
+    display:flex; align-items:center; justify-content:center;
+    flex-shrink:0;
+  }
+  .sidebar-logo svg{ width:18px; height:18px; color:#fff; }
+  .sidebar-brand-text .sb-title{ font-size:0.95rem; font-weight:800; color:#fff; letter-spacing:0.3px; }
+  .sidebar-brand-text .sb-sub{ font-size:0.72rem; color:#8b8fa3; margin-top:1px; }
+  .sidebar-close{
+    width:28px; height:28px; border-radius:7px;
+    border:none; background:transparent; color:#8b8fa3;
+    display:flex; align-items:center; justify-content:center;
+  }
+  .sidebar-close:hover{ background:rgba(255,255,255,0.08); color:#fff; }
+  .sidebar-close svg{ width:16px; height:16px; }
+
+  .sidebar-lang{
+    display:flex; margin:16px 18px 8px;
+    background:rgba(255,255,255,0.06);
+    border-radius:9px;
+    padding:3px;
+  }
+  .sidebar-lang button{
+    flex:1;
+    padding:8px 0;
+    border:none;
+    border-radius:7px;
+    font-size:0.82rem;
+    font-weight:700;
+    background:transparent;
+    color:#9195a8;
+  }
+  .sidebar-lang button.active{
+    background:linear-gradient(90deg,var(--blue),var(--violet));
+    color:#fff;
+  }
+
+  .sidebar-nav{
+    display:flex; flex-direction:column;
+    gap:2px;
+    padding:10px 12px;
+    flex:1;
+    overflow-y:auto;
+  }
+  .sidebar-item{
+    display:flex; align-items:center; gap:12px;
+    padding:11px 12px;
+    border-radius:9px;
+    color:#c3c6d4;
+    font-size:0.88rem;
+    font-weight:600;
+    position:relative;
+  }
+  .sidebar-item svg{ width:17px; height:17px; flex-shrink:0; }
+  .sidebar-item:hover{ background:rgba(255,255,255,0.06); color:#fff; }
+  .sidebar-item.active{
+    background:var(--blue);
+    color:#fff;
+  }
+  .sidebar-item .sb-dot{
+    width:7px; height:7px; border-radius:50%;
+    background:var(--red);
+    margin-left:auto;
+  }
+
+  .sidebar-upgrade{
+    margin:12px;
+    padding:16px;
+    border-radius:12px;
+    background:rgba(255,255,255,0.06);
+  }
+  .sidebar-upgrade-head{
+    display:flex; align-items:center; gap:8px;
+    color:#f0b73b;
+    font-size:0.85rem;
+    font-weight:800;
+    margin-bottom:8px;
+  }
+  .sidebar-upgrade-head svg{ width:15px; height:15px; }
+  .sidebar-upgrade p{
+    font-size:0.78rem;
+    line-height:1.5;
+    color:#9195a8;
+    margin-bottom:12px;
+  }
+  .sidebar-upgrade-btn{
+    display:block; width:100%;
+    padding:10px;
+    border:none; border-radius:8px;
+    background:linear-gradient(90deg,var(--blue),var(--violet));
+    color:#fff;
+    font-size:0.82rem;
+    font-weight:700;
+    text-align:center;
+  }
+  .sidebar-upgrade-btn:hover{ filter:brightness(1.08); }
+
+  /* ===== DROPDOWNS (notification + role) ===== */
+  .dropdown-panel{
+    position:absolute;
+    top:calc(100% + 10px);
+    background:var(--panel);
+    border:1px solid var(--border);
+    border-radius:12px;
+    box-shadow:0 14px 36px rgba(20,22,31,0.16);
+    z-index:120;
+    opacity:0;
+    transform:translateY(-6px);
+    pointer-events:none;
+    transition: opacity .15s ease, transform .15s ease;
+  }
+  .dropdown-panel.open{
+    opacity:1; transform:translateY(0); pointer-events:auto;
+  }
+
+  /* Role dropdown */
+  .role-pill{ position:relative; cursor:pointer; }
+  .role-dropdown{
+    left:0;
+    min-width:180px;
+    padding:6px;
+  }
+  .role-option{
+    display:flex; align-items:center; gap:9px;
+    padding:10px 10px;
+    border-radius:8px;
+    font-size:0.86rem;
+    font-weight:600;
+    color:var(--text);
+    position:relative;
+  }
+  .role-option:hover{ background:#f1f2f7; }
+  .role-option .dot{ width:7px; height:7px; border-radius:50%; flex-shrink:0; }
+  .role-option .check{
+    margin-left:auto; width:14px; height:14px; color:var(--blue);
+    display:none;
+  }
+  .role-option.selected .check{ display:block; }
+
+  /* Notification dropdown */
+  .bell-wrap{ position:relative; }
+  .notif-dropdown{
+    right:0;
+    width:340px;
+    max-width:88vw;
+    padding:0;
+    overflow:hidden;
+  }
+  .notif-head{
+    display:flex; align-items:center; justify-content:space-between;
+    padding:14px 16px;
+    border-bottom:1px solid var(--border);
+  }
+  .notif-head h4{ font-size:0.95rem; font-weight:800; }
+  .notif-head .mark-read{ font-size:0.78rem; color:var(--blue); font-weight:600; }
+  .notif-list{ max-height:340px; overflow-y:auto; }
+  .notif-item{
+    display:flex; gap:10px;
+    padding:13px 16px;
+    border-bottom:1px solid var(--border);
+  }
+  .notif-item:last-child{ border-bottom:none; }
+  .notif-item:hover{ background:#f8f9fc; }
+  .notif-item .dot{
+    width:7px; height:7px; border-radius:50%;
+    margin-top:6px; flex-shrink:0;
+  }
+  .notif-item .notif-body{ flex:1; min-width:0; }
+  .notif-item .notif-text{ font-size:0.85rem; color:var(--text); line-height:1.45; }
+  .notif-item .notif-time{ font-size:0.74rem; color:var(--muted-dim); margin-top:3px; }
+
+  @media (max-width: 860px){
+    .topbar{ flex-wrap:wrap; gap:10px; }
+    .search-shell{ order:3; max-width:100%; flex-basis:100%; }
+    .verified-pill span.long{ display:none; }
+    .subnav{ overflow-x:auto; }
+    .subnav-right{ display:none; }
+    .card-top{ flex-wrap:wrap; }
+    .card-title-row{ flex-direction:column; gap:6px; }
+  }
+</style>
+<link rel="stylesheet" href="../Other/sidebar.css">
+<script src="../Other/language.js" defer></script>
+<script src="../Other/sidebar.js" defer></script>
+<style>.subnav-tab[href]{text-decoration:none;cursor:pointer}.study-page-links{display:flex;flex-wrap:wrap;gap:16px;padding:10px 24px;background:#fff;border-bottom:1px solid #e6e8f0;font-size:12px;color:#6550d8}.study-page-links a:hover{text-decoration:underline}</style>
+<script src="../Other/page-navigation.js" defer></script>
+<style>.study-messages-link{display:inline-flex;align-items:center;gap:7px;padding:6px 11px;border:1px solid #dcd5ff;border-radius:8px;background:#f3efff;color:#6650dc!important;font-size:12px;font-weight:600;text-decoration:none!important}.study-messages-link:hover{background:#eae3ff}.study-messages-link svg{width:15px;height:15px;fill:none;stroke:currentColor;stroke-width:1.7}.study-messages-link[aria-current="page"]{background:#6650dc;color:white!important;border-color:#6650dc}</style>
+<link rel="stylesheet" href="/Other/theme.css?v=17"><script src="/Other/api.js?v=17"></script><script src="/Other/language.js?v=17" defer></script><script src="/Other/global-ui.js?v=17" defer></script><script src="/Other/notifications.js"></script></head>
+<body>
+
+  <!-- SIDEBAR BACKDROP -->
+  <div class="sidebar-backdrop" id="sidebar-backdrop" data-unilink-sidebar hidden></div>
+
+  <!-- SIDEBAR -->
+  <nav class="sidebar" id="sidebar" data-unilink-sidebar hidden>
+    <div class="sidebar-head">
+      <div class="sidebar-brand">
+        <div class="sidebar-logo">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2 2 7l10 5 10-5-10-5z"/><path d="M2 17l10 5 10-5"/><path d="M2 12l10 5 10-5"/></svg>
+        </div>
+        <div class="sidebar-brand-text">
+          <div class="sb-title">UNILINK</div>
+          <div class="sb-sub bn">বাংলাদেশ</div>
+        </div>
+      </div>
+      <button class="sidebar-close" id="sidebar-close" aria-label="Close menu">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
+      </button>
+    </div>
+
+    <div class="sidebar-lang">
+      <button class="active bn" id="lang-bn">বাংলা</button>
+      <button id="lang-en">English</button>
+    </div>
+
+    <div class="sidebar-nav">
+      <a class="sidebar-item bn" href="../Other/demo.html" data-label-bn="মূল ফিড" data-label-en="Main Feed"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="3" y1="6" x2="21" y2="6"/><line x1="3" y1="12" x2="21" y2="12"/><line x1="3" y1="18" x2="21" y2="18"/></svg><span data-nav-label>মূল ফিড</span></a>
+      <a class="sidebar-item bn" href="study-partner-main-page.html" data-label-bn="স্টাডি পার্টনার" data-label-en="Study Partner"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="9" cy="8" r="3"/><path d="M2 20c0-3.5 3-6 7-6s7 2.5 7 6"/><circle cx="17" cy="9" r="2.5"/><path d="M15.5 14.2c2.7.3 4.5 2.4 4.5 5.3"/></svg><span data-nav-label>স্টাডি পার্টনার</span></a>
+      <a class="sidebar-item bn" href="../Club/club-portal.html" data-label-bn="ক্লাব পোর্টাল" data-label-en="Club Portal"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2 2 7l10 5 10-5-10-5z"/><path d="M2 17l10 5 10-5"/><path d="M2 12l10 5 10-5"/></svg><span data-nav-label>ক্লাব পোর্টাল</span></a>
+      <a class="sidebar-item bn" href="../Recruiter Search/Recruiter search.html" data-label-bn="রিক্রুটার সার্চ" data-label-en="Recruiter Search"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"/><path d="M2 12h20"/><path d="M12 2a15 15 0 0 1 0 20 15 15 0 0 1 0-20z"/></svg><span data-nav-label>রিক্রুটার সার্চ</span></a>
+      <a class="sidebar-item bn" href="../Live Bid/Live Bid.html" data-label-bn="লাইভ বিড" data-label-en="Live Bids"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"/></svg><span data-nav-label>লাইভ বিড</span><span class="sb-dot" aria-label="Live bids"></span></a>
+      <a class="sidebar-item bn" href="../Admin/Admin-portal.html" data-label-bn="অ্যাডমিন পোর্টাল" data-label-en="Admin Portal"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"/><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"/></svg><span data-nav-label>অ্যাডমিন পোর্টাল</span></a>
+      <a class="sidebar-item bn" href="../Other/Settings.html" data-label-bn="সেটিংস" data-label-en="Settings"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 1 1-2.83 2.83l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-4 0v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 1 1-2.83-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1 0-4h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 1 1 2.83-2.83l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 4 0v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 1 1 2.83 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 0 4h-.09a1.65 1.65 0 0 0-1.51 1z"/></svg><span data-nav-label>সেটিংস</span></a>
+    </div>
+
+    <a class="sidebar-home" href="../index.html#pages">← Home / সকল পৃষ্ঠা</a>
+    <div class="sidebar-upgrade">
+      <div class="sidebar-upgrade-head bn">
+        <svg viewBox="0 0 24 24" fill="currentColor"><polygon points="12 2 15 9 22 9.5 17 14.5 18.5 22 12 18 5.5 22 7 14.5 2 9.5 9 9 12 2"/></svg>
+        <span data-tier-label>ফ্রি টায়ার</span>
+      </div>
+      <p class="bn">ভেরিফাইড ব্যাজ, আনলিমিটেড বিড এবং প্রিমিয়াম ম্যাচিং পেতে আপগ্রেড করুন।</p>
+      <a href="../Other/Settings.html#billing" class="sidebar-upgrade-btn bn">প্রোফাইল আপগ্রেড করুন →</a>
+    </div>
+  </nav>
+
+  <!-- TOP BAR -->
+  <div class="topbar">
+    <button class="icon-btn" aria-label="Menu" id="menu-btn">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><line x1="3" y1="6" x2="21" y2="6"/><line x1="3" y1="12" x2="21" y2="12"/><line x1="3" y1="18" x2="21" y2="18"/></svg>
+    </button>
+
+    <div class="search-shell">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="7"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
+      <input type="text" class="bn" placeholder="শিক্ষার্থী, ক্লাব, দক্ষতা, কোম্পানি খুঁজুন...">
+    </div>
+
+    <div class="topbar-right">
+      <div class="role-pill bn" id="role-pill">
+        <span class="dot" id="role-dot"></span> <span id="role-label">শিক্ষার্থী</span>
+        <svg class="chev" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"/></svg>
+
+        <div class="dropdown-panel role-dropdown bn" id="role-dropdown">
+          <div class="role-option selected" data-role="শিক্ষার্থী" data-color="var(--blue)">
+            <span class="dot" style="background:var(--blue)"></span> শিক্ষার্থী
+            <svg class="check" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>
+          </div>
+          <div class="role-option" data-role="ক্লাব" data-color="var(--violet)">
+            <span class="dot" style="background:var(--violet)"></span> ক্লাব
+            <svg class="check" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>
+          </div>
+          <div class="role-option" data-role="রিক্রুটার" data-color="var(--green)">
+            <span class="dot" style="background:var(--green)"></span> রিক্রুটার
+            <svg class="check" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>
+          </div>
+          <div class="role-option" data-role="বিশ্ববিদ্যালয়" data-color="var(--orange)">
+            <span class="dot" style="background:var(--orange)"></span> বিশ্ববিদ্যালয়
+            <svg class="check" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>
+          </div>
+        </div>
+      </div>
+
+      <div class="verified-pill bn">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6L9 17l-5-5"/></svg>
+        <span class="long">@edu যাচাইকৃত</span>
+      </div>
+
+      <div class="bell-wrap">
+        <button class="icon-btn" aria-label="Notifications" id="bell-btn">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 8a6 6 0 0 0-12 0c0 7-3 9-3 9h18s-3-2-3-9"/><path d="M13.73 21a2 2 0 0 1-3.46 0"/></svg>
+        </button>
+        <span class="bell-dot" id="bell-dot"></span>
+
+        <div class="dropdown-panel notif-dropdown bn" id="notif-dropdown">
+          <div class="notif-head">
+            <h4>বিজ্ঞপ্তি</h4>
+            <span class="mark-read" id="mark-read-btn">সব পড়া হয়েছে</span>
+          </div>
+          <div class="notif-list">
+            <div class="notif-item">
+              <span class="dot" style="background:var(--blue)"></span>
+              <div class="notif-body">
+                <div class="notif-text">bKash আপনার বিডে সাড়া দিয়েছে — ৳১,৮৫,০০০</div>
+                <div class="notif-time">২ মিনিট আগে</div>
+              </div>
+            </div>
+            <div class="notif-item">
+              <span class="dot" style="background:var(--violet)"></span>
+              <div class="notif-body">
+                <div class="notif-text">Tariqul Islam আপনার স্টাডি রিকোয়েস্ট গ্রহণ করেছে</div>
+                <div class="notif-time">১৮ মিনিট আগে</div>
+              </div>
+            </div>
+            <div class="notif-item">
+              <span class="dot" style="background:var(--green)"></span>
+              <div class="notif-body">
+                <div class="notif-text">Python ব্যাজ SkillCheck™ দ্বারা যাচাই হয়েছে</div>
+                <div class="notif-time">১ ঘণ্টা আগে</div>
+              </div>
+            </div>
+            <div class="notif-item">
+              <span class="dot" style="background:var(--blue)"></span>
+              <div class="notif-body">
+                <div class="notif-text">টেক ক্যারিয়ার ফেয়ার ৩ দিন পরে শুরু হবে</div>
+                <div class="notif-time">৪ ঘণ্টা আগে</div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="user-block">
+        <div class="avatar">AJ</div>
+        <div>
+          <div class="user-name">Arif Jahan</div>
+          <div class="user-meta bn">CSE, ৩য় বর্ষ · BUET</div>
+        </div>
+      </div>
+
+      <button class="icon-btn" aria-label="Log out" id="logout-btn">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"/><polyline points="16 17 21 12 16 7"/><line x1="21" y1="12" x2="9" y2="12"/></svg>
+      </button>
+    </div>
+  </div>
+
+  <!-- BREADCRUMB -->
+  <div class="breadcrumb bn">
+    UNILINK বাংলাদেশ / <span class="current">স্টাডি পার্টনার</span>
+  </div>
+
+  <!-- SUB NAV -->
+  <nav class="study-page-links" aria-label="Campus and matching navigation"><a href="../Other/demo.html" data-page-link>← Campus feed</a><a href="study-partner.html" data-page-link>Partner matching</a><a href="Message.html" class="study-messages-link" data-page-link><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M21 11.5a8.5 8.5 0 0 1-8.5 8.5H4l-2 2V11.5A8.5 8.5 0 0 1 10.5 3h2a8.5 8.5 0 0 1 8.5 8.5Z"/><path d="M7 9h10M7 13h7"/></svg>Messages / বার্তা</a></nav>
+<div class="subnav">
+    <a class="subnav-tab bn active" data-tab="discover" href="study-partner-main-page.html" data-page-link aria-current="page">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="7"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
+      খুঁজুন <span class="bn" style="font-weight:400;color:var(--muted-dim);margin-left:2px;">Discover</span>
+    </a>
+    <a class="subnav-tab bn" data-tab="partners" href="my-partner-page.html" data-page-link>
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="9" cy="8" r="3"/><path d="M2 20c0-3.5 3-6 7-6s7 2.5 7 6"/><circle cx="17" cy="9" r="2.5"/><path d="M15.5 14.2c2.7.3 4.5 2.4 4.5 5.3"/></svg>
+      আমার পার্টনার <span class="bn" style="font-weight:400;color:var(--muted-dim);margin-left:2px;">Partners</span>
+      <span class="tab-badge">৩</span>
+    </a>
+    <a class="subnav-tab bn" data-tab="requests" href="my-partner-request.html" data-page-link>
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>
+      অনুরোধ <span class="bn" style="font-weight:400;color:var(--muted-dim);margin-left:2px;">Requests</span>
+      <span class="tab-badge">২</span>
+    </a>
+    <a class="subnav-tab bn" data-tab="groups" href="study-group.html" data-page-link>
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>
+      গ্রুপ <span class="bn" style="font-weight:400;color:var(--muted-dim);margin-left:2px;">Groups</span>
+    </a>
+    <a class="subnav-tab bn" data-tab="sessions" href="study-session.html" data-page-link>
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="18" rx="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg>
+      সেশন <span class="bn" style="font-weight:400;color:var(--muted-dim);margin-left:2px;">Sessions</span>
+    </a>
+  </div>
+
+  <!-- MAIN CONTENT -->
+  <main>
+    <div class="sp-head">
+      <div>
+        <h1 class="main-title bn">স্টাডি পার্টনার খুঁজুন</h1>
+        <p class="main-sub bn">AI-ভিত্তিক ম্যাচিং — কোর্স, দক্ষতা ও সময়সূচি অনুযায়ী</p>
+      </div>
+      <div class="sp-head-actions">
+        <button class="btn-matchcard bn" id="view-matchcard-btn">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="6" width="20" height="14" rx="2"/><path d="M2 10h20"/></svg>
+          ম্যাচ কার্ড
+        </button>
+        <button class="btn-browse bn" id="view-browse-btn">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="7"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
+          ব্রাউজ
+        </button>
+      </div>
+    </div>
+
+    <div class="sp-grid">
+      <!-- MATCH CARD STACK -->
+      <div class="match-stack" id="match-stack"></div>
+
+      <!-- SIDE COLUMN -->
+      <div class="sp-side">
+        <div>
+          <div class="sp-side-label bn">NEXT IN QUEUE</div>
+          <div class="queue-card" id="queue-card"></div>
+        </div>
+
+        <div>
+          <div class="sp-side-label bn">MY MATCH PREFS</div>
+          <div class="prefs-card">
+            <div class="prefs-row">
+              <span class="k bn">কোর্স</span>
+              <span class="v">CSE 301, 315</span>
+            </div>
+            <div class="prefs-row">
+              <span class="k bn">মোড</span>
+              <span class="v bn">Hybrid</span>
+            </div>
+            <div class="prefs-row">
+              <span class="k bn">সময়</span>
+              <span class="v bn">সন্ধ্যা ৬-৯টা</span>
+            </div>
+            <button class="btn-prefs bn" id="edit-prefs-btn">পরিবর্তন করুন</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </main>
+
+  <!-- MATCH PREFS MODAL -->
+  <div class="modal-overlay" id="prefs-modal-overlay">
+    <div class="modal">
+      <h3 class="bn">ম্যাচ প্রেফারেন্স পরিবর্তন করুন</h3>
+
+      <label class="bn" for="pref-courses">কোর্স</label>
+      <input type="text" id="pref-courses" placeholder="যেমনঃ CSE 301, 315">
+
+      <label class="bn" for="pref-mode">মোড</label>
+      <select id="pref-mode" class="bn">
+        <option value="Hybrid">Hybrid</option>
+        <option value="Online">Online</option>
+        <option value="In-person">In-person</option>
+      </select>
+
+      <label class="bn" for="pref-time">সময়</label>
+      <input type="text" id="pref-time" class="bn" placeholder="যেমনঃ সন্ধ্যা ৬-৯টা">
+
+      <div class="modal-actions">
+        <button class="btn-cancel bn" id="pref-cancel">বাতিল</button>
+        <button class="btn-submit bn" id="pref-save">সংরক্ষণ করুন</button>
+      </div>
+    </div>
+  </div>
+
+  <div class="sp-toast bn" id="sp-toast"></div>
+
+<script>
+  // ---- Sub-nav tab switching (visual only; single view shown) ----
+  const tabs = document.querySelectorAll('.subnav-tab');
+  tabs.forEach(function(tab){
+    tab.addEventListener('click', function(){
+      tabs.forEach(function(t){ t.classList.remove('active'); });
+      tab.classList.add('active');
+    });
+  });
+
+  function escapeHtml(str){
+    const div = document.createElement('div');
+    div.textContent = str;
+    return div.innerHTML;
+  }
+
+  // =====================================================================
+  // STUDY PARTNER — MATCH DATA
+  // =====================================================================
+  var candidates = [
+    {
+      id: 'nusrat',
+      name: 'Nusrat Jahan',
+      initials: 'NJ',
+      avatarGrad: 'linear-gradient(135deg, var(--pink), #f07ad1)',
+      meta: 'EEE · ৩য় বর্ষ · KUET',
+      score: 79,
+      cgpa: 'CGPA 3.91',
+      modeTag: 'In-person',
+      highlight: 'ম্যাচ: সার্কিট ডিজাইন, ক্লাস-ডিসিপ্লিন',
+      desc: 'Working on IoT capstone project. Can teach power systems and signal processing.',
+      skills: ['Circuit Design', 'MATLAB', 'Embedded C'],
+      courses: ['EEE 305', 'EEE 311', 'MATH 303'],
+      days: ['শনি', 'রবি'],
+      time: 'সকাল ১০-দুপুর ১টা',
+      sessions: 5
+    },
+    {
+      id: 'tariq',
+      name: 'Tariq Mahmud',
+      initials: 'TM',
+      avatarGrad: 'linear-gradient(135deg, var(--orange), #f0ac5c)',
+      meta: 'BUET · ৩য় বর্ষ',
+      score: 91,
+      cgpa: 'CGPA 3.78',
+      modeTag: 'Hybrid',
+      highlight: 'ম্যাচ: ডেটা স্ট্রাকচার, অ্যালগরিদম',
+      desc: 'Prepping for programming contests. Happy to pair on competitive coding sessions.',
+      skills: ['C++', 'Algorithms', 'Problem Solving'],
+      courses: ['CSE 205', 'CSE 221', 'MATH 215'],
+      days: ['মঙ্গল', 'বৃহস্পতি'],
+      time: 'সন্ধ্যা ৭-৯টা',
+      sessions: 8
+    },
+    {
+      id: 'farzana',
+      name: 'Farzana Akter',
+      initials: 'FA',
+      avatarGrad: 'linear-gradient(135deg, var(--violet), #a98af0)',
+      meta: 'CSE · ২য় বর্ষ · NSU',
+      score: 85,
+      cgpa: 'CGPA 3.64',
+      modeTag: 'Online',
+      highlight: 'ম্যাচ: ডাটাবেস ডিজাইন, SQL',
+      desc: 'Building a database project this semester — looking for a partner to review schema design together.',
+      skills: ['SQL', 'ER Modeling', 'Normalization'],
+      courses: ['CSE 231', 'CSE 250'],
+      days: ['রবি', 'সোম'],
+      time: 'দুপুর ২-৪টা',
+      sessions: 3
+    },
+    {
+      id: 'adnan',
+      name: 'Adnan Rahman',
+      initials: 'AR',
+      avatarGrad: 'linear-gradient(135deg, var(--green), #4fd6a8)',
+      meta: 'ME · ৪র্থ বর্ষ · DU',
+      score: 68,
+      cgpa: 'CGPA 3.42',
+      modeTag: 'In-person',
+      highlight: 'ম্যাচ: থার্মোডাইনামিক্স',
+      desc: 'Final year thesis on heat exchangers. Can help with core mechanics courses in exchange.',
+      skills: ['SolidWorks', 'Thermodynamics'],
+      courses: ['ME 302', 'ME 318'],
+      days: ['শুক্র'],
+      time: 'সকাল ৯-১১টা',
+      sessions: 2
+    }
+  ];
+
+  var currentIndex = 0;
+  var viewMode = 'card'; // 'card' | 'browse'
+
+  var stackEl = document.getElementById('match-stack');
+  var queueEl = document.getElementById('queue-card');
+  var toastEl = document.getElementById('sp-toast');
+  var viewMatchBtn = document.getElementById('view-matchcard-btn');
+  var viewBrowseBtn = document.getElementById('view-browse-btn');
+
+  function showToast(msg){
+    toastEl.textContent = msg;
+    toastEl.classList.add('show');
+    clearTimeout(showToast._t);
+    showToast._t = setTimeout(function(){
+      toastEl.classList.remove('show');
+    }, 2200);
+  }
+
+  function scoreColor(score){
+    if(score >= 85) return 'var(--green)';
+    if(score >= 70) return 'var(--orange)';
+    return 'var(--red)';
+  }
+
+  function renderEmptyState(){
+    stackEl.innerHTML =
+      '<div class="match-empty">' +
+        '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="7"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>' +
+        '<h3 class="bn">আর কোনো ম্যাচ নেই</h3>' +
+        '<p class="bn">সব প্রোফাইল দেখা হয়ে গেছে। আবার শুরু করতে নিচে ক্লিক করুন।</p>' +
+        '<button class="btn-prefs bn" id="restart-queue-btn" style="max-width:220px;margin:16px auto 0;">আবার শুরু করুন</button>' +
+      '</div>';
+    document.getElementById('restart-queue-btn').addEventListener('click', function(){
+      currentIndex = 0;
+      renderAll();
+      showToast('তালিকা রিসেট করা হয়েছে');
+    });
+  }
+
+  function cardTemplate(c){
+    return (
+      '<div class="match-card-accent"></div>' +
+      '<div class="match-card-body">' +
+        '<div class="match-top-row">' +
+          '<div class="match-who">' +
+            '<div class="match-avatar" style="background:' + c.avatarGrad + '">' + c.initials + '</div>' +
+            '<div>' +
+              '<div class="match-name">' + escapeHtml(c.name) + '</div>' +
+              '<div class="match-meta bn">' + c.meta + '</div>' +
+              '<div class="match-badges">' +
+                '<span class="badge-neutral">' + c.cgpa + '</span>' +
+                '<span class="badge-green bn">' + c.modeTag + '</span>' +
+              '</div>' +
+            '</div>' +
+          '</div>' +
+          '<div class="match-score">' +
+            '<div class="num" style="color:' + scoreColor(c.score) + '">' + c.score + '%</div>' +
+            '<div class="lbl bn">ম্যাচ স্কোর</div>' +
+          '</div>' +
+        '</div>' +
+
+        '<div class="match-highlight bn">' +
+          '<svg viewBox="0 0 24 24" fill="currentColor"><path d="M13 2L3 14h7l-1 8 11-14h-8l1-6z"/></svg>' +
+          c.highlight +
+        '</div>' +
+        '<div class="match-progress"><div class="match-progress-fill" style="width:' + c.score + '%"></div></div>' +
+
+        '<p class="match-desc">' + escapeHtml(c.desc) + '</p>' +
+
+        '<div class="match-tags">' +
+          c.skills.map(function(s){ return '<span class="skill-pill">' + escapeHtml(s) + '</span>'; }).join('') +
+        '</div>' +
+
+        '<div class="match-section-label bn">SHARED COURSES</div>' +
+        '<div class="course-tags">' +
+          c.courses.map(function(course){ return '<span class="course-pill">' + escapeHtml(course) + '</span>'; }).join('') +
+        '</div>' +
+
+        '<div class="match-avail">' +
+          '<div class="avail-col">' +
+            '<div class="avail-label bn">উপলব্ধ দিন <span style="margin-left:10px;">সময়</span></div>' +
+            '<div class="avail-days bn">' +
+              c.days.map(function(d){ return '<span class="day-pill">' + d + '</span>'; }).join('') +
+            '</div>' +
+            '<div class="avail-time bn">' + c.time + '</div>' +
+          '</div>' +
+          '<div class="avail-sessions">' +
+            '<div class="avail-label bn">সেশন</div>' +
+            '<div class="num-row">' + c.sessions +
+              '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>' +
+            '</div>' +
+          '</div>' +
+        '</div>' +
+
+        '<div class="match-actions">' +
+          '<button class="btn-skip bn" id="skip-btn">' +
+            '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>' +
+            'স্কিপ' +
+          '</button>' +
+          '<button class="btn-msg bn" id="msg-btn">' +
+            '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>' +
+            'বার্তা' +
+          '</button>' +
+          '<button class="btn-connect bn" id="connect-btn">' +
+            '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>' +
+            'কানেক্ট' +
+          '</button>' +
+        '</div>' +
+
+        '<div class="match-dots" id="match-dots"></div>' +
+      '</div>'
+    );
+  }
+
+  function renderDots(){
+    var dotsEl = document.getElementById('match-dots');
+    if(!dotsEl) return;
+    dotsEl.innerHTML = candidates.map(function(_, i){
+      return '<span class="dot' + (i === currentIndex ? ' active' : '') + '"></span>';
+    }).join('');
+  }
+
+  function renderCardView(){
+    if(candidates.length === 0){
+      renderEmptyState();
+      return;
+    }
+    if(currentIndex >= candidates.length) currentIndex = 0;
+    var c = candidates[currentIndex];
+
+    var card = document.createElement('div');
+    card.className = 'match-card';
+    card.innerHTML = cardTemplate(c);
+    stackEl.innerHTML = '';
+    stackEl.appendChild(card);
+    renderDots();
+
+    document.getElementById('skip-btn').addEventListener('click', function(){
+      showToast(c.name + '-কে স্কিপ করা হয়েছে');
+      advance();
+    });
+    document.getElementById('msg-btn').addEventListener('click', function(){
+      window.location.href='Message.html?partner='+encodeURIComponent(c.name);
+    });
+    document.getElementById('connect-btn').addEventListener('click', function(e){
+      var btn = e.currentTarget;
+      btn.disabled = true;
+      btn.textContent = '';
+      var span = document.createElement('span');
+      span.className = 'bn';
+      span.textContent = 'পাঠানো হচ্ছে...';
+      btn.appendChild(span);
+      setTimeout(function(){
+        showToast(c.name + '-এর কাছে কানেক্ট অনুরোধ পাঠানো হয়েছে ✓');
+        candidates.splice(currentIndex, 1);
+        if(currentIndex >= candidates.length) currentIndex = 0;
+        renderAll();
+      }, 550);
+    });
+  }
+
+  function renderBrowseView(){
+    if(candidates.length === 0){
+      renderEmptyState();
+      return;
+    }
+    stackEl.innerHTML =
+      '<div class="match-card"><div class="match-card-body">' +
+        candidates.map(function(c, i){
+          return (
+            '<div class="queue-card" style="margin-bottom:' + (i < candidates.length - 1 ? '10px' : '0') + '" data-idx="' + i + '">' +
+              '<div class="queue-avatar" style="background:' + c.avatarGrad + '">' + c.initials + '</div>' +
+              '<div class="queue-info">' +
+                '<div class="queue-name">' + escapeHtml(c.name) + '</div>' +
+                '<div class="queue-meta bn">' + c.meta + '</div>' +
+              '</div>' +
+              '<div class="queue-score" style="color:' + scoreColor(c.score) + '">' + c.score + '%</div>' +
+            '</div>'
+          );
+        }).join('') +
+      '</div></div>';
+
+    stackEl.querySelectorAll('.queue-card').forEach(function(row){
+      row.addEventListener('click', function(){
+        currentIndex = parseInt(row.getAttribute('data-idx'), 10);
+        viewMode = 'card';
+        viewMatchBtn.classList.remove('btn-browse');
+        viewMatchBtn.classList.add('btn-matchcard');
+        viewBrowseBtn.classList.remove('btn-matchcard');
+        viewBrowseBtn.classList.add('btn-browse');
+        renderAll();
+      });
+    });
+  }
+
+  function renderQueue(){
+    if(candidates.length === 0){
+      queueEl.innerHTML = '<div class="queue-info"><div class="queue-meta bn">সারিতে কেউ নেই</div></div>';
+      queueEl.onclick = null;
+      return;
+    }
+    var nextIdx = (currentIndex + 1) % candidates.length;
+    if(candidates.length === 1) nextIdx = currentIndex;
+    var n = candidates[nextIdx];
+    queueEl.innerHTML =
+      '<div class="queue-avatar" style="background:' + n.avatarGrad + '">' + n.initials + '</div>' +
+      '<div class="queue-info">' +
+        '<div class="queue-name">' + escapeHtml(n.name) + '</div>' +
+        '<div class="queue-meta bn">' + n.meta + '</div>' +
+      '</div>' +
+      '<div class="queue-score" style="color:' + scoreColor(n.score) + '">' + n.score + '%</div>';
+    queueEl.onclick = function(){
+      currentIndex = nextIdx;
+      viewMode = 'card';
+      renderAll();
+      showToast(n.name + '-এর প্রোফাইল দেখানো হচ্ছে');
+    };
+  }
+
+  function advance(){
+    if(candidates.length === 0) return;
+    currentIndex = (currentIndex + 1) % candidates.length;
+    renderAll();
+  }
+
+  function renderAll(){
+    if(viewMode === 'card'){
+      renderCardView();
+    } else {
+      renderBrowseView();
+    }
+    renderQueue();
+  }
+
+  viewMatchBtn.addEventListener('click', function(){
+    viewMode = 'card';
+    renderAll();
+  });
+  viewBrowseBtn.addEventListener('click', function(){
+    viewMode = 'browse';
+    renderAll();
+  });
+
+  renderAll();
+
+  // ---- Match preferences modal ----
+  var prefsOverlay = document.getElementById('prefs-modal-overlay');
+  var prefCourses = document.getElementById('pref-courses');
+  var prefMode = document.getElementById('pref-mode');
+  var prefTime = document.getElementById('pref-time');
+  var prefsRows = document.querySelectorAll('.prefs-card .v');
+
+  document.getElementById('edit-prefs-btn').addEventListener('click', function(){
+    prefCourses.value = prefsRows[0].textContent.trim();
+    prefMode.value = prefsRows[1].textContent.trim();
+    prefTime.value = prefsRows[2].textContent.trim();
+    prefsOverlay.classList.add('show');
+  });
+  document.getElementById('pref-cancel').addEventListener('click', function(){
+    prefsOverlay.classList.remove('show');
+  });
+  prefsOverlay.addEventListener('click', function(e){
+    if(e.target === prefsOverlay) prefsOverlay.classList.remove('show');
+  });
+  document.getElementById('pref-save').addEventListener('click', function(){
+    prefsRows[0].textContent = prefCourses.value.trim() || prefsRows[0].textContent;
+    prefsRows[1].textContent = prefMode.value;
+    prefsRows[2].textContent = prefTime.value.trim() || prefsRows[2].textContent;
+    prefsOverlay.classList.remove('show');
+    showToast('পছন্দ হালনাগাদ করা হয়েছে');
+  });
+
+  // ---- Sidebar drawer ----
+  const sidebar = document.getElementById('sidebar');
+  const sidebarBackdrop = document.getElementById('sidebar-backdrop');
+  const menuBtn = document.getElementById('menu-btn');
+  const sidebarClose = document.getElementById('sidebar-close');
+
+  function openSidebar(){
+    sidebar.classList.add('open');
+    sidebarBackdrop.classList.add('open');
+  }
+  function closeSidebar(){
+    sidebar.classList.remove('open');
+    sidebarBackdrop.classList.remove('open');
+  }
+  menuBtn.addEventListener('click', openSidebar);
+  sidebarClose.addEventListener('click', closeSidebar);
+  sidebarBackdrop.addEventListener('click', closeSidebar);
+
+  // Sidebar nav item selection (visual only)
+  document.querySelectorAll('.sidebar-item').forEach(function(item){
+    item.addEventListener('click', function(e){
+      e.preventDefault();
+      document.querySelectorAll('.sidebar-item').forEach(function(i){ i.classList.remove('active'); });
+      item.classList.add('active');
+    });
+  });
+
+  // Sidebar language toggle (visual only)
+  const langBn = document.getElementById('lang-bn');
+  const langEn = document.getElementById('lang-en');
+  langBn.addEventListener('click', function(){
+    langBn.classList.add('active');
+    langEn.classList.remove('active');
+  });
+  langEn.addEventListener('click', function(){
+    langEn.classList.add('active');
+    langBn.classList.remove('active');
+  });
+
+  // ---- Generic dropdown helper: closes others when one opens ----
+  const allDropdowns = ['role-dropdown', 'notif-dropdown'].map(function(id){
+    return document.getElementById(id);
+  });
+  function closeAllDropdowns(except){
+    allDropdowns.forEach(function(dd){
+      if(dd !== except) dd.classList.remove('open');
+    });
+  }
+
+  // ---- Role dropdown ----
+  const rolePill = document.getElementById('role-pill');
+  const roleDropdown = document.getElementById('role-dropdown');
+  const roleLabel = document.getElementById('role-label');
+  const roleDot = document.getElementById('role-dot');
+
+  rolePill.addEventListener('click', function(e){
+    e.stopPropagation();
+    const willOpen = !roleDropdown.classList.contains('open');
+    closeAllDropdowns();
+    if(willOpen) roleDropdown.classList.add('open');
+  });
+
+  document.querySelectorAll('.role-option').forEach(function(opt){
+    opt.addEventListener('click', function(e){
+      e.stopPropagation();
+      document.querySelectorAll('.role-option').forEach(function(o){ o.classList.remove('selected'); });
+      opt.classList.add('selected');
+      roleLabel.textContent = opt.getAttribute('data-role');
+      roleDot.style.background = opt.getAttribute('data-color');
+      roleDropdown.classList.remove('open');
+    });
+  });
+
+  // ---- Notification dropdown ----
+  const bellBtn = document.getElementById('bell-btn');
+  const notifDropdown = document.getElementById('notif-dropdown');
+  const bellDot = document.getElementById('bell-dot');
+
+  bellBtn.addEventListener('click', function(e){
+    e.stopPropagation();
+    const willOpen = !notifDropdown.classList.contains('open');
+    closeAllDropdowns();
+    if(willOpen) notifDropdown.classList.add('open');
+  });
+
+  document.getElementById('mark-read-btn').addEventListener('click', function(e){
+    e.stopPropagation();
+    bellDot.style.display = 'none';
+  });
+
+  // Close dropdowns when clicking anywhere else
+  document.addEventListener('click', function(){
+    closeAllDropdowns();
+  });
+
+  // ---- Logout (demo) ----
+  document.getElementById('logout-btn').addEventListener('click', function(){
+    if(confirm('আপনি কি লগ আউট করতে চান?')){
+      window.location.href = '../Other/login.html';
+    }
+  });
+</script>
+
+
+</body>
+</html>

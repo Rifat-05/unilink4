@@ -1,0 +1,854 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Register — UNILINK Bangladesh</title>
+<style>
+  :root{
+    --bg: #05070f;
+    --panel: #0d1120;
+    --panel-border: rgba(255,255,255,0.08);
+    --text: #eef1fb;
+    --muted: #8891ab;
+    --muted-dim: #5b6280;
+    --blue: #5b7cfa;
+    --violet: #8b6bf5;
+    --pink: #e56bd6;
+    --green: #34d399;
+    --orange: #f7a63d;
+    --field-bg: #0b0f1c;
+  }
+
+  *{box-sizing:border-box; margin:0; padding:0;}
+
+  body{
+    background:var(--bg);
+    color:var(--text);
+    font-family:"Inter", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+    min-height:100vh;
+    overflow-x:hidden;
+  }
+
+  .bn{ font-family:"Noto Sans Bengali", "Hind Siliguri", sans-serif; }
+  .mono{ font-family:"SFMono-Regular", Consolas, "Liberation Mono", Menlo, monospace; }
+
+  a{ color:inherit; text-decoration:none; }
+  button{ font-family:inherit; }
+
+  .layout{
+    display:grid;
+    grid-template-columns: 1fr 1.25fr;
+    min-height:100vh;
+  }
+
+  /* LEFT PANEL */
+  .left{
+    position:relative;
+    padding:44px 48px;
+    display:flex;
+    flex-direction:column;
+    justify-content:space-between;
+    overflow:hidden;
+    background: var(--bg);
+    border-right:1px solid var(--panel-border);
+  }
+  .left::before{
+    content:"";
+    position:absolute;
+    inset:0;
+    background:
+      linear-gradient(rgba(255,255,255,0.035) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(255,255,255,0.035) 1px, transparent 1px);
+    background-size:56px 56px;
+    mask-image: linear-gradient(180deg, black 0%, black 55%, transparent 100%);
+    z-index:0;
+  }
+  .left::after{
+    content:"";
+    position:absolute;
+    left:-10%;
+    bottom:-15%;
+    width:80%;
+    height:55%;
+    background: radial-gradient(circle at 30% 70%, rgba(139,107,245,0.26), transparent 65%),
+                radial-gradient(circle at 70% 100%, rgba(91,124,250,0.2), transparent 60%);
+    z-index:0;
+  }
+  .left > * { position:relative; z-index:1; }
+
+  .brand{ display:flex; align-items:center; gap:12px; }
+  .brand-mark{
+    width:36px; height:36px;
+    border-radius:10px;
+    background:linear-gradient(135deg, var(--blue), var(--violet));
+    display:flex; align-items:center; justify-content:center;
+    box-shadow:0 6px 18px rgba(91,124,250,0.35);
+    flex-shrink:0;
+  }
+  .brand-mark svg{ width:18px; height:18px; }
+  .brand-text{ display:flex; flex-direction:column; }
+  .brand-name{ font-weight:800; font-size:1.05rem; line-height:1.2; }
+  .brand-sub{ font-size:0.72rem; color:var(--muted-dim); }
+
+  .why-block{ max-width:380px; }
+  .why-label{
+    font-size:0.72rem;
+    letter-spacing:0.14em;
+    color:var(--muted-dim);
+    margin-bottom:22px;
+  }
+  .why-list{ list-style:none; display:flex; flex-direction:column; gap:20px; }
+  .why-item{
+    display:flex;
+    align-items:flex-start;
+    gap:14px;
+    font-size:0.95rem;
+    color:#dfe2f0;
+  }
+  .why-icon{
+    width:32px; height:32px;
+    border-radius:9px;
+    display:flex; align-items:center; justify-content:center;
+    flex-shrink:0;
+  }
+  .why-icon svg{ width:15px; height:15px; }
+  .wi-orange{ background:rgba(247,166,61,0.14); color:var(--orange); }
+  .wi-violet{ background:rgba(139,107,245,0.14); color:var(--violet); }
+  .wi-green{ background:rgba(52,211,153,0.14); color:var(--green); }
+  .wi-blue{ background:rgba(91,124,250,0.14); color:var(--blue); }
+
+  .online-block{ display:flex; flex-direction:column; gap:14px; }
+  .online-status{
+    display:flex; align-items:center; gap:8px;
+    font-size:0.8rem; color:#8effc0;
+  }
+  .online-dot{
+    width:7px; height:7px; border-radius:50%;
+    background:var(--green);
+    box-shadow:0 0 8px var(--green);
+    animation: pulse 2s ease-in-out infinite;
+  }
+  @keyframes pulse{
+    0%, 100%{ opacity:1; }
+    50%{ opacity:0.4; }
+  }
+  .avatar-stack{ display:flex; }
+  .stack-avatar{
+    width:34px; height:34px;
+    border-radius:50%;
+    border:2px solid var(--bg);
+    display:flex; align-items:center; justify-content:center;
+    font-size:0.68rem; font-weight:700; color:#fff;
+    margin-left:-10px;
+  }
+  .stack-avatar:first-child{ margin-left:0; }
+  .stack-avatar.more{
+    background: rgba(255,255,255,0.08);
+    color:var(--muted);
+    font-size:0.64rem;
+  }
+
+  /* RIGHT PANEL */
+  .right{
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    padding:48px;
+  }
+  .form-wrap{
+    width:100%;
+    max-width:520px;
+  }
+
+  /* Stepper */
+  .stepper{
+    display:flex;
+    align-items:center;
+    gap:0;
+    margin-bottom:40px;
+  }
+  .step-node{
+    width:30px; height:30px;
+    border-radius:50%;
+    display:flex; align-items:center; justify-content:center;
+    font-size:0.82rem;
+    font-weight:700;
+    background: rgba(255,255,255,0.05);
+    border:1px solid var(--panel-border);
+    color:var(--muted-dim);
+    transition: all .2s ease;
+    flex-shrink:0;
+  }
+  .step-node.active{
+    background: linear-gradient(135deg, var(--blue), var(--violet));
+    color:#fff;
+    border-color:transparent;
+    box-shadow:0 0 0 4px rgba(91,124,250,0.15);
+  }
+  .step-node.done{
+    background: rgba(52,211,153,0.15);
+    border-color: rgba(52,211,153,0.4);
+    color: var(--green);
+  }
+  .step-line{
+    width:44px;
+    height:1px;
+    background: var(--panel-border);
+    margin:0 6px;
+    position:relative;
+  }
+  .step-line.filled::after{
+    content:"";
+    position:absolute;
+    inset:0;
+    background: linear-gradient(90deg, var(--blue), var(--violet));
+  }
+  .step-label{
+    margin-left:16px;
+    font-size:0.78rem;
+    color:var(--muted-dim);
+    white-space:nowrap;
+  }
+
+  h1.title{
+    font-size:2rem;
+    font-weight:800;
+    letter-spacing:-0.01em;
+  }
+  .title-sub{
+    margin-top:8px;
+    color:var(--muted);
+    font-size:0.95rem;
+  }
+
+  /* Step panels */
+  .step-panel{ display:none; }
+  .step-panel.active{ display:block; }
+
+  /* Role cards */
+  .role-grid{
+    display:grid;
+    grid-template-columns:repeat(2,1fr);
+    gap:16px;
+    margin-top:32px;
+  }
+  .role-card{
+    padding:22px;
+    border-radius:14px;
+    border:1px solid var(--panel-border);
+    background: rgba(255,255,255,0.02);
+    cursor:pointer;
+    text-align:left;
+    transition: border-color .15s ease, background .15s ease, transform .15s ease;
+  }
+  .role-card:hover{ border-color: rgba(255,255,255,0.2); transform: translateY(-1px); }
+  .role-card.selected{
+    border-color: var(--blue);
+    background: rgba(91,124,250,0.08);
+    box-shadow: 0 0 0 3px rgba(91,124,250,0.12);
+  }
+  .role-icon{
+    width:38px; height:38px;
+    border-radius:10px;
+    display:flex; align-items:center; justify-content:center;
+    margin-bottom:16px;
+  }
+  .role-icon svg{ width:18px; height:18px; }
+  .ri-violet{ background:rgba(139,107,245,0.14); color:var(--violet); }
+  .ri-blue{ background:rgba(91,124,250,0.14); color:var(--blue); }
+  .ri-green{ background:rgba(52,211,153,0.14); color:var(--green); }
+  .ri-orange{ background:rgba(247,166,61,0.14); color:var(--orange); }
+
+  .role-name{ font-size:1.02rem; font-weight:700; }
+  .role-name.selected-text{ color:#a9b8ff; }
+  .role-name-bn{ font-size:0.8rem; color:var(--muted-dim); margin-top:2px; margin-bottom:10px; }
+  .role-desc{ font-size:0.85rem; color:var(--muted); line-height:1.5; }
+
+  /* Basic info form (step 2) */
+  .field{ margin-top:20px; }
+  .field-label{
+    display:block;
+    font-size:0.72rem;
+    font-weight:600;
+    letter-spacing:0.08em;
+    color:var(--muted-dim);
+    margin-bottom:8px;
+  }
+  .row-2{
+    display:grid;
+    grid-template-columns:1fr 1fr;
+    gap:16px;
+  }
+  input[type="text"], input[type="email"], input[type="password"]{
+    width:100%;
+    padding:13px 16px;
+    border-radius:9px;
+    border:1px solid var(--panel-border);
+    background: var(--field-bg);
+    color:var(--text);
+    font-size:0.92rem;
+    outline:none;
+    transition: border-color .15s ease, box-shadow .15s ease;
+  }
+  input::placeholder{ color:var(--muted-dim); }
+  input:focus{
+    border-color: var(--blue);
+    box-shadow: 0 0 0 3px rgba(91,124,250,0.18);
+  }
+  .input-shell{
+    position:relative;
+    display:flex;
+    align-items:center;
+  }
+  .input-icon{
+    position:absolute;
+    left:14px;
+    color:var(--muted-dim);
+    display:flex;
+    pointer-events:none;
+  }
+  .input-icon svg{ width:16px; height:16px; }
+  .input-shell input{ padding-left:44px; padding-right:44px; }
+  .toggle-visibility{
+    position:absolute;
+    right:14px;
+    background:none;
+    border:none;
+    color:var(--muted-dim);
+    cursor:pointer;
+    display:flex;
+    padding:2px;
+  }
+  .toggle-visibility:hover{ color:#c6cade; }
+  .toggle-visibility svg{ width:17px; height:17px; }
+
+  .terms-box{
+    margin-top:24px;
+    padding:18px 20px;
+    border-radius:12px;
+    border:1px solid var(--panel-border);
+    background: rgba(255,255,255,0.02);
+    display:flex;
+    align-items:flex-start;
+    gap:12px;
+  }
+  .terms-box input[type="checkbox"]{
+    width:17px; height:17px;
+    margin-top:2px;
+    flex-shrink:0;
+    accent-color: var(--blue);
+    cursor:pointer;
+  }
+  .terms-text{ font-size:0.88rem; color:#c6cade; line-height:1.6; }
+  .terms-text a{ color:var(--blue); font-weight:600; }
+  .terms-text a:hover{ text-decoration:underline; }
+
+  .hint{ margin-top:6px; font-size:0.76rem; color:var(--muted-dim); }
+
+  .select-shell{ position:relative; }
+  select{
+    width:100%;
+    padding:13px 40px 13px 16px;
+    border-radius:9px;
+    border:1px solid var(--panel-border);
+    background: var(--field-bg);
+    color:var(--text);
+    font-size:0.92rem;
+    font-family:inherit;
+    outline:none;
+    appearance:none;
+    -webkit-appearance:none;
+    cursor:pointer;
+    transition: border-color .15s ease, box-shadow .15s ease;
+  }
+  select:invalid{ color: var(--muted-dim); }
+  select option{ color:#000; }
+  select:focus{
+    border-color: var(--blue);
+    box-shadow: 0 0 0 3px rgba(91,124,250,0.18);
+  }
+  .select-shell::after{
+    content:"";
+    position:absolute;
+    right:16px;
+    top:50%;
+    width:9px; height:9px;
+    border-right:2px solid var(--muted-dim);
+    border-bottom:2px solid var(--muted-dim);
+    transform: translateY(-70%) rotate(45deg);
+    pointer-events:none;
+  }
+
+  /* Step 3 confirmation */
+  .confirm-box{
+    margin-top:32px;
+    padding:26px;
+    border-radius:14px;
+    border:1px solid var(--panel-border);
+    background: rgba(255,255,255,0.02);
+  }
+  .confirm-row{
+    display:flex;
+    justify-content:space-between;
+    padding:12px 0;
+    border-bottom:1px solid var(--panel-border);
+    font-size:0.92rem;
+  }
+  .confirm-row:last-child{ border-bottom:none; }
+  .confirm-row span:first-child{ color:var(--muted-dim); }
+  .confirm-row span:last-child{ font-weight:600; color:#dfe2f0; }
+
+  .success-icon{
+    width:56px; height:56px;
+    border-radius:50%;
+    background: rgba(52,211,153,0.14);
+    color:var(--green);
+    display:flex; align-items:center; justify-content:center;
+    margin:0 auto 20px;
+  }
+  .success-icon svg{ width:26px; height:26px; }
+
+  /* Buttons */
+  .btn{
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    gap:8px;
+    padding:14px;
+    border-radius:9px;
+    font-weight:700;
+    font-size:0.95rem;
+    border:none;
+    cursor:pointer;
+    transition: transform .15s ease, box-shadow .15s ease, opacity .15s ease, background .15s ease;
+  }
+  .btn:active{ transform: translateY(1px); }
+  .btn-primary{
+    background: linear-gradient(90deg, var(--blue), var(--violet));
+    color:#fff;
+    box-shadow: 0 10px 26px rgba(91,124,250,0.3);
+  }
+  .btn-primary:hover{ box-shadow: 0 12px 30px rgba(139,107,245,0.4); }
+  .btn-primary[disabled]{
+    opacity:0.45;
+    cursor:not-allowed;
+    box-shadow:none;
+  }
+  .btn-ghost{
+    background: rgba(255,255,255,0.03);
+    border:1px solid var(--panel-border);
+    color:#dfe2f0;
+  }
+  .btn-ghost:hover{ background: rgba(255,255,255,0.06); }
+
+  .btn-row{
+    display:flex;
+    gap:12px;
+    margin-top:34px;
+  }
+  .btn-row .btn{ flex:1; }
+  .btn-row.single .btn{ flex:1; }
+
+  .below-links{
+    margin-top:24px;
+    text-align:center;
+    font-size:0.85rem;
+    color:var(--muted);
+  }
+  .below-links a{ color:var(--blue); font-weight:600; }
+  .below-links a:hover{ text-decoration:underline; }
+  .back-link{
+    display:block;
+    margin-top:14px;
+    text-align:center;
+    font-size:0.8rem;
+    color:var(--muted-dim);
+  }
+  .back-link:hover{ color:#c6cade; }
+
+  @media (max-width: 900px){
+    .layout{ grid-template-columns:1fr; }
+    .left{ display:none; }
+    .right{ padding:32px 20px; min-height:100vh; }
+    .role-grid{ grid-template-columns:1fr; }
+    .row-2{ grid-template-columns:1fr; }
+    .step-label{ display:none; }
+  }
+</style>
+<link rel="stylesheet" href="/Other/theme.css?v=17"><script src="/Other/api.js?v=17"></script><script src="/Other/language.js?v=17" defer></script><script src="/Other/global-ui.js?v=17" defer></script><script src="/Other/notifications.js"></script></head>
+<body>
+
+<div class="layout">
+
+  <!-- LEFT: brand / why join / online -->
+  <div class="left">
+    <div class="brand">
+      <div class="brand-mark">
+        <svg viewBox="0 0 24 24" fill="none"><path d="M4 7L12 3L20 7L12 11L4 7Z" fill="white"/><path d="M4 12L12 16L20 12" stroke="white" stroke-width="1.6" stroke-linecap="round"/><path d="M4 17L12 21L20 17" stroke="white" stroke-width="1.6" stroke-linecap="round"/></svg>
+      </div>
+      <div class="brand-text">
+        <span class="brand-name">UNILINK</span>
+        <span class="brand-sub">Bangladesh</span>
+      </div>
+    </div>
+
+    <div class="why-block">
+      <div class="why-label">WHY JOIN?</div>
+      <ul class="why-list">
+        <li class="why-item">
+          <span class="why-icon wi-orange">
+            <svg viewBox="0 0 24 24" fill="currentColor"><path d="M13 2L3 14h7l-1 8 11-14h-8l1-6z"/></svg>
+          </span>
+          Bid on real internships at top BD companies
+        </li>
+        <li class="why-item">
+          <span class="why-icon wi-violet">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="12" cy="8" r="4"/><path d="M4 20c0-4 3.5-7 8-7s8 3 8 7"/></svg>
+          </span>
+          Find study partners by subject and schedule
+        </li>
+        <li class="why-item">
+          <span class="why-icon wi-green">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 11l3 3L22 4"/><path d="M21 12v7a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11"/></svg>
+          </span>
+          Earn SkillCheck&trade; verified badges
+        </li>
+        <li class="why-item">
+          <span class="why-icon wi-blue">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 8a6 6 0 0 0-12 0c0 7-3 9-3 9h18s-3-2-3-9"/><path d="M13.73 21a2 2 0 0 1-3.46 0"/></svg>
+          </span>
+          Get discovered by 320+ partner companies
+        </li>
+      </ul>
+    </div>
+
+    <div class="online-block">
+      <div class="online-status">
+        <span class="online-dot"></span> 48,000+ students online
+      </div>
+      <div class="avatar-stack">
+        <div class="stack-avatar" style="background:linear-gradient(135deg,#3554d1,#5b7cfa);">AR</div>
+        <div class="stack-avatar" style="background:linear-gradient(135deg,#6c5ce7,#8b6bf5);">SI</div>
+        <div class="stack-avatar" style="background:linear-gradient(135deg,#1f9d7a,#34d399);">TH</div>
+        <div class="stack-avatar" style="background:linear-gradient(135deg,#c9862f,#f7a63d);">MK</div>
+        <div class="stack-avatar" style="background:linear-gradient(135deg,#b0489f,#e56bd6);">FI</div>
+        <div class="stack-avatar more mono">+K</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- RIGHT: registration steps -->
+  <div class="right">
+    <div class="form-wrap">
+
+      <div class="stepper">
+        <div class="step-node active" id="node-1">1</div>
+        <div class="step-line" id="line-1"></div>
+        <div class="step-node" id="node-2">2</div>
+        <div class="step-line" id="line-2"></div>
+        <div class="step-node" id="node-3">3</div>
+        <span class="step-label" id="step-label">Step 1 of 3</span>
+      </div>
+
+      <!-- STEP 1: role selection -->
+      <div class="step-panel active" id="step-1">
+        <h1 class="title bn">আপনি কে?</h1>
+        <p class="title-sub">Choose your account type to get started</p>
+
+        <div class="role-grid">
+          <div class="role-card selected" data-role="student">
+            <div class="role-icon ri-violet">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="12" cy="8" r="4"/><path d="M4 20c0-4 3.5-7 8-7s8 3 8 7"/></svg>
+            </div>
+            <div class="role-name selected-text">Student</div>
+            <div class="role-name-bn bn">শিক্ষার্থী</div>
+            <div class="role-desc">Find partners, jobs, and events</div>
+          </div>
+
+          <div class="role-card" data-role="club">
+            <div class="role-icon ri-blue">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3l8 4-8 4-8-4 8-4z"/><path d="M4 11l8 4 8-4"/><path d="M4 15l8 4 8-4"/></svg>
+            </div>
+            <div class="role-name">Club</div>
+            <div class="role-name-bn bn">ক্লাব</div>
+            <div class="role-desc">Manage members and events</div>
+          </div>
+
+          <div class="role-card" data-role="recruiter">
+            <div class="role-icon ri-green">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="7" width="18" height="13" rx="2"/><path d="M8 7V5a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"/></svg>
+            </div>
+            <div class="role-name">Recruiter</div>
+            <div class="role-name-bn bn">রিক্রুটার</div>
+            <div class="role-desc">Find and hire top talent</div>
+          </div>
+
+          <div class="role-card" data-role="university">
+            <div class="role-icon ri-orange">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 10l9-7 9 7"/><path d="M5 10v10h14V10"/><path d="M9 20v-6h6v6"/></svg>
+            </div>
+            <div class="role-name">University</div>
+            <div class="role-name-bn bn">বিশ্ববিদ্যালয়</div>
+            <div class="role-desc">Admin and partnership tools</div>
+          </div>
+        </div>
+
+        <div class="btn-row single">
+          <button type="button" class="btn btn-primary bn" id="to-step-2">পরবর্তী →</button>
+        </div>
+
+        <p class="below-links bn">ইতিমধ্যে অ্যাকাউন্ট আছে? <a href="login.html">লগ ইন করুন →</a></p>
+        <a href="../index.html" class="back-link bn">← ল্যান্ডিং পেজে ফিরুন</a>
+      </div>
+
+      <!-- STEP 2: basic info -->
+      <div class="step-panel" id="step-2">
+        <h1 class="title bn">বেসিক তথ্য</h1>
+        <p class="title-sub">Tell us about yourself</p>
+
+        <form id="info-form" novalidate>
+          <div class="row-2">
+            <div class="field">
+              <label class="field-label" for="first-name">FIRST NAME</label>
+              <input type="text" id="first-name" placeholder="Arif" required>
+            </div>
+            <div class="field">
+              <label class="field-label" for="last-name">LAST NAME</label>
+              <input type="text" id="last-name" placeholder="Jahan" required>
+            </div>
+          </div>
+
+          <div class="field">
+            <label class="field-label" for="reg-email">EMAIL ADDRESS</label>
+            <input type="email" id="reg-email" placeholder="arif@cse.buet.ac.bd" required>
+            <div class="hint">Use your @edu address for instant verification</div>
+          </div>
+
+          <div class="field">
+            <label class="field-label" for="reg-university">UNIVERSITY</label>
+            <div class="select-shell">
+              <select id="reg-university" required>
+                <option value="" selected disabled>Select your university</option>
+                <option value="BUET">BUET</option>
+                <option value="DU">University of Dhaka</option>
+                <option value="NSU">North South University</option>
+                <option value="BRAC">BRAC University</option>
+                <option value="IUT">IUT</option>
+                <option value="KUET">KUET</option>
+                <option value="RUET">RUET</option>
+                <option value="CU">University of Chittagong</option>
+              </select>
+            </div>
+          </div>
+
+          <div class="row-2">
+            <div class="field">
+              <label class="field-label" for="reg-dept">DEPARTMENT</label>
+              <div class="select-shell">
+                <select id="reg-dept" required>
+                  <option value="" selected disabled>Select dept.</option>
+                  <option value="CSE">CSE</option>
+                  <option value="EEE">EEE</option>
+                  <option value="ME">Mechanical Engineering</option>
+                  <option value="CE">Civil Engineering</option>
+                  <option value="BBA">BBA</option>
+                  <option value="Other">Other</option>
+                </select>
+              </div>
+            </div>
+            <div class="field">
+              <label class="field-label" for="reg-year">YEAR</label>
+              <div class="select-shell">
+                <select id="reg-year" required>
+                  <option value="" selected disabled>Select year</option>
+                  <option value="1">1st Year</option>
+                  <option value="2">2nd Year</option>
+                  <option value="3">3rd Year</option>
+                  <option value="4">4th Year</option>
+                  <option value="grad">Graduate</option>
+                </select>
+              </div>
+            </div>
+          </div>
+        </form>
+
+        <div class="btn-row">
+          <button type="button" class="btn btn-ghost bn" id="back-to-1">← পিছনে</button>
+          <button type="button" class="btn btn-primary bn" id="to-step-3">পরবর্তী →</button>
+        </div>
+      </div>
+
+      <!-- STEP 3: password -->
+      <div class="step-panel" id="step-3">
+        <h1 class="title bn">পাসওয়ার্ড সেট করুন</h1>
+        <p class="title-sub">Secure your UNILINK account</p>
+
+        <form id="password-form" novalidate>
+          <div class="field">
+            <label class="field-label">PASSWORD</label>
+            <div class="input-shell">
+              <span class="input-icon">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="4" y="10" width="16" height="10" rx="2"/><path d="M8 10V7a4 4 0 0 1 8 0v3"/></svg>
+              </span>
+              <input type="password" id="reg-password" placeholder="••••••••" autocomplete="new-password" required minlength="8">
+              <button type="button" class="toggle-visibility" data-target="reg-password" aria-label="Show password">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M1 12s4-7 11-7 11 7 11 7-4 7-11 7-11-7-11-7z"/><circle cx="12" cy="12" r="3"/></svg>
+              </button>
+            </div>
+          </div>
+
+          <div class="field">
+            <label class="field-label">CONFIRM PASSWORD</label>
+            <div class="input-shell">
+              <span class="input-icon">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="4" y="10" width="16" height="10" rx="2"/><path d="M8 10V7a4 4 0 0 1 8 0v3"/></svg>
+              </span>
+              <input type="password" id="reg-password-confirm" placeholder="••••••••" autocomplete="new-password" required minlength="8">
+              <button type="button" class="toggle-visibility" data-target="reg-password-confirm" aria-label="Show password">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M1 12s4-7 11-7 11 7 11 7-4 7-11 7-11-7-11-7z"/><circle cx="12" cy="12" r="3"/></svg>
+              </button>
+            </div>
+          </div>
+        </form>
+
+        <div class="terms-box">
+          <input type="checkbox" id="terms-check">
+          <label for="terms-check" class="terms-text bn">আমি UNILINK-এর <a href="#">Terms of Service</a> এবং <a href="#">Privacy Policy</a> মেনে নিচ্ছি।</label>
+        </div>
+
+        <div class="btn-row">
+          <button type="button" class="btn btn-ghost bn" id="back-to-2">← পিছনে</button>
+          <button type="button" class="btn btn-primary bn" id="finish-btn">অ্যাকাউন্ট তৈরি করুন →</button>
+        </div>
+
+        <p class="below-links bn">ইতিমধ্যে অ্যাকাউন্ট আছে? <a href="login.html">লগ ইন করুন →</a></p>
+        <a href="../index.html" class="back-link bn">← ল্যান্ডিং পেজে ফিরুন</a>
+      </div>
+
+    </div>
+  </div>
+
+</div>
+
+
+<script>
+  // ---- State ----
+  let selectedRole = 'student';
+  let currentStep = 1;
+
+  const roleLabels = {
+    student: 'Student', club: 'Club', recruiter: 'Recruiter', university: 'University'
+  };
+
+  // ---- Role card selection ----
+  const roleCards = document.querySelectorAll('.role-card');
+  roleCards.forEach(function(card){
+    card.addEventListener('click', function(){
+      roleCards.forEach(function(c){
+        c.classList.remove('selected');
+        c.querySelector('.role-name').classList.remove('selected-text');
+      });
+      card.classList.add('selected');
+      card.querySelector('.role-name').classList.add('selected-text');
+      selectedRole = card.getAttribute('data-role');
+    });
+  });
+
+  // ---- Stepper visuals ----
+  function renderStepper(){
+    for(let i=1;i<=3;i++){
+      const node = document.getElementById('node-'+i);
+      node.classList.remove('active','done');
+      if(i < currentStep) node.classList.add('done');
+      if(i === currentStep) node.classList.add('active');
+      if(i < currentStep) node.innerHTML = '&#10003;'; else node.textContent = i;
+    }
+    document.getElementById('line-1').classList.toggle('filled', currentStep > 1);
+    document.getElementById('line-2').classList.toggle('filled', currentStep > 2);
+    document.getElementById('step-label').textContent = 'Step ' + currentStep + ' of 3';
+  }
+
+  function goToStep(step){
+    document.querySelectorAll('.step-panel').forEach(function(p){ p.classList.remove('active'); });
+    document.getElementById('step-'+step).classList.add('active');
+    currentStep = step;
+    renderStepper();
+  }
+
+  // ---- Navigation ----
+  document.getElementById('to-step-2').addEventListener('click', function(){
+    goToStep(2);
+  });
+
+  document.getElementById('back-to-1').addEventListener('click', function(){
+    goToStep(1);
+  });
+
+  document.getElementById('to-step-3').addEventListener('click', function(){
+    const firstName = document.getElementById('first-name').value.trim();
+    const lastName = document.getElementById('last-name').value.trim();
+    const email = document.getElementById('reg-email').value.trim();
+    const universitySel = document.getElementById('reg-university');
+    const deptSel = document.getElementById('reg-dept');
+    const yearSel = document.getElementById('reg-year');
+    const emailOk = /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email);
+
+    if(!firstName || !lastName || !emailOk || !universitySel.value || !deptSel.value || !yearSel.value){
+      alert('Please fill in all fields correctly.');
+      return;
+    }
+
+    goToStep(3);
+  });
+
+  document.getElementById('back-to-2').addEventListener('click', function(){
+    goToStep(2);
+  });
+
+  // Password show/hide toggles (works for both password fields in step 3)
+  document.querySelectorAll('.toggle-visibility').forEach(function(btn){
+    btn.addEventListener('click', function(){
+      const target = document.getElementById(btn.getAttribute('data-target'));
+      const isHidden = target.type === 'password';
+      target.type = isHidden ? 'text' : 'password';
+      btn.setAttribute('aria-label', isHidden ? 'Hide password' : 'Show password');
+      btn.innerHTML = isHidden
+        ? '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M17.94 17.94A10.94 10.94 0 0 1 12 19c-7 0-11-7-11-7a21.8 21.8 0 0 1 5.06-6.06M9.9 4.24A10.94 10.94 0 0 1 12 4c7 0 11 7 11 7a21.7 21.7 0 0 1-2.16 3.19M14.12 14.12a3 3 0 1 1-4.24-4.24"/><line x1="1" y1="1" x2="23" y2="23"/></svg>'
+        : '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M1 12s4-7 11-7 11 7 11 7-4 7-11 7-11-7-11-7z"/><circle cx="12" cy="12" r="3"/></svg>';
+    });
+  });
+
+  document.getElementById('finish-btn').addEventListener('click', function(){
+    const password = document.getElementById('reg-password').value;
+    const confirmPassword = document.getElementById('reg-password-confirm').value;
+    const termsChecked = document.getElementById('terms-check').checked;
+
+    if(password.length < 8){
+      alert('Password must be at least 8 characters.');
+      return;
+    }
+    if(password !== confirmPassword){
+      alert('Passwords do not match.');
+      return;
+    }
+    if(!termsChecked){
+      alert('Please agree to the Terms of Service and Privacy Policy to continue.');
+      return;
+    }
+
+    const btn = document.getElementById('finish-btn');
+    btn.disabled = true;
+    btn.textContent = '...';
+    setTimeout(function(){
+      alert('Front-end demo only — connect this flow to your registration backend.');
+      btn.disabled = false;
+      btn.innerHTML = 'অ্যাকাউন্ট তৈরি করুন →';
+    }, 700);
+  });
+
+  renderStepper();
+</script>
+
+</body>
+</html>

@@ -1,0 +1,860 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>UNILINK Bangladesh — Connect. Learn. Get Hired.</title>
+<style>
+  :root{
+    --bg: #05070f;
+    --bg-soft: #0a0e1a;
+    --panel: #0d1120;
+    --panel-border: rgba(255,255,255,0.07);
+    --text: #eef1fb;
+    --muted: #8891ab;
+    --muted-dim: #5b6280;
+    --blue: #5b7cfa;
+    --violet: #8b6bf5;
+    --pink: #e56bd6;
+    --green: #34d399;
+    --orange: #f7a63d;
+    --grad: linear-gradient(90deg, var(--blue), var(--violet), var(--pink));
+  }
+
+  *{box-sizing:border-box; margin:0; padding:0;}
+
+  html{scroll-behavior:smooth;}
+
+  body{
+    background:var(--bg);
+    color:var(--text);
+    font-family: "Inter", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+    line-height:1.5;
+    overflow-x:hidden;
+  }
+
+  .bn{
+    font-family:"Noto Sans Bengali", "Hind Siliguri", sans-serif;
+  }
+
+  a{color:inherit; text-decoration:none;}
+
+  img{max-width:100%; display:block;}
+
+  .container{
+    max-width:1180px;
+    margin:0 auto;
+    padding:0 32px;
+  }
+
+  /* Background grid + glow */
+  .bg-fx{
+    position:fixed;
+    inset:0;
+    z-index:-1;
+    background:
+      radial-gradient(600px 400px at 20% -5%, rgba(91,124,250,0.16), transparent 60%),
+      radial-gradient(700px 500px at 85% 10%, rgba(229,107,214,0.10), transparent 60%),
+      var(--bg);
+  }
+  .bg-fx::before{
+    content:"";
+    position:absolute;
+    inset:0;
+    background-image:
+      linear-gradient(rgba(255,255,255,0.035) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(255,255,255,0.035) 1px, transparent 1px);
+    background-size:64px 64px;
+    mask-image: radial-gradient(ellipse 900px 600px at 50% 0%, black 40%, transparent 80%);
+  }
+
+  /* Nav */
+  header{
+    position:sticky;
+    top:0;
+    z-index:50;
+    backdrop-filter: blur(10px);
+    background: rgba(5,7,15,0.72);
+    border-bottom:1px solid var(--panel-border);
+  }
+  nav{
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+    padding:18px 32px;
+    max-width:1180px;
+    margin:0 auto;
+  }
+  .brand{
+    display:flex;
+    align-items:center;
+    gap:12px;
+  }
+  .brand-mark{
+    width:36px; height:36px;
+    border-radius:10px;
+    background:linear-gradient(135deg, var(--blue), var(--violet));
+    display:flex; align-items:center; justify-content:center;
+    box-shadow:0 6px 18px rgba(91,124,250,0.35);
+  }
+  .brand-mark svg{width:18px; height:18px;}
+  .brand-name{
+    font-weight:800;
+    font-size:1.05rem;
+    letter-spacing:0.02em;
+  }
+  .brand-sub{
+    font-size:0.68rem;
+    color:var(--muted-dim);
+    letter-spacing:0.06em;
+    margin-left:2px;
+  }
+  .nav-links{
+    display:flex;
+    gap:36px;
+    font-size:0.92rem;
+    color:#c6cade;
+  }
+  .nav-links a{ transition: color .15s ease; }
+  .nav-links a:hover{ color:#fff; }
+  .nav-actions{
+    display:flex;
+    align-items:center;
+    gap:22px;
+  }
+  .login-link{
+    font-size:0.92rem;
+    color:#c6cade;
+  }
+  .btn{
+    display:inline-flex;
+    align-items:center;
+    gap:8px;
+    padding:11px 20px;
+    border-radius:9px;
+    font-weight:600;
+    font-size:0.92rem;
+    border:none;
+    cursor:pointer;
+    transition: transform .15s ease, box-shadow .15s ease, opacity .15s ease;
+  }
+  .btn:hover{ transform: translateY(-1px); }
+  .btn-primary{
+    background: linear-gradient(90deg, var(--blue), var(--violet));
+    color:#fff;
+    box-shadow: 0 8px 24px rgba(91,124,250,0.28);
+  }
+  .btn-primary:hover{ box-shadow: 0 10px 28px rgba(139,107,245,0.4); }
+  .btn-ghost{
+    background: rgba(255,255,255,0.03);
+    border:1px solid var(--panel-border);
+    color:#dfe2f0;
+  }
+  .btn-ghost:hover{ background: rgba(255,255,255,0.06); }
+
+  /* Hero */
+  .hero{
+    padding:110px 32px 90px;
+    text-align:center;
+  }
+  .pill{
+    display:inline-flex;
+    align-items:center;
+    gap:8px;
+    padding:8px 18px;
+    border-radius:999px;
+    border:1px solid rgba(91,124,250,0.35);
+    background: rgba(91,124,250,0.08);
+    color:#a9b8ff;
+    font-size:0.82rem;
+    margin-bottom:34px;
+  }
+  .pill .dot{
+    width:6px; height:6px; border-radius:50%;
+    background:var(--blue);
+    box-shadow:0 0 8px var(--blue);
+  }
+  h1.headline{
+    font-size:clamp(2.6rem, 6vw, 4.6rem);
+    font-weight:800;
+    letter-spacing:-0.02em;
+    line-height:1.08;
+    max-width:920px;
+    margin:0 auto;
+  }
+  .grad-text{
+    background: var(--grad);
+    -webkit-background-clip:text;
+    background-clip:text;
+    color:transparent;
+  }
+  .sub{
+    max-width:640px;
+    margin:30px auto 0;
+    color:var(--muted);
+    font-size:1.08rem;
+    line-height:1.7;
+  }
+  .hero-actions{
+    display:flex;
+    gap:16px;
+    justify-content:center;
+    margin-top:40px;
+  }
+  .btn-lg{ padding:14px 26px; font-size:0.98rem; border-radius:10px; }
+
+  .trusted{
+    margin-top:90px;
+  }
+  .trusted-label{
+    text-align:center;
+    font-size:0.72rem;
+    letter-spacing:0.14em;
+    color:var(--muted-dim);
+    margin-bottom:22px;
+  }
+  .logo-row{
+    display:flex;
+    justify-content:center;
+    flex-wrap:wrap;
+    gap:14px;
+  }
+  .logo-chip{
+    padding:10px 20px;
+    border-radius:9px;
+    border:1px solid var(--panel-border);
+    background: rgba(255,255,255,0.02);
+    font-size:0.78rem;
+    letter-spacing:0.08em;
+    color:var(--muted-dim);
+    font-weight:600;
+  }
+
+  /* Stats */
+  .stats{
+    border-top:1px solid var(--panel-border);
+    border-bottom:1px solid var(--panel-border);
+    background: rgba(255,255,255,0.015);
+  }
+  .stats-grid{
+    display:grid;
+    grid-template-columns:repeat(4,1fr);
+  }
+  .stat{
+    padding:52px 24px;
+    text-align:center;
+    border-right:1px solid var(--panel-border);
+  }
+  .stat:last-child{ border-right:none; }
+  .stat-num{
+    font-size:2.4rem;
+    font-weight:800;
+    background: linear-gradient(90deg, var(--blue), var(--violet));
+    -webkit-background-clip:text;
+    background-clip:text;
+    color:transparent;
+  }
+  .stat-label{
+    margin-top:10px;
+    font-size:0.92rem;
+    color:#c6cade;
+  }
+  .stat-label small{
+    display:block;
+    color:var(--muted-dim);
+    margin-top:2px;
+    font-size:0.78rem;
+  }
+
+  /* Section heading pattern */
+  section{ padding:110px 32px; }
+  .section-head{
+    text-align:center;
+    max-width:640px;
+    margin:0 auto 56px;
+  }
+  .eyebrow{
+    display:inline-block;
+    font-size:0.78rem;
+    font-weight:700;
+    letter-spacing:0.12em;
+    margin-bottom:16px;
+  }
+  .eyebrow.blue{ color:var(--blue); }
+  .eyebrow.violet{ color:var(--violet); }
+  .eyebrow.orange{ color:var(--orange); }
+  h2.section-title{
+    font-size:clamp(2rem, 4vw, 2.7rem);
+    font-weight:800;
+    letter-spacing:-0.015em;
+  }
+  .section-desc{
+    margin-top:18px;
+    color:var(--muted);
+    font-size:1.02rem;
+    line-height:1.7;
+  }
+
+  /* Features */
+  .features-grid{
+    display:grid;
+    grid-template-columns:repeat(3,1fr);
+    gap:20px;
+    max-width:1120px;
+    margin:0 auto;
+  }
+  .feature-card{
+    background:var(--panel);
+    border:1px solid var(--panel-border);
+    border-radius:16px;
+    padding:30px;
+    transition: border-color .2s ease, transform .2s ease;
+  }
+  .feature-card:hover{
+    border-color: rgba(255,255,255,0.16);
+    transform: translateY(-2px);
+  }
+  .feature-icon{
+    width:44px; height:44px;
+    border-radius:11px;
+    display:flex; align-items:center; justify-content:center;
+    margin-bottom:20px;
+  }
+  .feature-icon svg{ width:20px; height:20px; }
+  .fi-purple{ background:rgba(139,107,245,0.14); color:var(--violet); }
+  .fi-orange{ background:rgba(247,166,61,0.14); color:var(--orange); }
+  .fi-green{ background:rgba(52,211,153,0.14); color:var(--green); }
+  .fi-blue{ background:rgba(91,124,250,0.14); color:var(--blue); }
+  .fi-pink{ background:rgba(229,107,214,0.14); color:var(--pink); }
+  .fi-teal{ background:rgba(91,124,250,0.14); color:#6fd1e6; }
+
+  .feature-title{ font-size:1.12rem; font-weight:700; }
+  .feature-title-bn{
+    font-size:0.82rem;
+    color:var(--muted-dim);
+    margin-top:2px;
+    margin-bottom:14px;
+  }
+  .feature-desc{ color:var(--muted); font-size:0.94rem; line-height:1.65; }
+
+  /* How it works */
+  .steps{
+    max-width:760px;
+    margin:0 auto;
+  }
+  .step{
+    display:flex;
+    gap:32px;
+    padding:32px 0;
+    border-bottom:1px solid var(--panel-border);
+  }
+  .step:last-child{ border-bottom:none; }
+  .step-num{
+    font-size:2.1rem;
+    font-weight:800;
+    color:rgba(255,255,255,0.16);
+    min-width:56px;
+    font-variant-numeric: tabular-nums;
+  }
+  .step-dot{
+    width:8px; height:8px; border-radius:50%;
+    display:inline-block;
+    margin-right:10px;
+  }
+  .step-title{ font-size:1.15rem; font-weight:700; display:flex; align-items:center; }
+  .step-title-bn{ font-size:0.86rem; color:var(--muted-dim); margin-top:4px; margin-left:18px; }
+  .step-desc{ margin-top:12px; color:var(--muted); margin-left:18px; font-size:0.98rem; }
+
+  /* Testimonials */
+  .testi-grid{
+    display:grid;
+    grid-template-columns:repeat(3,1fr);
+    gap:20px;
+    max-width:1120px;
+    margin:0 auto;
+  }
+  .testi-card{
+    background:var(--panel);
+    border:1px solid var(--panel-border);
+    border-radius:16px;
+    padding:28px;
+  }
+  .stars{ color:var(--orange); letter-spacing:2px; margin-bottom:18px; font-size:1rem; }
+  .testi-quote{ font-size:0.98rem; color:#dfe2f0; line-height:1.65; min-height:100px; }
+  .testi-person{
+    display:flex;
+    align-items:center;
+    gap:12px;
+    margin-top:22px;
+  }
+  .avatar{
+    width:38px; height:38px;
+    border-radius:50%;
+    display:flex; align-items:center; justify-content:center;
+    font-size:0.78rem;
+    font-weight:700;
+    color:#fff;
+  }
+  .person-name{ font-size:0.92rem; font-weight:700; }
+  .person-role{ font-size:0.78rem; color:var(--muted-dim); }
+
+  /* Pricing */
+  .pricing-grid{
+    display:grid;
+    grid-template-columns:repeat(3,1fr);
+    gap:22px;
+    max-width:1120px;
+    margin:0 auto;
+    align-items:stretch;
+  }
+  .price-card{
+    background:var(--panel);
+    border:1px solid var(--panel-border);
+    border-radius:18px;
+    padding:32px;
+    display:flex;
+    flex-direction:column;
+  }
+  .price-card.featured{
+    border:1px solid rgba(139,107,245,0.5);
+    background: linear-gradient(180deg, rgba(91,124,250,0.08), rgba(13,17,32,1) 40%);
+    position:relative;
+    transform: translateY(-8px);
+  }
+  .badge-popular{
+    position:absolute;
+    top:-14px; left:50%;
+    transform:translateX(-50%);
+    background: linear-gradient(90deg, var(--blue), var(--violet));
+    padding:6px 16px;
+    border-radius:999px;
+    font-size:0.76rem;
+    font-weight:700;
+    white-space:nowrap;
+  }
+  .plan-tag{ font-size:0.78rem; font-weight:700; margin-bottom:6px; }
+  .plan-tag.free{ color:var(--muted); }
+  .plan-tag.pro{ color:var(--violet); }
+  .plan-tag.rec{ color:var(--green); }
+  .plan-name{ font-size:1.2rem; font-weight:700; margin-bottom:18px; }
+  .plan-price{ font-size:2.6rem; font-weight:800; }
+  .plan-price span{ font-size:1rem; font-weight:500; color:var(--muted-dim); }
+  .plan-desc{ color:var(--muted); font-size:0.9rem; margin:14px 0 22px; line-height:1.6; }
+  .plan-features{ list-style:none; flex-grow:1; }
+  .plan-features li{
+    display:flex; align-items:center; gap:10px;
+    font-size:0.9rem; color:#dfe2f0;
+    padding:8px 0;
+  }
+  .check{ color:var(--green); font-size:0.85rem; }
+  .plan-btn{
+    margin-top:26px;
+    width:100%;
+    justify-content:center;
+    padding:13px;
+    border-radius:9px;
+    font-weight:700;
+  }
+  .plan-btn.outline{
+    background:rgba(255,255,255,0.03);
+    border:1px solid var(--panel-border);
+    color:#dfe2f0;
+  }
+  .plan-btn.outline:hover{ background:rgba(255,255,255,0.06); }
+  .plan-btn.solid{
+    background: linear-gradient(90deg, var(--blue), var(--violet));
+    color:#fff;
+    border:none;
+  }
+
+  /* Final CTA */
+  .cta-section{
+    padding:110px 32px;
+    text-align:center;
+    background: radial-gradient(700px 380px at 50% 30%, rgba(91,124,250,0.14), transparent 70%);
+  }
+  .cta-title{
+    font-size:clamp(1.8rem, 4vw, 2.6rem);
+    font-weight:800;
+    line-height:1.25;
+  }
+  .cta-sub{
+    margin:22px auto 0;
+    max-width:520px;
+    color:var(--muted);
+    font-size:1rem;
+  }
+  .cta-fine{
+    margin-top:16px;
+    font-size:0.8rem;
+    color:var(--muted-dim);
+  }
+
+  footer{
+    border-top:1px solid var(--panel-border);
+    padding:26px 32px;
+  }
+  .footer-row{
+    max-width:1180px;
+    margin:0 auto;
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+    color:var(--muted-dim);
+    font-size:0.82rem;
+  }
+  .footer-brand{ display:flex; align-items:center; gap:10px; }
+  .footer-mark{
+    width:26px; height:26px; border-radius:7px;
+    background:linear-gradient(135deg, var(--blue), var(--violet));
+    display:flex; align-items:center; justify-content:center;
+  }
+  .footer-mark svg{ width:13px; height:13px; }
+
+  /* responsive */
+  @media (max-width: 900px){
+    .nav-links{ display:none; }
+    .stats-grid{ grid-template-columns:repeat(2,1fr); }
+    .stat{ border-right:1px solid var(--panel-border); }
+    .stat:nth-child(2n){ border-right:none; }
+    .stat:nth-child(3), .stat:nth-child(4){ border-top:1px solid var(--panel-border); }
+    .features-grid, .testi-grid, .pricing-grid{ grid-template-columns:1fr; }
+    .price-card.featured{ transform:none; }
+    .hero{ padding:80px 20px 70px; }
+    section{ padding:70px 20px; }
+    .footer-row{ flex-direction:column; gap:10px; text-align:center; }
+  }
+</style>
+<style>.page-directory{max-width:1200px;margin:0 auto;padding:70px 24px;scroll-margin-top:80px}.directory-heading{margin-bottom:26px}.directory-heading>span{font-size:11px;letter-spacing:2px;color:#9b8dff}.directory-heading h2{font-size:30px;color:#f4f6ff;margin:10px 0}.directory-heading p{color:#939db6;font-size:14px}.directory-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:16px}.directory-group{border:1px solid #ffffff16;border-radius:14px;background:#ffffff04;padding:20px}.directory-group h3{font-size:16px;color:#c3baff;margin:0 0 12px}.directory-group ul{list-style:none;margin:0;padding:0}.directory-group a{display:flex;justify-content:space-between;gap:12px;color:#c1c9db;padding:9px 0;font-size:13px}.directory-group a:hover{color:white}.directory-group a:focus-visible{outline:2px solid #9380ff;outline-offset:3px}.directory-group a span{color:#807598}@media(max-width:850px){.directory-grid{grid-template-columns:repeat(2,1fr)}}@media(max-width:550px){.directory-grid{grid-template-columns:1fr}.page-directory{padding:40px 20px}.directory-heading h2{font-size:25px}}</style><link rel="stylesheet" href="/Other/theme.css?v=17"><script src="/Other/api.js?v=17"></script><script src="/Other/language.js?v=17" defer></script><script src="/Other/global-ui.js?v=17" defer></script></head>
+<body>
+
+<div class="bg-fx"></div>
+
+<header>
+  <nav>
+    <div class="brand">
+      <div class="brand-mark">
+        <svg viewBox="0 0 24 24" fill="none"><path d="M4 7L12 3L20 7L12 11L4 7Z" fill="white"/><path d="M4 12L12 16L20 12" stroke="white" stroke-width="1.6" stroke-linecap="round"/><path d="M4 17L12 21L20 17" stroke="white" stroke-width="1.6" stroke-linecap="round"/></svg>
+      </div>
+      <span class="brand-name">UNILINK</span>
+      <span class="brand-sub">Bangladesh</span>
+    </div>
+    <div class="nav-links">
+      <a href="#features">Features</a>
+      <a href="#universities">Universities</a>
+      <a href="#employers">Employers</a>
+      <a href="#pricing">Pricing</a>
+      <a href="#pages">Explore pages</a>
+    </div>
+    <div class="nav-actions">
+      <a href="Other/login.html" class="login-link bn">লগ ইন</a>
+      <a href="Other/register.html" class="btn btn-primary bn">রেজিস্ট্রেশন করুন</a>
+    </div>
+  </nav>
+</header>
+
+<main>
+  <!-- HERO -->
+  <section class="hero">
+    <div class="pill bn"><span class="dot"></span> বাংলাদেশের #১ ইউনিভার্সিটি নেটওয়ার্ক</div>
+    <h1 class="headline">Connect. Learn. <span class="grad-text">Get Hired.</span></h1>
+    <p class="sub">UNILINK connects university students across Bangladesh with study partners, verified skill badges, live internship bids, and direct recruiter access — all in one platform.</p>
+    <div class="hero-actions">
+      <a href="Other/register.html" class="btn btn-primary btn-lg bn">বিনামূল্যে শুরু করুন →</a>
+      <a href="Other/demo.html" class="btn btn-ghost btn-lg bn">▷ ডেমো দেখুন</a>
+    </div>
+
+    <div class="trusted">
+      <div class="trusted-label">TRUSTED BY STUDENTS AT</div>
+      <div class="logo-row">
+        <span class="logo-chip">BUET</span>
+        <span class="logo-chip">DU</span>
+        <span class="logo-chip">NSU</span>
+        <span class="logo-chip">BRAC</span>
+        <span class="logo-chip">IUT</span>
+        <span class="logo-chip">KUET</span>
+        <span class="logo-chip">RUET</span>
+        <span class="logo-chip">CU</span>
+      </div>
+    </div>
+  </section>
+
+  <!-- STATS -->
+  <section class="stats" style="padding:0;">
+    <div class="stats-grid">
+      <div class="stat">
+        <div class="stat-num">48,000+</div>
+        <div class="stat-label">Active Students<small class="bn">সক্রিয় শিক্ষার্থী</small></div>
+      </div>
+      <div class="stat">
+        <div class="stat-num">320+</div>
+        <div class="stat-label">Partner Companies<small class="bn">পার্টনার কোম্পানি</small></div>
+      </div>
+      <div class="stat">
+        <div class="stat-num">12K+</div>
+        <div class="stat-label">Internships Filled<small class="bn">ইন্টার্নশিপ</small></div>
+      </div>
+      <div class="stat">
+        <div class="stat-num">98%</div>
+        <div class="stat-label">Satisfaction Rate<small class="bn">সন্তুষ্টি হার</small></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- FEATURES -->
+  <section id="features">
+    <div class="section-head">
+      <div class="eyebrow blue">PLATFORM FEATURES</div>
+      <h2 class="section-title">Everything a student needs</h2>
+      <p class="section-desc">From finding study partners to landing your first job — UNILINK handles the full journey.</p>
+    </div>
+
+    <div class="features-grid">
+      <div class="feature-card">
+        <div class="feature-icon fi-purple">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="9" cy="8" r="3"/><path d="M2 20c0-3.5 3-6 7-6s7 2.5 7 6"/><circle cx="17" cy="9" r="2.5"/><path d="M15.5 14.2c2.7.3 4.5 2.4 4.5 5.3"/></svg>
+        </div>
+        <div class="feature-title">Study Partners</div>
+        <div class="feature-title-bn bn">স্টাডি পার্টনার</div>
+        <p class="feature-desc">Match with verified peers by subject, availability, and learning style.</p>
+      </div>
+
+      <div class="feature-card">
+        <div class="feature-icon fi-orange">
+          <svg viewBox="0 0 24 24" fill="currentColor"><path d="M13 2L3 14h7l-1 8 11-14h-8l1-6z"/></svg>
+        </div>
+        <div class="feature-title">Live Bidding</div>
+        <div class="feature-title-bn bn">লাইভ বিড</div>
+        <p class="feature-desc">Students bid on internships and project contracts in real time.</p>
+      </div>
+
+      <div class="feature-card">
+        <div class="feature-icon fi-green">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 21h18"/><path d="M6 21V9l6-4 6 4v12"/><path d="M10 21v-6h4v6"/></svg>
+        </div>
+        <div class="feature-title">Recruiter Network</div>
+        <div class="feature-title-bn bn">রিক্রুটার নেটওয়ার্ক</div>
+        <p class="feature-desc">Connect directly with top Bangladesh employers and multinationals.</p>
+      </div>
+
+      <div class="feature-card">
+        <div class="feature-icon fi-blue">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3l8 4-8 4-8-4 8-4z"/><path d="M4 11l8 4 8-4"/><path d="M4 15l8 4 8-4"/></svg>
+        </div>
+        <div class="feature-title">Club Portal</div>
+        <div class="feature-title-bn bn">ক্লাব পোর্টাল</div>
+        <p class="feature-desc">Manage memberships, events, and club budgets from one dashboard.</p>
+      </div>
+
+      <div class="feature-card">
+        <div class="feature-icon fi-pink">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 11l3 3L22 4"/><path d="M21 12v7a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11"/></svg>
+        </div>
+        <div class="feature-title">SkillCheck&trade; Badges</div>
+        <div class="feature-title-bn bn">স্কিল ভেরিফিকেশন</div>
+        <p class="feature-desc">Verified skill badges that employers actually trust, not just endorsements.</p>
+      </div>
+
+      <div class="feature-card">
+        <div class="feature-icon fi-teal">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 10l9-7 9 7"/><path d="M5 10v10h14V10"/><path d="M9 20v-6h6v6"/></svg>
+        </div>
+        <div class="feature-title">University Admin</div>
+        <div class="feature-title-bn bn">বিশ্ববিদ্যালয় পোর্টাল</div>
+        <p class="feature-desc">University admins get analytics, partnership tools, and student oversight.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- HOW IT WORKS -->
+  <section id="universities">
+    <div class="section-head">
+      <div class="eyebrow violet">HOW IT WORKS</div>
+      <h2 class="section-title bn">শুরু করুন ৩ ধাপে</h2>
+    </div>
+
+    <div class="steps">
+      <div class="step">
+        <div class="step-num">01</div>
+        <div style="flex:1;">
+          <div class="step-title"><span class="step-dot" style="background:var(--blue); box-shadow:0 0 8px var(--blue);"></span>Sign up with your .edu email</div>
+          <div class="step-title-bn bn">ইউনিভার্সিটি ইমেইল দিয়ে রেজিস্ট্রেশন</div>
+          <p class="step-desc">Verify your student status instantly. Your @edu address unlocks every feature.</p>
+        </div>
+      </div>
+      <div class="step">
+        <div class="step-num">02</div>
+        <div style="flex:1;">
+          <div class="step-title"><span class="step-dot" style="background:var(--violet); box-shadow:0 0 8px var(--violet);"></span>Build your verified profile</div>
+          <div class="step-title-bn bn">প্রোফাইল তৈরি করুন</div>
+          <p class="step-desc">Add courses, skills, and take SkillCheck&trade; assessments for verified badges.</p>
+        </div>
+      </div>
+      <div class="step">
+        <div class="step-num">03</div>
+        <div style="flex:1;">
+          <div class="step-title"><span class="step-dot" style="background:var(--green); box-shadow:0 0 8px var(--green);"></span>Connect, bid, and get hired</div>
+          <div class="step-title-bn bn">কানেক্ট করুন, বিড করুন</div>
+          <p class="step-desc">Find study partners, bid on internships, or get discovered by top recruiters.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- TESTIMONIALS -->
+  <section id="employers">
+    <div class="section-head">
+      <div class="eyebrow" style="color:var(--orange);">TESTIMONIALS</div>
+      <h2 class="section-title">Real students, real results</h2>
+    </div>
+
+    <div class="testi-grid">
+      <div class="testi-card">
+        <div class="stars">★★★★★</div>
+        <p class="testi-quote bn">"UNILINK-এর মাধ্যমে আমি Google Bangladesh-এ ইন্টার্নশিপ পেয়েছি। লাইভ বিডিং ফিচারটি অসাধারণ!"</p>
+        <div class="testi-person">
+          <div class="avatar" style="background:linear-gradient(135deg,#6c5ce7,#8b6bf5);">SI</div>
+          <div>
+            <div class="person-name">Sadia Islam</div>
+            <div class="person-role bn">CSE, ৪র্থ বর্ষ · BUET</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="testi-card">
+        <div class="stars">★★★★★</div>
+        <p class="testi-quote">"As a recruiter, the verified SkillCheck badges save us hours of vetting. We hired 12 interns through UNILINK last quarter."</p>
+        <div class="testi-person">
+          <div class="avatar" style="background:linear-gradient(135deg,#1f9d7a,#34d399);">TA</div>
+          <div>
+            <div class="person-name">Tanvir Ahmed</div>
+            <div class="person-role">HR Lead · bKash Limited</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="testi-card">
+        <div class="stars">★★★★★</div>
+        <p class="testi-quote bn">"আমাদের রোবোটিক্স ক্লাবের সদস্যতা এবং ইভেন্ট ম্যানেজমেন্ট এখন অনেক সহজ হয়ে গেছে।"</p>
+        <div class="testi-person">
+          <div class="avatar" style="background:linear-gradient(135deg,#3554d1,#5b7cfa);">RH</div>
+          <div>
+            <div class="person-name">Rafiqul Hasan</div>
+            <div class="person-role">Club President · DU Tech Society</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- PRICING -->
+  <section id="pricing">
+    <div class="section-head">
+      <div class="eyebrow blue">PRICING</div>
+      <h2 class="section-title bn">সহজ, স্বচ্ছ মূল্য পরিকল্পনা</h2>
+      <p class="section-desc bn">শিক্ষার্থীদের জন্য সর্বদা বিনামূল্যে। ক্লাব ও রিক্রুটারদের জন্য সাশ্রয়ী প্ল্যান।</p>
+    </div>
+
+    <div class="pricing-grid">
+      <div class="price-card">
+        <div class="plan-tag free bn">বিনামূল্যে</div>
+        <div class="plan-name">Free</div>
+        <div class="plan-price bn">৳0 <span>চিরতরে</span></div>
+        <p class="plan-desc bn">শিক্ষার্থীদের জন্য সম্পূর্ণ বিনামূল্যে।</p>
+        <ul class="plan-features bn">
+          <li><span class="check">✓</span> স্টাডি পার্টনার ম্যাচিং</li>
+          <li><span class="check">✓</span> ক্যাম্পাস ফিড</li>
+          <li><span class="check">✓</span> বেসিক প্রোফাইল</li>
+          <li><span class="check">✓</span> ৩টি বিড/মাস</li>
+          <li><span class="check">✓</span> নোটস ডাউনলোড</li>
+        </ul>
+        <a href="Other/register.html" class="btn plan-btn outline bn">শুরু করুন →</a>
+      </div>
+
+      <div class="price-card featured">
+        <div class="badge-popular bn">★ সবচেয়ে জনপ্রিয়</div>
+        <div class="plan-tag pro bn">প্রো শিক্ষার্থী</div>
+        <div class="plan-name">Pro Student</div>
+        <div class="plan-price bn">৳199 <span>/মাস</span></div>
+        <p class="plan-desc bn">আনলিমিটেড বিড, ভেরিফাইড ব্যাজ ও বুস্টেড প্রোফাইল।</p>
+        <ul class="plan-features bn">
+          <li><span class="check">✓</span> আনলিমিটেড বিড</li>
+          <li><span class="check">✓</span> SkillCheck™ ব্যাজ (৫টি)</li>
+          <li><span class="check">✓</span> Top Candidate বুস্ট</li>
+          <li><span class="check">✓</span> রিক্রুটার মেসেজিং</li>
+          <li><span class="check">✓</span> অগ্রাধিকার সাপোর্ট</li>
+        </ul>
+        <a href="Other/Settings.html#billing" class="btn plan-btn solid bn">প্রো-তে আপগ্রেড করুন →</a>
+      </div>
+
+      <div class="price-card">
+        <div class="plan-tag rec bn">রিক্রুটার</div>
+        <div class="plan-name">Recruiter</div>
+        <div class="plan-price bn">৳2,499 <span>/মাস</span></div>
+        <p class="plan-desc bn">শীর্ষ প্রতিভা খুঁজুন ও সরাসরি বিড পোস্ট করুন।</p>
+        <ul class="plan-features bn">
+          <li><span class="check">✓</span> আনলিমিটেড প্রার্থী সার্চ</li>
+          <li><span class="check">✓</span> লাইভ বিড পোস্টিং</li>
+          <li><span class="check">✓</span> যাচাইকৃত ব্যাজ ফিল্টার</li>
+          <li><span class="check">✓</span> বিশ্ববিদ্যালয় পার্টনারশিপ</li>
+          <li><span class="check">✓</span> HR ড্যাশবোর্ড অ্যানালিটিক্স</li>
+        </ul>
+        <a href="Recruiter Search/Recruiter search.html" class="btn plan-btn outline bn">ট্রায়াল শুরু করুন →</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- FINAL CTA -->
+  <section class="cta-section">
+    <h2 class="cta-title bn">আপনার একাডেমিক যাত্রা আজই শুরু করুন</h2>
+    <p class="cta-sub">Join 48,000+ students who are already connecting, learning, and building careers through UNILINK Bangladesh.</p>
+    <div style="margin-top:36px;">
+      <a href="Other/register.html" class="btn btn-primary btn-lg bn">বিনামূল্যে যোগ দিন →</a>
+    </div>
+    <p class="cta-fine bn">ক্রেডিট কার্ড ছাড়াই · @edu ইমেইল দিয়ে তাৎক্ষণিক যাচাই</p>
+  </section>
+</main>
+
+<section id="pages" class="page-directory" aria-labelledby="pages-title"><div class="directory-heading"><span>EXPLORE UNILINK</span><h2 id="pages-title">Find your campus workspace</h2><p>Open any page in the frontend demo.</p></div><div class="directory-grid"><section class="directory-group"><h3>Admin</h3><ul><li><a href="Admin/Admin-Notice.html">Campus announcements <span aria-hidden="true">↗</span></a></li><li><a href="Admin/Admin-partnership.html">Partnership management <span aria-hidden="true">↗</span></a></li><li><a href="Admin/Admin-portal.html">Admin overview <span aria-hidden="true">↗</span></a></li><li><a href="Admin/Admin-report.html">Reports & downloads <span aria-hidden="true">↗</span></a></li><li><a href="Admin/Admin-Statistics.html">Analytics dashboard <span aria-hidden="true">↗</span></a></li></ul></section><section class="directory-group"><h3>Club</h3><ul><li><a href="Club/Club notice.html">Club notices <span aria-hidden="true">↗</span></a></li><li><a href="Club/Club treasure.html">Club treasury <span aria-hidden="true">↗</span></a></li><li><a href="Club/Club-events.html">Club events <span aria-hidden="true">↗</span></a></li><li><a href="Club/Club-member.html">Club members <span aria-hidden="true">↗</span></a></li><li><a href="Club/club-portal.html">Club overview <span aria-hidden="true">↗</span></a></li></ul></section><section class="directory-group"><h3>Study Partner</h3><ul><li><a href="Study Partner/Message.html">Study partner messages <span aria-hidden="true">↗</span></a></li><li><a href="Study Partner/my-partner-page.html">My partners <span aria-hidden="true">↗</span></a></li><li><a href="Study Partner/my-partner-request.html">Partner requests <span aria-hidden="true">↗</span></a></li><li><a href="Study Partner/study-group.html">Study groups <span aria-hidden="true">↗</span></a></li><li><a href="Study Partner/study-partner-main-page.html">Discover study partners <span aria-hidden="true">↗</span></a></li><li><a href="Study Partner/study-partner.html">Study partner matching <span aria-hidden="true">↗</span></a></li><li><a href="Study Partner/study-session.html">Study sessions <span aria-hidden="true">↗</span></a></li></ul></section><section class="directory-group"><h3>Recruiter Search</h3><ul><li><a href="Recruiter Search/Recruiter search.html">Recruiter search <span aria-hidden="true">↗</span></a></li></ul></section><section class="directory-group"><h3>Live Bid</h3><ul><li><a href="Live Bid/Exclusive Candidate Access Bid.html">Candidate access bids <span aria-hidden="true">↗</span></a></li><li><a href="Live Bid/Hackathon Bounty.html">Hackathon bounties <span aria-hidden="true">↗</span></a></li><li><a href="Live Bid/Live Bid.html">Live bidding <span aria-hidden="true">↗</span></a></li></ul></section><section class="directory-group"><h3>Other</h3><ul><li><a href="Other/badges.html">Skill badges <span aria-hidden="true">↗</span></a></li><li><a href="Other/demo.html">Campus feed <span aria-hidden="true">↗</span></a></li><li><a href="Other/events.html">Campus events <span aria-hidden="true">↗</span></a></li><li><a href="Other/landing-page.html">Landing page <span aria-hidden="true">↗</span></a></li><li><a href="Other/login.html">Log in <span aria-hidden="true">↗</span></a></li><li><a href="Other/notes.html">Notes & question papers <span aria-hidden="true">↗</span></a></li><li><a href="Other/register.html">Register <span aria-hidden="true">↗</span></a></li><li><a href="Other/Settings.html">Account settings <span aria-hidden="true">↗</span></a></li></ul></section></div></section>
+<footer>
+  <div class="footer-row">
+    <div class="footer-brand">
+      <div class="footer-mark">
+        <svg viewBox="0 0 24 24" fill="none"><path d="M4 7L12 3L20 7L12 11L4 7Z" fill="white"/></svg>
+      </div>
+      <span style="color:#dfe2f0; font-weight:700; font-size:0.9rem;">UNILINK</span>
+      <span style="font-size:0.75rem;">Bangladesh</span>
+    </div>
+    <div>&copy; 2026 UNILINK Bangladesh. All rights reserved.</div>
+  </div>
+</footer>
+
+<script>
+  // Smooth-scroll for in-page nav links (native scroll-behavior already covers most,
+  // this ensures older browsers still get a smooth jump).
+  document.querySelectorAll('a[href^="#"]').forEach(function(link){
+    link.addEventListener('click', function(e){
+      const id = this.getAttribute('href');
+      if(id.length > 1){
+        const target = document.querySelector(id);
+        if(target){
+          e.preventDefault();
+          target.scrollIntoView({behavior:'smooth', block:'start'});
+        }
+      }
+    });
+  });
+
+  // Simple header shadow on scroll for depth
+  const header = document.querySelector('header');
+  window.addEventListener('scroll', function(){
+    if(window.scrollY > 8){
+      header.style.boxShadow = '0 8px 24px rgba(0,0,0,0.35)';
+    } else {
+      header.style.boxShadow = 'none';
+    }
+  });
+</script>
+
+</body>
+</html>

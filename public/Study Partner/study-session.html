@@ -1,0 +1,1233 @@
+﻿<!DOCTYPE html>
+<html lang="bn">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>স্টাডি সেশন — UNILINK Bangladesh</title>
+<style>
+  :root{
+    --bg: #f6f7fb;
+    --panel: #ffffff;
+    --border: #e6e8f0;
+    --text: #14161f;
+    --muted: #6b7189;
+    --muted-dim: #9195a8;
+    --blue: #4f6bef;
+    --blue-dark: #3b52c9;
+    --violet: #7c5cf0;
+    --green: #16a67a;
+    --orange: #e8862c;
+    --pink: #d84fb0;
+    --red: #e5484d;
+    --shadow: 0 1px 2px rgba(20,22,31,0.04);
+  }
+
+  *{box-sizing:border-box; margin:0; padding:0;}
+
+  body{
+    background:var(--bg);
+    color:var(--text);
+    font-family:"Inter", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+    min-height:100vh;
+  }
+
+  .bn{ font-family:"Noto Sans Bengali", "Hind Siliguri", sans-serif; }
+
+  a{ color:inherit; text-decoration:none; }
+  button{ font-family:inherit; cursor:pointer; }
+
+  /* ===== TOP BAR ===== */
+  .topbar{
+    background:var(--panel);
+    border-bottom:1px solid var(--border);
+    padding:14px 24px;
+    display:flex;
+    align-items:center;
+    gap:20px;
+  }
+  .icon-btn{
+    width:38px; height:38px;
+    border-radius:9px;
+    border:1px solid var(--border);
+    background:var(--panel);
+    display:flex; align-items:center; justify-content:center;
+    color:var(--muted);
+    flex-shrink:0;
+    position:relative;
+    transition: background .15s ease, border-color .15s ease;
+  }
+  .icon-btn:hover{ background:#f1f2f7; }
+  .icon-btn svg{ width:18px; height:18px; }
+
+  .search-shell{
+    flex:1;
+    max-width:460px;
+    position:relative;
+  }
+  .search-shell svg{
+    position:absolute; left:14px; top:50%; transform:translateY(-50%);
+    width:16px; height:16px; color:var(--muted-dim);
+  }
+  .search-shell input{
+    width:100%;
+    padding:10px 14px 10px 40px;
+    border-radius:9px;
+    border:1px solid var(--border);
+    background:#f6f7fb;
+    font-size:0.9rem;
+    color:var(--text);
+    outline:none;
+    transition:border-color .15s ease, background .15s ease;
+  }
+  .search-shell input::placeholder{ color:var(--muted-dim); }
+  .search-shell input:focus{ border-color:var(--blue); background:#fff; }
+
+  .topbar-right{
+    display:flex;
+    align-items:center;
+    gap:14px;
+    margin-left:auto;
+  }
+
+  .role-pill{
+    display:flex;
+    align-items:center;
+    gap:8px;
+    padding:8px 14px;
+    border-radius:9px;
+    border:1px solid var(--border);
+    background:var(--panel);
+    font-size:0.85rem;
+    color:var(--text);
+    font-weight:600;
+  }
+  .role-pill .dot{
+    width:7px; height:7px; border-radius:50%;
+    background:var(--blue);
+  }
+  .role-pill svg.chev{ width:13px; height:13px; color:var(--muted-dim); }
+
+  .verified-pill{
+    display:flex;
+    align-items:center;
+    gap:6px;
+    padding:8px 14px;
+    border-radius:999px;
+    background: rgba(22,166,122,0.1);
+    color:var(--green);
+    font-size:0.82rem;
+    font-weight:700;
+    white-space:nowrap;
+  }
+  .verified-pill svg{ width:14px; height:14px; }
+
+  .bell-wrap{ position:relative; }
+  .bell-dot{
+    position:absolute;
+    top:8px; right:8px;
+    width:7px; height:7px;
+    border-radius:50%;
+    background:var(--red);
+    border:1.5px solid var(--panel);
+  }
+
+  .user-block{
+    display:flex;
+    align-items:center;
+    gap:10px;
+    padding-left:6px;
+  }
+  .avatar{
+    width:36px; height:36px;
+    border-radius:50%;
+    background:linear-gradient(135deg,var(--blue),var(--violet));
+    display:flex; align-items:center; justify-content:center;
+    font-size:0.78rem; font-weight:700; color:#fff;
+    flex-shrink:0;
+  }
+  .user-name{ font-size:0.88rem; font-weight:700; line-height:1.2; }
+  .user-meta{ font-size:0.75rem; color:var(--muted-dim); }
+
+  /* ===== BREADCRUMB ===== */
+  .breadcrumb{
+    background:var(--panel);
+    border-bottom:1px solid var(--border);
+    padding:10px 24px;
+    font-size:0.82rem;
+    color:var(--muted-dim);
+  }
+  .breadcrumb .current{ color:var(--blue); font-weight:600; }
+
+  /* ===== SUB NAV ===== */
+  .subnav{
+    background:var(--panel);
+    border-bottom:1px solid var(--border);
+    padding:0 24px;
+    display:flex;
+    align-items:center;
+    gap:6px;
+  }
+  .subnav-tab{
+    display:flex; align-items:center; gap:8px;
+    padding:16px 14px;
+    font-size:0.88rem;
+    color:var(--muted);
+    border-bottom:2px solid transparent;
+    font-weight:600;
+    white-space:nowrap;
+  }
+  .subnav-tab svg{ width:16px; height:16px; }
+  .subnav-tab:hover{ color:var(--text); }
+  .subnav-tab.active{
+    color:var(--blue);
+    border-bottom-color:var(--blue);
+  }
+  .tab-badge{
+    display:inline-flex;
+    align-items:center; justify-content:center;
+    min-width:18px; height:18px;
+    padding:0 5px;
+    border-radius:999px;
+    background:var(--red);
+    color:#fff;
+    font-size:0.68rem;
+    font-weight:800;
+    margin-left:2px;
+  }
+  .subnav-right{
+    margin-left:auto;
+    display:flex;
+    align-items:center;
+    gap:16px;
+  }
+  .toggle-row{
+    display:flex; align-items:center; gap:10px;
+    font-size:0.85rem;
+    color:var(--muted);
+    font-weight:600;
+  }
+  .switch{
+    position:relative;
+    width:40px; height:22px;
+    border-radius:999px;
+    background:var(--border);
+    cursor:pointer;
+    transition: background .2s ease;
+    flex-shrink:0;
+  }
+  .switch.on{ background:var(--blue); }
+  .switch::after{
+    content:"";
+    position:absolute;
+    top:2px; left:2px;
+    width:18px; height:18px;
+    border-radius:50%;
+    background:#fff;
+    box-shadow:0 1px 3px rgba(0,0,0,0.25);
+    transition: transform .2s ease;
+  }
+  .switch.on::after{ transform:translateX(18px); }
+
+  .boost-badge{
+    display:flex; align-items:center; gap:6px;
+    padding:8px 14px;
+    border-radius:999px;
+    background: rgba(232,134,44,0.12);
+    color:var(--orange);
+    font-size:0.8rem;
+    font-weight:700;
+  }
+  .boost-badge svg{ width:14px; height:14px; }
+
+  /* ===== MAIN ===== */
+  main{
+    max-width:1000px;
+    margin:0 auto;
+    padding:36px 24px 80px;
+  }
+  .main-head{
+    display:flex;
+    align-items:flex-start;
+    justify-content:space-between;
+    margin-bottom:24px;
+    gap:16px;
+    flex-wrap:wrap;
+  }
+  .main-title{ font-size:1.5rem; font-weight:800; }
+  .main-sub{ margin-top:4px; font-size:0.9rem; color:var(--muted); }
+
+  .btn-new{
+    display:flex; align-items:center; gap:8px;
+    padding:11px 18px;
+    border-radius:9px;
+    background:var(--blue);
+    color:#fff;
+    font-size:0.88rem;
+    font-weight:700;
+    border:none;
+    box-shadow:0 6px 16px rgba(79,107,239,0.28);
+    transition: background .15s ease, transform .15s ease;
+    white-space:nowrap;
+  }
+  .btn-new svg{ width:15px; height:15px; }
+  .btn-new:hover{ background:var(--blue-dark); }
+  .btn-new:active{ transform:translateY(1px); }
+
+  /* Feed cards */
+  .feed{ display:flex; flex-direction:column; gap:16px; }
+  .card{
+    background:var(--panel);
+    border:1px solid var(--border);
+    border-radius:14px;
+    padding:22px 24px;
+    box-shadow:var(--shadow);
+    transition: box-shadow .15s ease, transform .15s ease, opacity .2s ease;
+  }
+  .card:hover{ box-shadow:0 6px 18px rgba(20,22,31,0.07); }
+  .card.new-post{
+    animation: pop-in .35s ease;
+  }
+  @keyframes pop-in{
+    from{ opacity:0; transform:translateY(-8px); }
+    to{ opacity:1; transform:translateY(0); }
+  }
+  .card-top{
+    display:flex;
+    align-items:flex-start;
+    gap:14px;
+  }
+  .card-icon{
+    width:38px; height:38px;
+    border-radius:10px;
+    display:flex; align-items:center; justify-content:center;
+    flex-shrink:0;
+  }
+  .card-icon svg{ width:18px; height:18px; }
+  .ci-blue{ background:rgba(79,107,239,0.1); color:var(--blue); }
+  .ci-green{ background:rgba(22,166,122,0.1); color:var(--green); }
+  .ci-violet{ background:rgba(124,92,240,0.1); color:var(--violet); }
+  .ci-orange{ background:rgba(232,134,44,0.1); color:var(--orange); }
+
+  .card-body{ flex:1; min-width:0; }
+  .card-title-row{
+    display:flex;
+    align-items:flex-start;
+    justify-content:space-between;
+    gap:12px;
+  }
+  .card-title{ font-size:1rem; font-weight:700; }
+  .card-tag{
+    flex-shrink:0;
+    font-size:0.76rem;
+    font-weight:700;
+    padding:5px 12px;
+    border-radius:999px;
+    white-space:nowrap;
+  }
+  .tag-event{ background:rgba(79,107,239,0.1); color:var(--blue); }
+  .tag-job{ background:rgba(22,166,122,0.1); color:var(--green); }
+  .tag-scholarship{ background:rgba(124,92,240,0.1); color:var(--violet); }
+  .tag-academic{ background:rgba(232,134,44,0.1); color:var(--orange); }
+
+  .card-desc{
+    margin-top:8px;
+    font-size:0.92rem;
+    color:#3a3d4d;
+    line-height:1.6;
+  }
+  .card-time{
+    margin-top:12px;
+    font-size:0.78rem;
+    color:var(--muted-dim);
+  }
+  .card-actions{
+    display:flex;
+    align-items:center;
+    gap:22px;
+    margin-top:14px;
+  }
+  .action{
+    display:flex; align-items:center; gap:6px;
+    font-size:0.84rem;
+    color:var(--muted);
+    background:none;
+    border:none;
+    padding:4px 2px;
+    transition: color .15s ease;
+  }
+  .action svg{ width:16px; height:16px; }
+  .action:hover{ color:var(--text); }
+  .action.liked{ color:var(--red); font-weight:700; }
+  .action.liked svg{ fill:var(--red); stroke:var(--red); }
+
+  /* Modal for new post (demo only) */
+  .modal-overlay{
+    position:fixed; inset:0;
+    background:rgba(20,22,31,0.45);
+    display:none;
+    align-items:center;
+    justify-content:center;
+    z-index:100;
+    padding:20px;
+  }
+  .modal-overlay.show{ display:flex; }
+  .modal{
+    background:var(--panel);
+    border-radius:16px;
+    padding:28px;
+    width:100%;
+    max-width:460px;
+    box-shadow:0 20px 50px rgba(0,0,0,0.25);
+  }
+  .modal h3{ font-size:1.15rem; font-weight:800; margin-bottom:18px; }
+  .modal label{
+    display:block;
+    font-size:0.8rem;
+    font-weight:600;
+    color:var(--muted);
+    margin-bottom:6px;
+    margin-top:14px;
+  }
+  .modal input, .modal textarea, .modal select{
+    width:100%;
+    padding:11px 14px;
+    border-radius:8px;
+    border:1px solid var(--border);
+    font-size:0.9rem;
+    font-family:inherit;
+    outline:none;
+    color:var(--text);
+  }
+  .modal input:focus, .modal textarea:focus, .modal select:focus{ border-color:var(--blue); }
+  .modal textarea{ resize:vertical; min-height:70px; }
+  .modal-actions{
+    display:flex; gap:10px;
+    margin-top:22px;
+  }
+  .modal-actions button{
+    flex:1;
+    padding:11px;
+    border-radius:9px;
+    font-weight:700;
+    font-size:0.88rem;
+    border:none;
+  }
+  .btn-cancel{ background:#f1f2f7; color:var(--text); }
+  .btn-cancel:hover{ background:#e6e8f0; }
+  .btn-submit{ background:var(--blue); color:#fff; }
+  .btn-submit:hover{ background:var(--blue-dark); }
+
+  /* ===== MY STUDY PARTNERS PAGE ===== */
+  .mp-head{
+    margin-bottom:24px;
+  }
+  .mp-head .main-title{ font-size:1.5rem; font-weight:800; }
+  .mp-head .main-sub{ margin-top:4px; font-size:0.9rem; color:var(--muted); }
+
+  /* Upcoming sessions panel */
+  .upcoming-panel{
+    background:rgba(79,107,239,0.04);
+    border:1px solid rgba(79,107,239,0.18);
+    border-radius:14px;
+    padding:20px 22px;
+    margin-bottom:24px;
+  }
+  .upcoming-label{
+    font-size:0.72rem;
+    font-weight:700;
+    letter-spacing:0.02em;
+    color:var(--blue);
+    margin-bottom:14px;
+  }
+  .upcoming-list{ display:flex; flex-direction:column; }
+  .upcoming-row{
+    display:flex;
+    align-items:center;
+    gap:14px;
+    padding:14px 0;
+    border-bottom:1px solid rgba(79,107,239,0.14);
+  }
+  .upcoming-row:last-child{ border-bottom:none; padding-bottom:0; }
+  .upcoming-row:first-child{ padding-top:0; }
+  .upcoming-avatar{
+    width:40px; height:40px;
+    border-radius:11px;
+    display:flex; align-items:center; justify-content:center;
+    font-size:0.8rem; font-weight:700; color:#fff;
+    flex-shrink:0;
+  }
+  .upcoming-info{ flex:1; min-width:0; }
+  .upcoming-title{ font-size:0.95rem; font-weight:700; }
+  .upcoming-meta{ margin-top:2px; font-size:0.82rem; color:var(--muted); }
+  .upcoming-tags{ display:flex; gap:7px; margin-top:8px; flex-wrap:wrap; }
+  .upcoming-tag{
+    font-size:0.75rem; font-weight:600;
+    padding:4px 10px;
+    border-radius:999px;
+    background:#f1f2f7;
+    color:var(--muted);
+  }
+  .btn-join, .btn-view{
+    display:flex; align-items:center; gap:7px;
+    padding:9px 16px;
+    border-radius:8px;
+    font-size:0.84rem;
+    font-weight:700;
+    border:none;
+    white-space:nowrap;
+    flex-shrink:0;
+    transition: background .15s ease, transform .15s ease;
+  }
+  .btn-join svg, .btn-view svg{ width:14px; height:14px; }
+  .btn-join{ background:var(--blue); color:#fff; }
+  .btn-join:hover{ background:var(--blue-dark); }
+  .btn-view{ background:var(--green); color:#fff; }
+  .btn-view:hover{ background:#0f8e68; }
+  .btn-join:active, .btn-view:active{ transform:translateY(1px); }
+
+  /* Partner cards */
+  .partner-list{ display:flex; flex-direction:column; gap:16px; }
+  .partner-card{
+    background:var(--panel);
+    border:1px solid var(--border);
+    border-radius:14px;
+    padding:22px 24px;
+    box-shadow:var(--shadow);
+    display:flex;
+    align-items:flex-start;
+    justify-content:space-between;
+    gap:20px;
+    flex-wrap:wrap;
+  }
+  .partner-main{ display:flex; align-items:flex-start; gap:14px; min-width:0; flex:1; }
+  .partner-avatar-wrap{ position:relative; flex-shrink:0; }
+  .partner-avatar{
+    width:46px; height:46px;
+    border-radius:13px;
+    display:flex; align-items:center; justify-content:center;
+    font-size:0.85rem; font-weight:700; color:#fff;
+  }
+  .online-dot{
+    position:absolute;
+    bottom:-2px; right:-2px;
+    width:12px; height:12px;
+    border-radius:50%;
+    background:var(--green);
+    border:2px solid var(--panel);
+  }
+  .partner-body{ min-width:0; }
+  .partner-name{ font-size:1rem; font-weight:800; }
+  .partner-meta{ margin-top:2px; font-size:0.85rem; color:var(--muted); }
+  .partner-course-row{
+    display:flex; align-items:center; gap:8px;
+    margin-top:10px;
+    font-size:0.82rem;
+    color:var(--muted);
+    flex-wrap:wrap;
+  }
+  .partner-course-pill{
+    display:flex; align-items:center; gap:6px;
+    padding:5px 11px;
+    border-radius:999px;
+    background:rgba(79,107,239,0.1);
+    color:var(--blue);
+    font-weight:700;
+    font-size:0.78rem;
+  }
+  .partner-course-pill svg{ width:13px; height:13px; }
+  .partner-sessions-done{ color:var(--muted-dim); }
+
+  .partner-actions{ display:flex; gap:10px; margin-top:16px; flex-wrap:wrap; }
+  .partner-actions button{
+    display:flex; align-items:center; gap:7px;
+    padding:10px 16px;
+    border-radius:8px;
+    font-size:0.84rem;
+    font-weight:700;
+    border:none;
+    white-space:nowrap;
+    transition: background .15s ease, transform .15s ease;
+  }
+  .partner-actions button svg{ width:14px; height:14px; }
+  .partner-actions button:active{ transform:translateY(1px); }
+  .btn-schedule{ background:rgba(79,107,239,0.1); color:var(--blue); }
+  .btn-schedule:hover{ background:rgba(79,107,239,0.18); }
+  .btn-message{ background:#f1f2f7; color:var(--text); }
+  .btn-message:hover{ background:#e6e8f0; }
+  .btn-startnow{ background:var(--green); color:#fff; }
+  .btn-startnow:hover{ background:#0f8e68; }
+
+  .partner-next{ text-align:right; flex-shrink:0; }
+  .partner-next .lbl{ font-size:0.78rem; color:var(--muted-dim); }
+  .partner-next .val{ margin-top:4px; font-size:0.92rem; font-weight:800; color:var(--text); }
+
+  .mp-empty{
+    background:var(--panel);
+    border:1px solid var(--border);
+    border-radius:16px;
+    padding:60px 24px;
+    text-align:center;
+    box-shadow:var(--shadow);
+  }
+  .mp-empty svg{ width:40px; height:40px; color:var(--muted-dim); margin-bottom:14px; }
+  .mp-empty h3{ font-size:1.05rem; font-weight:800; margin-bottom:6px; }
+  .mp-empty p{ font-size:0.88rem; color:var(--muted); }
+
+  @media (max-width: 860px){
+    .partner-card{ flex-direction:column; }
+    .partner-next{ text-align:left; }
+    .upcoming-row{ flex-wrap:wrap; }
+    .btn-join, .btn-view{ margin-left:auto; }
+  }
+
+  /* ===== SIDEBAR (off-canvas drawer) ===== */
+  .sidebar-backdrop{
+    position:fixed; inset:0;
+    background:rgba(20,22,31,0.55);
+    backdrop-filter: blur(1px);
+    z-index:300;
+    opacity:0;
+    pointer-events:none;
+    transition: opacity .2s ease;
+  }
+  .sidebar-backdrop.open{ opacity:1; pointer-events:auto; }
+
+  .sidebar{
+    position:fixed; top:0; left:0; bottom:0;
+    width:240px;
+    background:#12142099;
+    background:#12141f;
+    z-index:301;
+    display:flex;
+    flex-direction:column;
+    transform:translateX(-100%);
+    transition: transform .25s ease;
+    box-shadow:2px 0 24px rgba(0,0,0,0.3);
+  }
+  .sidebar.open{ transform:translateX(0); }
+
+  .sidebar-head{
+    display:flex; align-items:center; justify-content:space-between;
+    padding:18px 18px 16px;
+    border-bottom:1px solid rgba(255,255,255,0.08);
+  }
+  .sidebar-brand{ display:flex; align-items:center; gap:10px; }
+  .sidebar-logo{
+    width:34px; height:34px; border-radius:9px;
+    background:linear-gradient(135deg,var(--blue),var(--violet));
+    display:flex; align-items:center; justify-content:center;
+    flex-shrink:0;
+  }
+  .sidebar-logo svg{ width:18px; height:18px; color:#fff; }
+  .sidebar-brand-text .sb-title{ font-size:0.95rem; font-weight:800; color:#fff; letter-spacing:0.3px; }
+  .sidebar-brand-text .sb-sub{ font-size:0.72rem; color:#8b8fa3; margin-top:1px; }
+  .sidebar-close{
+    width:28px; height:28px; border-radius:7px;
+    border:none; background:transparent; color:#8b8fa3;
+    display:flex; align-items:center; justify-content:center;
+  }
+  .sidebar-close:hover{ background:rgba(255,255,255,0.08); color:#fff; }
+  .sidebar-close svg{ width:16px; height:16px; }
+
+  .sidebar-lang{
+    display:flex; margin:16px 18px 8px;
+    background:rgba(255,255,255,0.06);
+    border-radius:9px;
+    padding:3px;
+  }
+  .sidebar-lang button{
+    flex:1;
+    padding:8px 0;
+    border:none;
+    border-radius:7px;
+    font-size:0.82rem;
+    font-weight:700;
+    background:transparent;
+    color:#9195a8;
+  }
+  .sidebar-lang button.active{
+    background:linear-gradient(90deg,var(--blue),var(--violet));
+    color:#fff;
+  }
+
+  .sidebar-nav{
+    display:flex; flex-direction:column;
+    gap:2px;
+    padding:10px 12px;
+    flex:1;
+    overflow-y:auto;
+  }
+  .sidebar-item{
+    display:flex; align-items:center; gap:12px;
+    padding:11px 12px;
+    border-radius:9px;
+    color:#c3c6d4;
+    font-size:0.88rem;
+    font-weight:600;
+    position:relative;
+  }
+  .sidebar-item svg{ width:17px; height:17px; flex-shrink:0; }
+  .sidebar-item:hover{ background:rgba(255,255,255,0.06); color:#fff; }
+  .sidebar-item.active{
+    background:var(--blue);
+    color:#fff;
+  }
+  .sidebar-item .sb-dot{
+    width:7px; height:7px; border-radius:50%;
+    background:var(--red);
+    margin-left:auto;
+  }
+
+  .sidebar-upgrade{
+    margin:12px;
+    padding:16px;
+    border-radius:12px;
+    background:rgba(255,255,255,0.06);
+  }
+  .sidebar-upgrade-head{
+    display:flex; align-items:center; gap:8px;
+    color:#f0b73b;
+    font-size:0.85rem;
+    font-weight:800;
+    margin-bottom:8px;
+  }
+  .sidebar-upgrade-head svg{ width:15px; height:15px; }
+  .sidebar-upgrade p{
+    font-size:0.78rem;
+    line-height:1.5;
+    color:#9195a8;
+    margin-bottom:12px;
+  }
+  .sidebar-upgrade-btn{
+    display:block; width:100%;
+    padding:10px;
+    border:none; border-radius:8px;
+    background:linear-gradient(90deg,var(--blue),var(--violet));
+    color:#fff;
+    font-size:0.82rem;
+    font-weight:700;
+    text-align:center;
+  }
+  .sidebar-upgrade-btn:hover{ filter:brightness(1.08); }
+
+  /* ===== DROPDOWNS (notification + role) ===== */
+  .dropdown-panel{
+    position:absolute;
+    top:calc(100% + 10px);
+    background:var(--panel);
+    border:1px solid var(--border);
+    border-radius:12px;
+    box-shadow:0 14px 36px rgba(20,22,31,0.16);
+    z-index:120;
+    opacity:0;
+    transform:translateY(-6px);
+    pointer-events:none;
+    transition: opacity .15s ease, transform .15s ease;
+  }
+  .dropdown-panel.open{
+    opacity:1; transform:translateY(0); pointer-events:auto;
+  }
+
+  /* Role dropdown */
+  .role-pill{ position:relative; cursor:pointer; }
+  .role-dropdown{
+    left:0;
+    min-width:180px;
+    padding:6px;
+  }
+  .role-option{
+    display:flex; align-items:center; gap:9px;
+    padding:10px 10px;
+    border-radius:8px;
+    font-size:0.86rem;
+    font-weight:600;
+    color:var(--text);
+    position:relative;
+  }
+  .role-option:hover{ background:#f1f2f7; }
+  .role-option .dot{ width:7px; height:7px; border-radius:50%; flex-shrink:0; }
+  .role-option .check{
+    margin-left:auto; width:14px; height:14px; color:var(--blue);
+    display:none;
+  }
+  .role-option.selected .check{ display:block; }
+
+  /* Notification dropdown */
+  .bell-wrap{ position:relative; }
+  .notif-dropdown{
+    right:0;
+    width:340px;
+    max-width:88vw;
+    padding:0;
+    overflow:hidden;
+  }
+  .notif-head{
+    display:flex; align-items:center; justify-content:space-between;
+    padding:14px 16px;
+    border-bottom:1px solid var(--border);
+  }
+  .notif-head h4{ font-size:0.95rem; font-weight:800; }
+  .notif-head .mark-read{ font-size:0.78rem; color:var(--blue); font-weight:600; }
+  .notif-list{ max-height:340px; overflow-y:auto; }
+  .notif-item{
+    display:flex; gap:10px;
+    padding:13px 16px;
+    border-bottom:1px solid var(--border);
+  }
+  .notif-item:last-child{ border-bottom:none; }
+  .notif-item:hover{ background:#f8f9fc; }
+  .notif-item .dot{
+    width:7px; height:7px; border-radius:50%;
+    margin-top:6px; flex-shrink:0;
+  }
+  .notif-item .notif-body{ flex:1; min-width:0; }
+  .notif-item .notif-text{ font-size:0.85rem; color:var(--text); line-height:1.45; }
+  .notif-item .notif-time{ font-size:0.74rem; color:var(--muted-dim); margin-top:3px; }
+
+  @media (max-width: 860px){
+    .topbar{ flex-wrap:wrap; gap:10px; }
+    .search-shell{ order:3; max-width:100%; flex-basis:100%; }
+    .verified-pill span.long{ display:none; }
+    .subnav{ overflow-x:auto; }
+    .subnav-right{ display:none; }
+    .card-top{ flex-wrap:wrap; }
+    .card-title-row{ flex-direction:column; gap:6px; }
+  }
+</style>
+<style>
+  main.requests-main{max-width:none;padding:24px;margin:0;}
+  .requests-heading{font-size:23px;line-height:1.4;margin:0 0 5px;font-weight:700;}
+  .requests-subtitle{font-size:13px;color:var(--muted-dim);margin-bottom:22px;}
+  .request-panel{background:var(--panel);border:1px solid #dfe5f1;border-radius:16px;padding:20px;margin-bottom:20px;}
+  .request-panel h2{display:flex;align-items:center;gap:8px;font-size:16px;margin-bottom:18px;}
+  .request-count{display:inline-flex;align-items:center;justify-content:center;background:#2462ff;color:white;width:21px;height:21px;border-radius:50%;font:600 12px 'Segoe UI',sans-serif;}
+  .request-list{display:grid;gap:12px;}
+  .request-card{display:flex;align-items:flex-start;gap:16px;background:#f7f9fc;border:1px solid #edf1f8;border-radius:12px;padding:16px;}
+  .request-avatar{width:44px;height:44px;border-radius:50%;display:flex;align-items:center;justify-content:center;color:white;font-size:14px;font-weight:700;flex-shrink:0;background:#6960f5;}
+  .request-avatar.orange{background:#de7b00;}.request-avatar.cyan{background:#0098b6;}
+  .request-content{flex:1;min-width:0;}.request-top{display:flex;justify-content:space-between;gap:12px;align-items:baseline;}
+  .request-name{font-size:14px;font-weight:650;line-height:1.5;}.request-time{font-size:12px;color:var(--muted-dim);white-space:nowrap;}
+  .request-meta{font-family:Consolas,monospace;font-size:12px;color:#708099;margin-top:4px;line-height:1.6;}
+  .request-message{font-size:14px;color:#465b79;margin:7px 0 12px;line-height:1.65;}
+  .request-actions{display:flex;gap:8px;flex-wrap:wrap;}
+  .request-btn{display:inline-flex;align-items:center;justify-content:center;gap:7px;min-height:38px;padding:8px 13px;border-radius:7px;border:1px solid #dfe5ef;background:transparent;color:#677991;font-size:14px;transition:background .15s;}
+  .request-btn svg{width:15px;height:15px;}.request-btn:hover{background:#eaf0f9;}
+  .request-btn.accept{color:#009e75;border-color:#a8edc7;background:#effcf5;}.request-btn.accept:hover{background:#dcf7e8;}
+  .request-btn.decline{color:#ef4444;border-color:#ffc6cd;background:#fff2f4;}.request-btn.decline:hover{background:#ffe3e8;}
+  .sent-card{align-items:center;border-color:transparent;}.sent-status{margin-left:auto;display:flex;align-items:center;gap:10px;}
+  .pending{border-radius:20px;padding:3px 10px;background:#fff3c5;color:#c67c00;font-size:12px;white-space:nowrap;}
+  .empty-state{text-align:center;padding:32px 16px;color:var(--muted);font-size:14px;line-height:1.8;}
+  .empty-state strong{display:block;color:var(--text);font-size:16px;margin-bottom:5px;}
+  .request-result{font-size:13px;color:var(--green);padding-top:9px;}.request-result.rejected{color:var(--muted);}
+  .profile-dialog{margin:auto;width:min(440px,calc(100% - 32px));border:1px solid var(--border);border-radius:16px;padding:26px;background:white;color:var(--text);box-shadow:0 20px 70px #14161f25;}
+  .profile-dialog::backdrop{background:rgba(20,22,31,.4);}.profile-dialog h2{font-size:21px;margin:16px 0 6px;}.profile-dialog p{font-size:14px;line-height:1.8;color:var(--muted);margin:8px 0;}.profile-dialog .request-btn{margin-top:16px;}
+  .request-toast{position:fixed;bottom:24px;left:50%;transform:translateX(-50%);background:#17233b;color:white;border-radius:10px;padding:12px 20px;box-shadow:0 6px 24px #14161f20;font-size:14px;z-index:200;max-width:calc(100% - 32px);text-align:center;}
+  .request-toast:empty{display:none;}[hidden]{display:none!important;}
+  :focus-visible{outline:2px solid var(--blue);outline-offset:4px;}
+  button.subnav-tab{background:transparent;font-family:inherit;border:1px solid transparent;border-radius:8px;padding:10px 14px;margin:10px 0;position:relative;}button.subnav-tab.active{background:#eef3ff;border-color:#bfd2ff;}.subnav-tab .tab-badge{position:absolute;right:-4px;top:-5px;min-width:16px;height:16px;font-size:10px;}.subnav-tab>span:not(.tab-badge){font-size:10px;}
+  @media(max-width:600px){main.requests-main{padding:20px 14px;}.request-panel{padding:14px;}.request-card{gap:10px;padding:13px;}.request-top{flex-direction:column;gap:2px;}.request-avatar{width:38px;height:38px;font-size:12px;}.sent-card{flex-wrap:wrap;}.sent-status{margin-left:48px;}.request-btn{padding:8px 10px;font-size:13px;}.topbar{padding:12px 14px;}.topbar-right{gap:8px;}.user-block>div:last-child{display:none;}.role-pill{padding:8px;}.subnav-tab{flex-shrink:0;}.requests-heading{font-size:22px;}}
+</style>
+<style>
+  main.groups-main{max-width:none;margin:0;padding:24px;}
+  .groups-heading{display:flex;align-items:center;justify-content:space-between;gap:20px;margin-bottom:22px;}
+  .groups-heading h1{font-size:23px;line-height:1.5;margin:0 0 3px;}.groups-heading p{color:var(--muted-dim);font-size:13px;}
+  .new-group{border:0;border-radius:12px;padding:11px 18px;background:linear-gradient(110deg,#2d61f5,#7739f4);color:white;font-size:14px;font-weight:600;white-space:nowrap;}.new-group:hover{filter:brightness(.96);}
+  .groups-list{display:grid;gap:16px;}.study-card{--accent:#8039f5;--tint:#f5f0ff;position:relative;background:white;border:1px solid #dfe5f1;border-radius:16px;padding:26px 20px 20px;overflow:hidden;display:flex;gap:16px;}
+  .study-card::before{content:'';position:absolute;top:0;left:0;right:0;height:6px;background:var(--accent);}.study-card.orange{--accent:#ff7416;--tint:#fff5ee;}.study-card.green{--accent:#009c73;--tint:#edf9f5;}
+  .group-icon{width:48px;height:48px;flex-shrink:0;display:grid;place-items:center;background:var(--tint);color:var(--accent);border-radius:12px;}.group-icon svg{width:24px;height:24px;}
+  .group-content{flex:1;min-width:0;}.group-top{display:flex;align-items:flex-start;justify-content:space-between;gap:16px;}.group-name{font-size:16px;font-weight:650;line-height:1.5;overflow-wrap:anywhere;}.group-tags{display:flex;gap:8px;align-items:center;flex-shrink:0;}
+  .group-tag{font-size:12px;padding:3px 8px;border-radius:4px;color:var(--accent);background:var(--tint);}.live-tag{color:#009c73;background:#effbf4;border-radius:20px;font-size:12px;padding:3px 9px;}.live-tag::before{content:'';display:inline-block;background:#35ce9f;width:6px;height:6px;border-radius:50%;margin-right:5px;}
+  .group-meta{display:flex;gap:14px;align-items:center;flex-wrap:wrap;margin:5px 0 12px;color:#657992;font-size:13px;}.meta-item{display:inline-flex;align-items:center;gap:5px;}.meta-item svg{width:15px;height:15px;}.mode{padding:2px 8px;font-size:12px;border-radius:3px;background:#eff5ff;color:#3264fd;}.mode.inperson{background:#effcf5;color:#009c73;}.mode.hybrid{background:#f5f0ff;color:#8039f5;}
+  .capacity{height:6px;border-radius:8px;background:#f0f3f8;overflow:hidden;margin-bottom:16px;}.capacity-fill{height:100%;background:var(--accent);border-radius:8px;transition:width .2s;}
+  .group-actions{display:flex;flex-wrap:wrap;gap:8px;}.group-btn{display:inline-flex;align-items:center;justify-content:center;gap:6px;min-height:38px;padding:8px 13px;border:1px solid #dfe5ef;background:#f8faff;color:#697d95;border-radius:8px;font-size:14px;}.group-btn svg{width:15px;height:15px;}.group-btn:hover{filter:brightness(.97);}.group-btn.join{color:var(--accent);background:var(--tint);border-color:color-mix(in srgb,var(--accent) 28%,white);}.group-btn.live{background:#009c73;border-color:#009c73;color:white;font-weight:600;}.group-btn:disabled{opacity:.65;cursor:default;}
+  .group-dialog{margin:auto;width:min(500px,calc(100% - 32px));max-height:90vh;overflow:auto;border:1px solid var(--border);border-radius:16px;padding:24px;background:white;color:var(--text);box-shadow:0 24px 80px #14161f30;}.group-dialog::backdrop{background:#14161f66;}.dialog-head{display:flex;align-items:center;justify-content:space-between;gap:16px;margin-bottom:18px;}.dialog-head h2{font-size:20px;}.dialog-close{border:0;background:#f2f5fa;color:var(--muted);font-size:23px;width:32px;height:32px;border-radius:8px;}.group-form{display:grid;gap:14px;}.group-form label{display:grid;gap:6px;font-size:13px;color:#52647d;}.group-form input,.group-form select{font:inherit;color:var(--text);width:100%;border:1px solid #dce3ef;border-radius:8px;background:white;padding:11px;}.form-row{display:grid;grid-template-columns:1fr 1fr;gap:14px;}.group-form .new-group{margin-top:4px;}.dialog-note{font-size:13px;line-height:1.8;color:var(--muted);margin:10px 0 18px;}.member-list{list-style:none;display:grid;gap:10px;}.member-list li{display:flex;align-items:center;gap:12px;padding:10px;background:#f7f9fc;border-radius:10px;font-size:14px;}.member-avatar{display:grid;place-items:center;width:36px;height:36px;border-radius:50%;background:#eee8ff;color:#7046dd;font-size:12px;font-weight:700;}.no-groups{text-align:center;color:var(--muted);padding:45px 20px;border:1px dashed var(--border);border-radius:14px;}
+  @media(max-width:600px){main.groups-main{padding:20px 14px;}.groups-heading{gap:10px;}.groups-heading h1{font-size:22px;}.groups-heading p{font-size:12px;}.new-group{padding:10px 12px;}.study-card{padding:23px 14px 16px;gap:10px;}.group-icon{width:36px;height:36px;border-radius:9px;}.group-icon svg{width:20px;height:20px;}.group-top{flex-direction:column;gap:7px;}.group-name{font-size:14px;}.group-meta{gap:8px;font-size:12px;}.group-btn{font-size:13px;padding:8px 10px;}.form-row{grid-template-columns:1fr;}}
+</style>
+<style>
+main.sessions-main{max-width:none;margin:0;padding:24px;}.session-panel{padding:20px;border:1px solid #dfe5f1;border-radius:16px;background:white;margin-bottom:20px;}.session-panel h2{font-size:16px;margin:0 0 18px;}.session-list{display:grid;gap:12px;}.session-row{display:flex;align-items:center;gap:16px;background:#f7f9fc;border:1px solid #edf1f8;border-radius:12px;padding:16px;}.session-avatar{width:40px;height:40px;border-radius:12px;background:#7d37ef;color:white;display:grid;place-items:center;flex-shrink:0;font-size:14px;font-weight:700;}.session-avatar.blue{background:#2860f0;}.session-avatar.green{background:#009b74;}.session-body{flex:1;min-width:0;}.session-body h3{font-size:14px;font-weight:650;line-height:1.5;overflow-wrap:anywhere;}.session-meta{font-size:12px;color:#6c809d;line-height:1.7;}.session-action{border:0;background:#2860f0;color:white;border-radius:8px;padding:7px 12px;font-size:13px;display:inline-flex;gap:6px;align-items:center;white-space:nowrap;}.session-action.green{background:#009b74;}.session-action svg{width:14px;height:14px;}.session-action:hover{filter:brightness(.94);}.history-row{border-color:transparent;min-height:92px;}.history-row .session-meta{font-family:Consolas,monospace;font-size:11px;color:#8a9bb5;}.session-tags{display:flex;flex-wrap:wrap;gap:6px;margin-top:3px;}.session-tag{font-size:12px;color:#536d8d;padding:2px 8px;border-radius:3px;background:#f0f4f9;}.session-rating{color:#ff9800;font-size:14px;white-space:nowrap;letter-spacing:1px;}.session-empty{padding:24px;text-align:center;color:var(--muted);font-size:14px;}.session-details{background:#f7f9fc;padding:16px;border-radius:10px;line-height:1.8;font-size:14px;color:#536780;white-space:pre-line;}.session-error{color:#d33b48;font-size:13px;}.session-help{color:var(--muted);font-size:12px;line-height:1.7;}.session-dialog-actions{display:flex;justify-content:flex-end;margin-top:18px;gap:8px;}
+@media(max-width:600px){main.sessions-main{padding:20px 14px;}.session-panel{padding:14px;}.session-row{gap:10px;flex-wrap:wrap;padding:14px 12px;}.session-body{min-width:calc(100% - 50px);flex:1;}.session-action,.session-rating{margin-left:50px;}.session-body h3{font-size:13px;}.session-meta{font-size:11px;}.session-avatar{width:36px;height:36px;border-radius:10px;}.history-row{min-height:100px;}.session-rating{font-size:13px;}.groups-heading{align-items:flex-start;}}
+</style>
+<link rel="stylesheet" href="../Other/sidebar.css">
+<script src="../Other/language.js" defer></script>
+<script src="../Other/sidebar.js" defer></script>
+<style>.subnav-tab[href]{text-decoration:none;cursor:pointer}.study-page-links{display:flex;flex-wrap:wrap;gap:16px;padding:10px 24px;background:#fff;border-bottom:1px solid #e6e8f0;font-size:12px;color:#6550d8}.study-page-links a:hover{text-decoration:underline}</style>
+<script src="../Other/page-navigation.js" defer></script>
+<style>.study-messages-link{display:inline-flex;align-items:center;gap:7px;padding:6px 11px;border:1px solid #dcd5ff;border-radius:8px;background:#f3efff;color:#6650dc!important;font-size:12px;font-weight:600;text-decoration:none!important}.study-messages-link:hover{background:#eae3ff}.study-messages-link svg{width:15px;height:15px;fill:none;stroke:currentColor;stroke-width:1.7}.study-messages-link[aria-current="page"]{background:#6650dc;color:white!important;border-color:#6650dc}</style>
+<link rel="stylesheet" href="/Other/theme.css?v=17"><script src="/Other/api.js?v=17"></script><script src="/Other/language.js?v=17" defer></script><script src="/Other/global-ui.js?v=17" defer></script><script src="/Other/notifications.js"></script></head>
+<body>
+
+  <!-- SIDEBAR BACKDROP -->
+  <div class="sidebar-backdrop" id="sidebar-backdrop" data-unilink-sidebar hidden></div>
+
+  <!-- SIDEBAR -->
+  <nav class="sidebar" id="sidebar" data-unilink-sidebar hidden>
+    <div class="sidebar-head">
+      <div class="sidebar-brand">
+        <div class="sidebar-logo">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2 2 7l10 5 10-5-10-5z"/><path d="M2 17l10 5 10-5"/><path d="M2 12l10 5 10-5"/></svg>
+        </div>
+        <div class="sidebar-brand-text">
+          <div class="sb-title">UNILINK</div>
+          <div class="sb-sub bn">বাংলাদেশ</div>
+        </div>
+      </div>
+      <button class="sidebar-close" id="sidebar-close" aria-label="Close menu">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
+      </button>
+    </div>
+
+    <div class="sidebar-lang">
+      <button class="active bn" id="lang-bn">বাংলা</button>
+      <button id="lang-en">English</button>
+    </div>
+
+    <div class="sidebar-nav">
+      <a class="sidebar-item bn" href="../Other/demo.html" data-label-bn="মূল ফিড" data-label-en="Main Feed"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="3" y1="6" x2="21" y2="6"/><line x1="3" y1="12" x2="21" y2="12"/><line x1="3" y1="18" x2="21" y2="18"/></svg><span data-nav-label>মূল ফিড</span></a>
+      <a class="sidebar-item bn" href="study-partner-main-page.html" data-label-bn="স্টাডি পার্টনার" data-label-en="Study Partner"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="9" cy="8" r="3"/><path d="M2 20c0-3.5 3-6 7-6s7 2.5 7 6"/><circle cx="17" cy="9" r="2.5"/><path d="M15.5 14.2c2.7.3 4.5 2.4 4.5 5.3"/></svg><span data-nav-label>স্টাডি পার্টনার</span></a>
+      <a class="sidebar-item bn" href="../Club/club-portal.html" data-label-bn="ক্লাব পোর্টাল" data-label-en="Club Portal"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2 2 7l10 5 10-5-10-5z"/><path d="M2 17l10 5 10-5"/><path d="M2 12l10 5 10-5"/></svg><span data-nav-label>ক্লাব পোর্টাল</span></a>
+      <a class="sidebar-item bn" href="../Recruiter Search/Recruiter search.html" data-label-bn="রিক্রুটার সার্চ" data-label-en="Recruiter Search"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"/><path d="M2 12h20"/><path d="M12 2a15 15 0 0 1 0 20 15 15 0 0 1 0-20z"/></svg><span data-nav-label>রিক্রুটার সার্চ</span></a>
+      <a class="sidebar-item bn" href="../Live Bid/Live Bid.html" data-label-bn="লাইভ বিড" data-label-en="Live Bids"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"/></svg><span data-nav-label>লাইভ বিড</span><span class="sb-dot" aria-label="Live bids"></span></a>
+      <a class="sidebar-item bn" href="../Admin/Admin-portal.html" data-label-bn="অ্যাডমিন পোর্টাল" data-label-en="Admin Portal"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"/><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"/></svg><span data-nav-label>অ্যাডমিন পোর্টাল</span></a>
+      <a class="sidebar-item bn" href="../Other/Settings.html" data-label-bn="সেটিংস" data-label-en="Settings"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 1 1-2.83 2.83l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-4 0v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 1 1-2.83-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1 0-4h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 1 1 2.83-2.83l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 4 0v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 1 1 2.83 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 0 4h-.09a1.65 1.65 0 0 0-1.51 1z"/></svg><span data-nav-label>সেটিংস</span></a>
+    </div>
+
+    <a class="sidebar-home" href="../index.html#pages">← Home / সকল পৃষ্ঠা</a>
+    <div class="sidebar-upgrade">
+      <div class="sidebar-upgrade-head bn">
+        <svg viewBox="0 0 24 24" fill="currentColor"><polygon points="12 2 15 9 22 9.5 17 14.5 18.5 22 12 18 5.5 22 7 14.5 2 9.5 9 9 12 2"/></svg>
+        <span data-tier-label>ফ্রি টায়ার</span>
+      </div>
+      <p class="bn">ভেরিফাইড ব্যাজ, আনলিমিটেড বিড এবং প্রিমিয়াম ম্যাচিং পেতে আপগ্রেড করুন।</p>
+      <a href="../Other/Settings.html#billing" class="sidebar-upgrade-btn bn">প্রোফাইল আপগ্রেড করুন →</a>
+    </div>
+  </nav>
+
+  <!-- TOP BAR -->
+  <div class="topbar">
+    <button class="icon-btn" aria-label="Menu" id="menu-btn">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><line x1="3" y1="6" x2="21" y2="6"/><line x1="3" y1="12" x2="21" y2="12"/><line x1="3" y1="18" x2="21" y2="18"/></svg>
+    </button>
+
+    <div class="search-shell">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="7"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
+      <input type="text" class="bn" placeholder="শিক্ষার্থী, ক্লাব, দক্ষতা, কোম্পানি খুঁজুন...">
+    </div>
+
+    <div class="topbar-right">
+      <div class="role-pill bn" id="role-pill">
+        <span class="dot" id="role-dot"></span> <span id="role-label">শিক্ষার্থী</span>
+        <svg class="chev" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"/></svg>
+
+        <div class="dropdown-panel role-dropdown bn" id="role-dropdown">
+          <div class="role-option selected" data-role="শিক্ষার্থী" data-color="var(--blue)">
+            <span class="dot" style="background:var(--blue)"></span> শিক্ষার্থী
+            <svg class="check" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>
+          </div>
+          <div class="role-option" data-role="ক্লাব" data-color="var(--violet)">
+            <span class="dot" style="background:var(--violet)"></span> ক্লাব
+            <svg class="check" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>
+          </div>
+          <div class="role-option" data-role="রিক্রুটার" data-color="var(--green)">
+            <span class="dot" style="background:var(--green)"></span> রিক্রুটার
+            <svg class="check" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>
+          </div>
+          <div class="role-option" data-role="বিশ্ববিদ্যালয়" data-color="var(--orange)">
+            <span class="dot" style="background:var(--orange)"></span> বিশ্ববিদ্যালয়
+            <svg class="check" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>
+          </div>
+        </div>
+      </div>
+
+      <div class="verified-pill bn">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6L9 17l-5-5"/></svg>
+        <span class="long">@edu যাচাইকৃত</span>
+      </div>
+
+      <div class="bell-wrap">
+        <button class="icon-btn" aria-label="Notifications" id="bell-btn">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 8a6 6 0 0 0-12 0c0 7-3 9-3 9h18s-3-2-3-9"/><path d="M13.73 21a2 2 0 0 1-3.46 0"/></svg>
+        </button>
+        <span class="bell-dot" id="bell-dot"></span>
+
+        <div class="dropdown-panel notif-dropdown bn" id="notif-dropdown">
+          <div class="notif-head">
+            <h4>বিজ্ঞপ্তি</h4>
+            <span class="mark-read" id="mark-read-btn">সব পড়া হয়েছে</span>
+          </div>
+          <div class="notif-list">
+            <div class="notif-item">
+              <span class="dot" style="background:var(--blue)"></span>
+              <div class="notif-body">
+                <div class="notif-text">bKash আপনার বিডে সাড়া দিয়েছে — ৳১,৮৫,০০০</div>
+                <div class="notif-time">২ মিনিট আগে</div>
+              </div>
+            </div>
+            <div class="notif-item">
+              <span class="dot" style="background:var(--violet)"></span>
+              <div class="notif-body">
+                <div class="notif-text">Tariqul Islam আপনার স্টাডি রিকোয়েস্ট গ্রহণ করেছে</div>
+                <div class="notif-time">১৮ মিনিট আগে</div>
+              </div>
+            </div>
+            <div class="notif-item">
+              <span class="dot" style="background:var(--green)"></span>
+              <div class="notif-body">
+                <div class="notif-text">Python ব্যাজ SkillCheck™ দ্বারা যাচাই হয়েছে</div>
+                <div class="notif-time">১ ঘণ্টা আগে</div>
+              </div>
+            </div>
+            <div class="notif-item">
+              <span class="dot" style="background:var(--blue)"></span>
+              <div class="notif-body">
+                <div class="notif-text">টেক ক্যারিয়ার ফেয়ার ৩ দিন পরে শুরু হবে</div>
+                <div class="notif-time">৪ ঘণ্টা আগে</div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="user-block">
+        <div class="avatar">AJ</div>
+        <div>
+          <div class="user-name">Arif Jahan</div>
+          <div class="user-meta bn">CSE, ৩য় বর্ষ · BUET</div>
+        </div>
+      </div>
+
+      <button class="icon-btn" aria-label="Log out" id="logout-btn">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"/><polyline points="16 17 21 12 16 7"/><line x1="21" y1="12" x2="9" y2="12"/></svg>
+      </button>
+    </div>
+  </div>
+
+  <!-- BREADCRUMB -->
+  <div class="breadcrumb bn">
+    UNILINK বাংলাদেশ / <span class="current">স্টাডি পার্টনার</span>
+  </div>
+
+  <!-- SUB NAV -->
+  <nav class="study-page-links" aria-label="Campus and matching navigation"><a href="../Other/demo.html" data-page-link>← Campus feed</a><a href="study-partner.html" data-page-link>Partner matching</a><a href="Message.html" class="study-messages-link" data-page-link><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M21 11.5a8.5 8.5 0 0 1-8.5 8.5H4l-2 2V11.5A8.5 8.5 0 0 1 10.5 3h2a8.5 8.5 0 0 1 8.5 8.5Z"/><path d="M7 9h10M7 13h7"/></svg>Messages / বার্তা</a></nav>
+<div class="subnav">
+    <a class="subnav-tab bn" data-tab="discover" href="study-partner-main-page.html" data-page-link>
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="7"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
+      খুঁজুন <span class="bn" style="font-weight:400;color:var(--muted-dim);margin-left:2px;">Discover</span>
+    </a>
+    <a class="subnav-tab bn" data-tab="partners" href="my-partner-page.html" data-page-link>
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="9" cy="8" r="3"/><path d="M2 20c0-3.5 3-6 7-6s7 2.5 7 6"/><circle cx="17" cy="9" r="2.5"/><path d="M15.5 14.2c2.7.3 4.5 2.4 4.5 5.3"/></svg>
+      আমার পার্টনার <span class="bn" style="font-weight:400;color:var(--muted-dim);margin-left:2px;">Partners</span>
+      <span class="tab-badge">৩</span>
+    </a>
+    <a class="subnav-tab bn" data-tab="requests" href="my-partner-request.html" data-page-link>
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>
+      অনুরোধ <span class="bn" style="font-weight:400;color:var(--muted-dim);margin-left:2px;">Requests</span>
+      <span class="tab-badge">২</span>
+    </a>
+    <a class="subnav-tab bn" data-tab="groups" href="study-group.html" data-page-link>
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>
+      গ্রুপ <span class="bn" style="font-weight:400;color:var(--muted-dim);margin-left:2px;">Groups</span>
+    </a>
+    <a class="subnav-tab bn active" data-tab="sessions" href="study-session.html" data-page-link aria-current="page">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="18" rx="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg>
+      সেশন <span class="bn" style="font-weight:400;color:var(--muted-dim);margin-left:2px;">Sessions</span>
+    </a>
+  </div>
+
+<main class="sessions-main">
+  <header class="groups-heading"><div><h1 class="bn">স্টাডি সেশন</h1><p class="bn">নতুন সেশন নির্ধারণ করুন ও ইতিহাস দেখুন</p></div><button class="new-group bn" id="schedule-button">＋ সেশন নির্ধারণ</button></header>
+  <section class="session-panel" aria-labelledby="upcoming-heading"><h2 class="bn" id="upcoming-heading">আসন্ন সেশন</h2><div class="session-list" id="upcoming-sessions"></div><p class="session-empty bn" id="upcoming-empty" hidden>কোনো আসন্ন সেশন পাওয়া যায়নি।</p></section>
+  <section class="session-panel" aria-labelledby="history-heading"><h2 class="bn" id="history-heading">সেশন ইতিহাস</h2><div class="session-list" id="session-history"></div><p class="session-empty bn" id="history-empty" hidden>কোনো সেশন ইতিহাস পাওয়া যায়নি।</p></section>
+</main>
+<dialog class="group-dialog" id="schedule-dialog" aria-labelledby="schedule-title">
+  <div class="dialog-head"><h2 class="bn" id="schedule-title">সেশন নির্ধারণ করুন</h2><button class="dialog-close" data-close aria-label="বন্ধ করুন">×</button></div>
+  <form class="group-form bn" id="schedule-form">
+    <label>কোর্স / সেশনের নাম<input id="session-course" required maxlength="100" placeholder="যেমন: CSE 415 — Machine Learning"></label>
+    <label>স্টাডি পার্টনার<select id="session-partner"><option>Sadia Islam</option><option>Imran Hossain</option><option>Fariha Khanam</option></select></label>
+    <label>তারিখ<input id="session-date" type="date" required></label>
+    <div class="form-row"><label>শুরুর সময়<input id="session-start" type="time" required></label><label>শেষের সময়<input id="session-end" type="time" required></label></div>
+    <label>সেশনের ধরন<select id="session-mode"><option value="online">Online</option><option value="inperson">In-person</option></select></label>
+    <label id="location-label">মিটিং লিংক (ঐচ্ছিক)<input id="session-location" type="url" maxlength="500" placeholder="https://meet.google.com/..."></label>
+    <p class="session-error" id="schedule-error" role="alert" hidden></p>
+    <button class="new-group" type="submit">সেশন সংরক্ষণ করুন</button>
+  </form>
+</dialog>
+<dialog class="group-dialog" id="details-dialog" aria-labelledby="details-title">
+  <div class="dialog-head"><h2 class="bn" id="details-title">সেশনের বিবরণ</h2><button class="dialog-close" data-close aria-label="বন্ধ করুন">×</button></div>
+  <div class="session-details" id="session-details"></div><p class="dialog-note bn" id="details-note"></p>
+  <div class="session-dialog-actions"><button class="group-btn bn" data-close>বন্ধ করুন</button><a class="session-action bn" id="external-action" target="_blank" rel="noopener noreferrer" hidden>মিটিং খুলুন ↗</a></div>
+</dialog>
+<div class="request-toast bn" id="session-toast" role="status" aria-live="polite"></div>
+<script>
+  // Front-end demo: scheduled sessions remain in this tab until the page reloads.
+  const sessions=[
+    {id:1,course:'CSE 415 — Machine Learning',partner:'Sadia Islam',initials:'SI',color:'',when:'আজ · সন্ধ্যা ৭:০০ – ৯:০০',mode:'online',location:''},
+    {id:2,course:'MATH 303 — Linear Algebra',partner:'Imran Hossain',initials:'IH',color:'blue',when:'বুধবার · বিকাল ৪:০০ – ৬:০০',mode:'inperson',location:'BUET কেন্দ্রীয় লাইব্রেরি, স্টাডি এরিয়া (নমুনা স্থান)'}
+  ];
+  const history=[
+    {course:'CSE 415 — ML',partner:'Sadia Islam',initials:'SI',color:'',when:'২২ আগস্ট · ২ ঘণ্টা',tags:['Neural Nets','Gradient Descent'],rating:5},
+    {course:'MATH 303',partner:'Imran Hossain',initials:'IH',color:'blue',when:'১৮ আগস্ট · ১.৫ ঘণ্টা',tags:['Matrix Operations'],rating:4},
+    {course:'PHY 201',partner:'Fariha Khanam',initials:'FK',color:'green',when:'১৪ আগস্ট · ১ ঘণ্টা',tags:['Wave Optics'],rating:5}
+  ];
+  function escapeHtml(value){const span=document.createElement('span');span.textContent=String(value);return span.innerHTML;}
+  const videoIcon='<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" aria-hidden="true"><rect x="2" y="5" width="13" height="14" rx="2"/><path d="m15 10 7-4v12l-7-4"/></svg>';
+  const pinIcon='<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" aria-hidden="true"><path d="M20 10c0 6-8 12-8 12S4 16 4 10a8 8 0 1 1 16 0Z"/><circle cx="12" cy="10" r="2.5"/></svg>';
+  const search=document.querySelector('.search-shell input');search.placeholder='সেশন, কোর্স বা পার্টনার খুঁজুন...';search.setAttribute('aria-label','স্টাডি সেশন খুঁজুন');
+  function renderSessions(){
+    const query=search.value.trim().toLowerCase();
+    const matches=sessions.filter(s=>(s.course+' '+s.partner).toLowerCase().includes(query));
+    document.getElementById('upcoming-sessions').innerHTML=matches.map(s=>`<article class="session-row"><div class="session-avatar ${s.color}" aria-hidden="true">${s.initials}</div><div class="session-body"><h3>${escapeHtml(s.course)}</h3><p class="session-meta bn">সাথে: ${escapeHtml(s.partner)} · ${escapeHtml(s.when)}</p></div><button class="session-action ${s.mode==='inperson'?'green':''} bn" data-session="${s.id}">${s.mode==='inperson'?pinIcon+'দিকনির্দেশনা':videoIcon+'যোগ দিন'}</button></article>`).join('');
+    document.getElementById('upcoming-empty').hidden=matches.length>0;
+    const past=history.filter(s=>(s.course+' '+s.partner+' '+s.tags.join(' ')).toLowerCase().includes(query));
+    document.getElementById('session-history').innerHTML=past.map(s=>`<article class="session-row history-row"><div class="session-avatar ${s.color}" aria-hidden="true">${s.initials}</div><div class="session-body"><h3>${escapeHtml(s.course)}</h3><p class="session-meta bn">${s.when} · সাথে ${escapeHtml(s.partner)}</p><div class="session-tags">${s.tags.map(t=>'<span class="session-tag">'+escapeHtml(t)+'</span>').join('')}</div></div><span class="session-rating" role="img" aria-label="৫ এর মধ্যে ${s.rating} স্টার">${'★'.repeat(s.rating)+'☆'.repeat(5-s.rating)}</span></article>`).join('');
+    document.getElementById('history-empty').hidden=past.length>0;
+  }
+  function toast(message){const el=document.getElementById('session-toast');el.textContent=message;clearTimeout(toast.timer);toast.timer=setTimeout(()=>el.textContent='',3500);}
+  const scheduleDialog=document.getElementById('schedule-dialog');const dateInput=document.getElementById('session-date');
+  function localDate(){const now=new Date();return now.getFullYear()+'-'+String(now.getMonth()+1).padStart(2,'0')+'-'+String(now.getDate()).padStart(2,'0');}
+  document.getElementById('schedule-button').addEventListener('click',()=>{dateInput.min=localDate();if(!dateInput.value)dateInput.value=localDate();scheduleDialog.showModal();});
+  document.querySelectorAll('.group-dialog').forEach(dialog=>{
+    dialog.querySelectorAll('[data-close]').forEach(button=>button.addEventListener('click',()=>dialog.close()));
+    dialog.addEventListener('click',event=>{if(event.target===dialog){const r=dialog.getBoundingClientRect();if(event.clientX<r.left||event.clientX>r.right||event.clientY<r.top||event.clientY>r.bottom)dialog.close();}});
+  });
+  const mode=document.getElementById('session-mode');const locationInput=document.getElementById('session-location');
+  function updateLocation(){const inperson=mode.value==='inperson';document.getElementById('location-label').firstChild.textContent=inperson?'সেশনের স্থান':'মিটিং লিংক (ঐচ্ছিক)';locationInput.type=inperson?'text':'url';locationInput.required=inperson;locationInput.placeholder=inperson?'যেমন: BUET কেন্দ্রীয় লাইব্রেরি':'https://meet.google.com/...';locationInput.value='';}
+  mode.addEventListener('change',updateLocation);
+  function safeWebUrl(value){try{const url=new URL(value);return ['https:','http:'].includes(url.protocol)?url.href:null;}catch{return null;}}
+  document.getElementById('schedule-form').addEventListener('submit',event=>{
+    event.preventDefault();const course=document.getElementById('session-course').value.trim();const partner=document.getElementById('session-partner').value;const start=document.getElementById('session-start').value;const end=document.getElementById('session-end').value;const location=locationInput.value.trim();const error=document.getElementById('schedule-error');
+    let message='';if(!course)message='সেশনের নাম লিখুন।';else if(new Date(dateInput.value+'T'+start)<=new Date())message='ভবিষ্যতের একটি তারিখ ও সময় নির্বাচন করুন।';else if(end<=start)message='শেষের সময় শুরুর সময়ের পরে হতে হবে।';else if(mode.value==='inperson'&&!location)message='সেশনের স্থান লিখুন।';else if(mode.value==='online'&&location&&!safeWebUrl(location))message='একটি সঠিক HTTP বা HTTPS মিটিং লিংক লিখুন।';
+    error.hidden=!message;error.textContent=message;if(message)return;
+    const day=new Date(dateInput.value+'T12:00:00').toLocaleDateString('bn-BD',{day:'numeric',month:'long'});const time=value=>new Date(dateInput.value+'T'+value).toLocaleTimeString('bn-BD',{hour:'numeric',minute:'2-digit'});
+    sessions.push({id:Date.now(),course,partner,initials:partner.split(' ').map(p=>p[0]).slice(0,2).join(''),color:partner==='Imran Hossain'?'blue':partner==='Fariha Khanam'?'green':'',when:day+' · '+time(start)+' – '+time(end),mode:mode.value,location});
+    search.value='';renderSessions();scheduleDialog.close();event.currentTarget.reset();updateLocation();toast('নতুন স্টাডি সেশন নির্ধারণ করা হয়েছে।');
+  });
+  document.getElementById('upcoming-sessions').addEventListener('click',event=>{
+    const button=event.target.closest('[data-session]');if(!button)return;const s=sessions.find(item=>item.id===Number(button.dataset.session));const inperson=s.mode==='inperson';
+    document.getElementById('details-title').textContent=inperson?'সেশনের দিকনির্দেশনা':'স্টাডি সেশনে যোগ দিন';
+    document.getElementById('session-details').textContent=s.course+'\nসাথে: '+s.partner+'\n'+s.when+(inperson?'\nস্থান: '+s.location:'');
+    const link=document.getElementById('external-action');link.hidden=true;link.removeAttribute('href');
+    if(inperson){document.getElementById('details-note').textContent='নির্ধারিত স্থানে আপনার পার্টনারের সাথে দেখা করুন।';}
+    else if(safeWebUrl(s.location)){link.href=safeWebUrl(s.location);link.hidden=false;document.getElementById('details-note').textContent='মিটিং লিংক নতুন ট্যাবে খুলবে।';}
+    else{document.getElementById('details-note').textContent='এই নমুনা সেশনে মিটিং লিংক নেই। আপনার পার্টনারের কাছ থেকে লিংক সংগ্রহ করুন।';}
+    document.getElementById('details-dialog').showModal();
+  });
+  search.addEventListener('input',renderSessions);
+  document.querySelectorAll('.subnav-tab').forEach(tab=>tab.addEventListener('click',()=>{const pages={discover:'study-partner-main-page.html',partners:'my-partner-page.html',requests:'my-partner-request.html',groups:'study-group.html'};if(pages[tab.dataset.tab])window.location.href=pages[tab.dataset.tab];}));
+  renderSessions();
+  // ---- Sidebar drawer ----
+  const sidebar = document.getElementById('sidebar');
+  const sidebarBackdrop = document.getElementById('sidebar-backdrop');
+  const menuBtn = document.getElementById('menu-btn');
+  const sidebarClose = document.getElementById('sidebar-close');
+
+  function openSidebar(){
+    sidebar.classList.add('open');
+    sidebarBackdrop.classList.add('open');
+  }
+  function closeSidebar(){
+    sidebar.classList.remove('open');
+    sidebarBackdrop.classList.remove('open');
+  }
+  menuBtn.addEventListener('click', openSidebar);
+  sidebarClose.addEventListener('click', closeSidebar);
+  sidebarBackdrop.addEventListener('click', closeSidebar);
+
+  // Sidebar nav item selection (visual only)
+  document.querySelectorAll('.sidebar-item').forEach(function(item){
+    item.addEventListener('click', function(e){
+      e.preventDefault();
+      document.querySelectorAll('.sidebar-item').forEach(function(i){ i.classList.remove('active'); });
+      item.classList.add('active');
+    });
+  });
+
+  // Sidebar language toggle (visual only)
+  const langBn = document.getElementById('lang-bn');
+  const langEn = document.getElementById('lang-en');
+  langBn.addEventListener('click', function(){
+    langBn.classList.add('active');
+    langEn.classList.remove('active');
+  });
+  langEn.addEventListener('click', function(){
+    langEn.classList.add('active');
+    langBn.classList.remove('active');
+  });
+
+  // ---- Generic dropdown helper: closes others when one opens ----
+  const allDropdowns = ['role-dropdown', 'notif-dropdown'].map(function(id){
+    return document.getElementById(id);
+  });
+  function closeAllDropdowns(except){
+    allDropdowns.forEach(function(dd){
+      if(dd !== except) dd.classList.remove('open');
+    });
+  }
+
+  // ---- Role dropdown ----
+  const rolePill = document.getElementById('role-pill');
+  const roleDropdown = document.getElementById('role-dropdown');
+  const roleLabel = document.getElementById('role-label');
+  const roleDot = document.getElementById('role-dot');
+
+  rolePill.addEventListener('click', function(e){
+    e.stopPropagation();
+    const willOpen = !roleDropdown.classList.contains('open');
+    closeAllDropdowns();
+    if(willOpen) roleDropdown.classList.add('open');
+  });
+
+  document.querySelectorAll('.role-option').forEach(function(opt){
+    opt.addEventListener('click', function(e){
+      e.stopPropagation();
+      document.querySelectorAll('.role-option').forEach(function(o){ o.classList.remove('selected'); });
+      opt.classList.add('selected');
+      roleLabel.textContent = opt.getAttribute('data-role');
+      roleDot.style.background = opt.getAttribute('data-color');
+      roleDropdown.classList.remove('open');
+    });
+  });
+
+  // ---- Notification dropdown ----
+  const bellBtn = document.getElementById('bell-btn');
+  const notifDropdown = document.getElementById('notif-dropdown');
+  const bellDot = document.getElementById('bell-dot');
+
+  bellBtn.addEventListener('click', function(e){
+    e.stopPropagation();
+    const willOpen = !notifDropdown.classList.contains('open');
+    closeAllDropdowns();
+    if(willOpen) notifDropdown.classList.add('open');
+  });
+
+  document.getElementById('mark-read-btn').addEventListener('click', function(e){
+    e.stopPropagation();
+    bellDot.style.display = 'none';
+  });
+
+  // Close dropdowns when clicking anywhere else
+  document.addEventListener('click', function(){
+    closeAllDropdowns();
+  });
+
+  // ---- Logout (demo) ----
+  document.getElementById('logout-btn').addEventListener('click', function(){
+    if(confirm('আপনি কি লগ আউট করতে চান?')){
+      window.location.href = '../Other/login.html';
+    }
+  });
+</script>
+
+  <script>
+    document.addEventListener('keydown',function(event){if(event.key==='Escape'){closeSidebar();closeAllDropdowns();}});
+    const sidebarDestinations=['../Other/demo.html','study-partner-main-page.html'];
+    document.querySelectorAll('.sidebar-item').forEach(function(item,index){
+      if(sidebarDestinations[index]){item.href=sidebarDestinations[index];item.addEventListener('click',function(){window.location.href=item.href;});}
+    });
+  </script>
+
+</body>
+</html>
+
+
+
+

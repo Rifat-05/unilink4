@@ -1,0 +1,101 @@
+.sidebar-backdrop[data-unilink-sidebar]{
+    position:fixed; inset:0;
+    background:rgba(20,22,31,0.55);
+    backdrop-filter: blur(1px);
+    z-index:300;
+    opacity:0;
+    pointer-events:none;
+    transition: opacity .2s ease;
+  }.sidebar-backdrop[data-unilink-sidebar].open{ opacity:1; pointer-events:auto; }.sidebar[data-unilink-sidebar]{
+    position:fixed; top:0; left:0; bottom:0;
+    width:240px;
+    background:#12142099;
+    background:#12141f;
+    z-index:301;
+    display:flex;
+    flex-direction:column;
+    transform:translateX(-100%);
+    transition: transform .25s ease;
+    box-shadow:2px 0 24px rgba(0,0,0,0.3);
+  }.sidebar[data-unilink-sidebar].open{ transform:translateX(0); }.sidebar[data-unilink-sidebar] .sidebar-head{
+    display:flex; align-items:center; justify-content:space-between;
+    padding:18px 18px 16px;
+    border-bottom:1px solid rgba(255,255,255,0.08);
+  }.sidebar[data-unilink-sidebar] .sidebar-brand{ display:flex; align-items:center; gap:10px; }.sidebar[data-unilink-sidebar] .sidebar-logo{
+    width:34px; height:34px; border-radius:9px;
+    background:linear-gradient(135deg,var(--blue),var(--violet));
+    display:flex; align-items:center; justify-content:center;
+    flex-shrink:0;
+  }.sidebar[data-unilink-sidebar] .sidebar-logo svg{ width:18px; height:18px; color:#fff; }.sidebar[data-unilink-sidebar] .sidebar-brand-text .sb-title{ font-size:0.95rem; font-weight:800; color:#fff; letter-spacing:0.3px; }.sidebar[data-unilink-sidebar] .sidebar-brand-text .sb-sub{ font-size:0.72rem; color:#8b8fa3; margin-top:1px; }.sidebar[data-unilink-sidebar] .sidebar-close{
+    width:28px; height:28px; border-radius:7px;
+    border:none; background:transparent; color:#8b8fa3;
+    display:flex; align-items:center; justify-content:center;
+  }.sidebar[data-unilink-sidebar] .sidebar-close:hover{ background:rgba(255,255,255,0.08); color:#fff; }.sidebar[data-unilink-sidebar] .sidebar-close svg{ width:16px; height:16px; }.sidebar[data-unilink-sidebar] .sidebar-lang{
+    display:flex; margin:16px 18px 8px;
+    background:rgba(255,255,255,0.06);
+    border-radius:9px;
+    padding:3px;
+  }.sidebar[data-unilink-sidebar] .sidebar-lang button{
+    flex:1;
+    padding:8px 0;
+    border:none;
+    border-radius:7px;
+    font-size:0.82rem;
+    font-weight:700;
+    background:transparent;
+    color:#9195a8;
+  }.sidebar[data-unilink-sidebar] .sidebar-lang button.active{
+    background:linear-gradient(90deg,var(--blue),var(--violet));
+    color:#fff;
+  }.sidebar[data-unilink-sidebar] .sidebar-nav{
+    display:flex; flex-direction:column;
+    gap:2px;
+    padding:10px 12px;
+    flex:1;
+    overflow-y:auto;
+  }.sidebar[data-unilink-sidebar] .sidebar-item{
+    display:flex; align-items:center; gap:12px;
+    padding:11px 12px;
+    border-radius:9px;
+    color:#c3c6d4;
+    font-size:0.88rem;
+    font-weight:600;
+    position:relative;
+  }.sidebar[data-unilink-sidebar] .sidebar-item svg{ width:17px; height:17px; flex-shrink:0; }.sidebar[data-unilink-sidebar] .sidebar-item:hover{ background:rgba(255,255,255,0.06); color:#fff; }.sidebar[data-unilink-sidebar] .sidebar-item.active{
+    background:var(--blue);
+    color:#fff;
+  }.sidebar[data-unilink-sidebar] .sidebar-item .sb-dot{
+    width:7px; height:7px; border-radius:50%;
+    background:var(--red);
+    margin-left:auto;
+  }.sidebar[data-unilink-sidebar] .sidebar-upgrade{
+    margin:12px;
+    padding:16px;
+    border-radius:12px;
+    background:rgba(255,255,255,0.06);
+  }.sidebar[data-unilink-sidebar] .sidebar-upgrade-head{
+    display:flex; align-items:center; gap:8px;
+    color:#f0b73b;
+    font-size:0.85rem;
+    font-weight:800;
+    margin-bottom:8px;
+  }.sidebar[data-unilink-sidebar] .sidebar-upgrade-head svg{ width:15px; height:15px; }.sidebar[data-unilink-sidebar] .sidebar-upgrade p{
+    font-size:0.78rem;
+    line-height:1.5;
+    color:#9195a8;
+    margin-bottom:12px;
+  }.sidebar[data-unilink-sidebar] .sidebar-upgrade-btn{
+    display:block; width:100%;
+    padding:10px;
+    border:none; border-radius:8px;
+    background:linear-gradient(90deg,var(--blue),var(--violet));
+    color:#fff;
+    font-size:0.82rem;
+    font-weight:700;
+    text-align:center;
+  }.sidebar[data-unilink-sidebar] .sidebar-upgrade-btn:hover{ filter:brightness(1.08); }
+
+
+.sidebar[data-unilink-sidebar]{--blue:#4f6bef;--violet:#7c5cf0;--red:#e5484d;width:min(240px,calc(100vw - 24px));padding:0;margin:0;border:0;border-radius:0;font-family:"Inter",-apple-system,BlinkMacSystemFont,"Segoe UI",Arial,sans-serif;line-height:normal;overflow-y:auto;overscroll-behavior:contain;}.sidebar[data-unilink-sidebar] *{box-sizing:border-box}.sidebar[data-unilink-sidebar] .sidebar-head{flex-shrink:0;margin:0}.sidebar[data-unilink-sidebar] .sidebar-nav{min-height:120px}.sidebar[data-unilink-sidebar] .sidebar-item{text-decoration:none;margin:0;line-height:1.5}.sidebar[data-unilink-sidebar] button{cursor:pointer;font-family:inherit}.sidebar[data-unilink-sidebar] .sidebar-close{padding:0;flex-shrink:0}.sidebar[data-unilink-sidebar] svg{fill:none;stroke:currentColor;stroke-width:2;stroke-linecap:round;stroke-linejoin:round}.sidebar[data-unilink-sidebar] .sidebar-upgrade-head svg{fill:currentColor;stroke:none}.sidebar[data-unilink-sidebar] .sidebar-upgrade{flex-shrink:0}.sidebar[data-unilink-sidebar] .sidebar-upgrade p{margin-top:0}.sidebar[data-unilink-sidebar] .sidebar-lang{flex-shrink:0}.sidebar[data-unilink-sidebar] :is(button,a):focus-visible{outline:2px solid #b9adff;outline-offset:2px}.sidebar[data-unilink-sidebar][hidden],.sidebar-backdrop[data-unilink-sidebar][hidden]{display:none!important}.sidebar-backdrop[data-unilink-sidebar]{border:0;border-radius:0;padding:0;width:100%;height:100%;}.sidebar[data-unilink-sidebar] .bn{font-family:"Noto Sans Bengali","Hind Siliguri",sans-serif}@media(prefers-reduced-motion:reduce){.sidebar[data-unilink-sidebar],.sidebar-backdrop[data-unilink-sidebar]{transition:none}}
+
+.sidebar[data-unilink-sidebar] .sidebar-home{display:block;margin:4px 24px;color:#a9adc2;font-size:12px;text-decoration:none;padding:8px 0;flex-shrink:0}.sidebar[data-unilink-sidebar] .sidebar-home:hover{color:#fff}
